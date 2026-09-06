@@ -31,8 +31,10 @@ Unlike legacy weather add-ons that require obtaining private API keys from comme
 * Weather forecasts and meteorological data are provided by [Open-Meteo](https://open-meteo.com/) under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
 * The add-on respects user privacy: it transmits only geographical coordinates (latitude and longitude) to fetch public meteorological data, without gathering or storing any personal identifiers or location history.
 
-### Credits & License
-* **Author:** Daliana
+### Credits & Acknowledgements
+* **Original concept & inspiration:** Inspired by the pioneering concept of **Weather Plus** by Adriano Barbieri and contributors. ClimaAccesible represents a modern, independent ground-up rewrite that replaces commercial private API keys with Open-Meteo, fixes long-standing date repetition bugs in non-English forecasts, removes legacy dependencies/DLLs, and provides an offline geographic database.
+* **Meteorological Data:** Provided by [Open-Meteo](https://open-meteo.com/) under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
+* **Author & Maintainer:** Daliana
 * **License:** GNU General Public License v2.0 (GPLv2)
 
 ---
@@ -56,3 +58,10 @@ Unlike legacy weather add-ons that require obtaining private API keys from comme
 ### Datos de Terceros y Privacidad
 * Datos meteorológicos proporcionados por [Open-Meteo](https://open-meteo.com/) bajo licencia [Creative Commons Atribución 4.0 Internacional (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
 * El complemento no recopila datos personales ni requiere permisos de rastreo.
+
+### Créditos y Agradecimientos
+* **Inspiración conceptual original:** Inspirado en el concepto pionero de **Weather Plus** creado por Adriano Barbieri y colaboradores. ClimaAccesible es una reimplementación moderna e independiente diseñada para eliminar la necesidad de claves API privadas, solucionar las ambigüedades de fechas en los pronósticos en español, prescindir de librerías binarias heredadas e integrar una base de datos geográfica sin conexión.
+* **Datos meteorológicos:** Suministrados por [Open-Meteo](https://open-meteo.com/) bajo licencia [Creative Commons Atribución 4.0 Internacional (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+* **Base de datos geográfica:** Countries States Cities Database bajo licencia [Open Database License (ODbL 1.0)](https://opendatacommons.org/licenses/odbl/1-0/).
+* **Autora y mantenimiento:** Daliana
+* **Licencia:** GNU General Public License versión 2.0 (GPLv2)

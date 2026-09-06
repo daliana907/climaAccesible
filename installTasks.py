@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Accessible Weather (ClimaAccesible) for NVDA - Install Tasks
-# Copyright 2026 Daliana, released under the GNU General Public License version 2 (GPLv2).
+# Inspired by Weather Plus (Adriano Barbieri and contributors).
+# Maintained by Daliana, released under the GNU General Public License version 2 (GPLv2).
 
 import os
 import globalVars

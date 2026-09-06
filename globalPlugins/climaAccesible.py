@@ -2,7 +2,8 @@
 # Accessible Weather (ClimaAccesible) for NVDA
 #
 # Real-time weather and extended forecast add-on using the open Open-Meteo API.
-# Copyright 2026 Daliana.
+# Inspired by the concept of Weather Plus by Adriano Barbieri and contributors.
+# Rewritten, modernized and maintained as ClimaAccesible by Daliana (2025-2026).
 # Released under the GNU General Public License version 2 (GPLv2).
 #
 # Shortcuts: NVDA+W = current weather | NVDA+Shift+W = forecast | NVDA+Control+W = settings

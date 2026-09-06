@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>ClimaAccesible - Documentación</title>
+<title>ClimaAccesible para NVDA - Documentación</title>
 <style>
   body { font-family: Arial, sans-serif; max-width: 860px; margin: 0 auto; padding: 20px; color: #222; }
   h1 { color: #1a5276; border-bottom: 2px solid #1a5276; padding-bottom: 8px; }
@@ -13,16 +13,14 @@
   td { border: 1px solid #aed6f1; padding: 7px 12px; }
   tr:nth-child(even) td { background: #eaf4fb; }
   code { background: #eaf4fb; padding: 2px 6px; border-radius: 3px; font-size: 0.97em; }
-  .nota { background: #fef9e7; border-left: 4px solid #f4d03f; padding: 10px 14px; margin: 16px 0; }
-  .aviso { background: #fdfefe; border-left: 4px solid #1a5276; padding: 10px 14px; margin: 16px 0; }
-  .correc { background: #eafaf1; border-left: 4px solid #27ae60; padding: 10px 14px; margin: 16px 0; }
+  .aviso { background: #fef9e7; border-left: 4px solid #f4d03f; padding: 10px 14px; margin: 16px 0; }
   ul li { margin: 5px 0; }
 </style>
 </head>
 <body>
 
-<h1>ClimaAccesible</h1>
-<p><strong>Versión:</strong> 1.3 &nbsp;|&nbsp; <strong>Autora:</strong> Daliana &nbsp;|&nbsp; <strong>Compatibilidad:</strong> NVDA 2019.3 o superior</p>
+<h1>ClimaAccesible para NVDA</h1>
+<p><strong>Autora:</strong> Daliana &nbsp;|&nbsp; <strong>Versión:</strong> 1.4 &nbsp;|&nbsp; <strong>Compatibilidad:</strong> NVDA 2019.3 en adelante</p>
 
 <p>ClimaAccesible es un complemento para NVDA que te permite consultar el clima actual, el pronóstico de varios días y configurar tu ciudad, todo mediante atajos de teclado simples. No necesita cuenta ni clave en ningún servicio.</p>
 
@@ -32,13 +30,12 @@
 <table>
   <tr><th>Atajo</th><th>Función</th></tr>
   <tr><td><code>NVDA + W</code></td><td>Lee el clima actual de tu ciudad configurada</td></tr>
-  <tr><td><code>NVDA + Shift + W</code></td><td>Lee el pronóstico de los próximos días (configurable de 1 a 14)</td></tr>
+  <tr><td><code>NVDA + Shift + W</code></td><td>Lee el pronóstico de los próximos días (de 1 a 14)</td></tr>
   <tr><td><code>NVDA + Control + W</code></td><td>Abre la ventana de configuración del complemento</td></tr>
-  <tr><td><code>NVDA + N</code> -> Herramientas -> ClimaAccesible</td><td>Accede al menú del complemento (Configuración, Comprobación de conflictos y Documentación)</td></tr>
+  <tr><td><code>NVDA + N &gt; Herramientas &gt; ClimaAccesible</code></td><td>Menú del complemento (Configuración, Comprobar conflictos, Documentación)</td></tr>
 </table>
 
 <h2>Primeros pasos</h2>
-<p>La primera vez que instales el complemento, necesitas configurar tu ciudad:</p>
 <ol>
   <li>Presiona <code>NVDA + Control + W</code> para abrir la configuración.</li>
   <li>En el combo <strong>País</strong>, elige tu país (los departamentos y ciudades se cargan solos al instante).</li>
@@ -50,7 +47,7 @@
 </ol>
 
 <div class="aviso">
-  <strong>Nota:</strong> Los datos de países, departamentos y ciudades están incluidos dentro del complemento (más de 150.000 ciudades). No necesitas Internet para configurar tu ubicación, solo para consultar el clima en tiempo real.
+  <strong>Nota:</strong> Los datos de países, departamentos y ciudades están incluidos dentro del complemento (más de 50.000 ciudades). No necesitas Internet para configurar tu ubicación, solo para consultar el clima en tiempo real.
 </div>
 
 <h2>Clima actual (NVDA + W)</h2>
@@ -66,12 +63,12 @@
 </ul>
 
 <h2>Pronóstico extendido (NVDA + Shift + W)</h2>
-<p>Lee el pronóstico para los días venideros. Los datos son altamente personalizables:</p>
+<p>Lee el pronóstico para los días venideros con lenguaje natural:</p>
 <ul>
   <li>Temperatura máxima y mínima</li>
   <li>Condición principal del día</li>
   <li>Índice UV máximo (útil para protección solar)</li>
-  <li>Precipitación esperada (lluvia/nieve)</li>
+  <li>Precipitación esperada (lluvia/nieve) y desglose por franja horaria</li>
   <li>Horario de salida y puesta del sol</li>
 </ul>
 
@@ -89,27 +86,31 @@
   <li>Base de datos geográfica integrada de <a href="https://github.com/dr5hn/countries-states-cities-database">Countries States Cities Database</a>, bajo licencia <strong>Open Database License (ODbL 1.0)</strong>.</li>
 </ul>
 
+<h2>Créditos y Agradecimientos</h2>
+<ul>
+  <li><strong>Inspiración conceptual original:</strong> Inspirado en el concepto pionero de <strong>Weather Plus</strong> creado por Adriano Barbieri y colaboradores. ClimaAccesible es una reimplementación moderna e independiente diseñada para eliminar la necesidad de claves API privadas, solucionar las ambigüedades de fechas en los pronósticos en español, prescindir de librerías binarias heredadas e integrar una base de datos geográfica sin conexión.</li>
+  <li><strong>Datos meteorológicos:</strong> Suministrados por Open-Meteo bajo licencia CC BY 4.0.</li>
+  <li><strong>Base de datos geográfica:</strong> Countries States Cities Database bajo licencia ODbL 1.0.</li>
+  <li><strong>Autora y mantenimiento:</strong> Daliana.</li>
+  <li><strong>Licencia:</strong> GNU General Public License versión 2.0 (GPLv2).</li>
+</ul>
+
 <h2>Historial de cambios</h2>
+
+<h3>Versión 1.4</h3>
+<ul>
+  <li><strong>Atribución y reconocimiento:</strong> Inclusión formal de créditos y agradecimientos a Weather Plus (Adriano Barbieri y colaboradores) como inspiración conceptual original.</li>
+  <li><strong>Internacionalización completa:</strong> Integradas 10 traducciones comunitarias (francés, alemán, italiano, portugués, ruso, chino, polaco, turco, japonés e inglés) con catálogos binarios <code>.mo</code> compilados.</li>
+  <li><strong>Documentación bilingüe:</strong> Documentación completa en inglés en <code>doc/en/</code> y portada <code>README.md</code> bilingüe.</li>
+  <li><strong>Licencias normalizadas:</strong> Encabezados GPLv2 actualizados en todos los módulos de código.</li>
+</ul>
 
 <h3>Versión 1.3</h3>
 <ul>
   <li><strong>Auditoría de conflictos:</strong> Opción en el menú Herramientas para diagnosticar colisiones de atajos de teclado y complementos superpuestos.</li>
   <li><strong>Sistema de registro exhaustivo:</strong> Registro detallado en <code>nvda.log</code> con tiempos de respuesta de red, códigos de estado HTTP y transcripción exacta de los mensajes anunciados.</li>
   <li><strong>Trazas completas de excepciones:</strong> Manejo robusto de errores con información de depuración detallada.</li>
-  <li><strong>Corrección de importación de red:</strong> Se incluye la importación del módulo <code>time</code> a nivel global para el cálculo de latencias y tiempos de respuesta de la API meteorológica, resolviendo el error inesperado al consultar el clima.</li>
-</ul>
-
-<h3>Versión 1.2</h3>
-<ul>
-  <li>Incorporada la declaración formal de uso de inteligencia artificial (Criterio 4.5) y documentación de servicios de terceros (Criterio 1.6).</li>
-  <li>Actualizada la compatibilidad probada con NVDA 2026.2.</li>
-</ul>
-
-<h3>Versión 1.1</h3>
-<ul>
-  <li>Detección natural de momentos de lluvia y probabilidad máxima diaria de precipitación.</li>
-  <li>Extracción automática en cascada de departamentos y ciudades en configuración.</li>
-  <li>Corrección de reinicio limpio de NVDA sin hilos residuales.</li>
+  <li><strong>Corrección de importación de red:</strong> Se incluye la importación del módulo <code>time</code> a nivel global para el cálculo de latencias y tiempos de respuesta de la API meteorológica.</li>
 </ul>
 
 </body>
