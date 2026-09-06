@@ -767,6 +767,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if len(partes) == 1:
 				partes.append(_("No hay datos seleccionados. Abrí la configuración con NVDA+Control+W."))
 
+			self._safeMessage(" ".join(partes))
+
 		except (TimeoutError, socket.timeout):
 			if self._stopping.is_set():
 				return
@@ -932,6 +934,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 							label.capitalize(), cond, tmax, tmin, vmax, lluvia_info
 						)
 					)
+
+			self._safeMessage(" ".join(partes))
 
 		except (TimeoutError, socket.timeout):
 			if self._stopping.is_set():
