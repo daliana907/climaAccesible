@@ -1,0 +1,397 @@
+# Translations for ClimaAccesible.
+msgid ""
+msgstr ""
+"Project-Id-Version: climaAccesible 1.4\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n\nmsgid " Precipitación esperada {} de {} milímetros."
+msgstr "予想降水量は {}、{} ミリメートルです。"
+
+msgid " Precipitación esperada: {} milímetros."
+msgstr "予想される降水量: {} ミリメートル。"
+
+msgid " Probabilidad máxima de lluvia: {} por ciento con {} milímetros."
+msgstr "最大降水確率: {} パーセント、{} ミリメートル。"
+
+msgid " Probabilidad máxima de lluvia: {} por ciento {} con {} milímetros."
+msgstr "最大降水確率: {} パーセント {}、{} ミリメートル。"
+
+msgid " Probabilidad máxima de lluvia: {} por ciento {}."
+msgstr "最大降水確率: {} パーセント {}。"
+
+msgid " Probabilidad máxima de lluvia: {} por ciento."
+msgstr "最大降水確率: {} パーセント。"
+
+msgid "&Cancelar"
+msgstr "キャンセル(&C)"
+
+msgid "&Guardar"
+msgstr "保存(&S)"
+
+msgid "Abre el panel de configuración de Clima Accesible."
+msgstr "[アクセス可能な気候] 設定パネルを開きます。"
+
+msgid "Abre la documentación de la API del clima (en el navegador)."
+msgstr "Weather API ドキュメントを (ブラウザーで) 開きます。"
+
+msgid "Anuncia el clima actual de la ciudad configurada. Pulsá dos veces para copiar al portapapeles."
+msgstr "設定した都市の現在の天気を発表します。 2 回押してクリップボードにコピーします。"
+
+msgid "Anuncia el pronóstico para los próximos días. Pulsá dos veces para copiar al portapapeles."
+msgstr "今後数日間の予報を発表します。 2 回押してクリップボードにコピーします。"
+
+msgid "Anunciar Humedad"
+msgstr "湿度を発表する"
+
+msgid "Anunciar Precipitación total"
+msgstr "総降水量を発表"
+
+msgid "Anunciar Probabilidad de lluvia"
+msgstr "降水確率を発表"
+
+msgid "Anunciar Ráfagas de viento"
+msgstr "突風を知らせる"
+
+msgid "Anunciar Sensación Térmica"
+msgstr "熱感覚を宣伝する"
+
+msgid "Anunciar Viento"
+msgstr "風を告げる"
+
+msgid "Caída de nieve fuerte"
+msgstr "大雪が降る"
+
+msgid "Caída de nieve leve"
+msgstr "小雪"
+
+msgid "Caída de nieve moderada"
+msgstr "適度な降雪量"
+
+msgid "Celsius"
+msgstr "摂氏"
+
+msgid "Chubascos de nieve fuertes"
+msgstr "大雪のにわか雨"
+
+msgid "Chubascos de nieve leves"
+msgstr "小雪が降る"
+
+msgid "Chubascos leves"
+msgstr "軽いにわか雨"
+
+msgid "Chubascos moderados"
+msgstr "中程度のシャワー"
+
+msgid "Chubascos violentos"
+msgstr "激しいシャワー"
+
+msgid "Ciudad (Nombre, País):"
+msgstr "都市 (名前、国):"
+
+msgid "Clima"
+msgstr "気候"
+
+msgid "Clima en {}: {}. Temperatura actual: {} grados."
+msgstr "{}の天気: {}。現在の気温: {} 度。"
+
+msgid "Clima en {}: {}. Temperatura actual: {} grados. Sensación térmica: {} grados."
+msgstr "{}の天気: {}。現在の気温: {} 度。風の寒さ: {} 度。"
+
+msgid "ClimaAccesible"
+msgstr "気候バリアフリー"
+
+msgid "Configuración de Clima Accesible"
+msgstr "アクセス可能な気候設定"
+
+msgid "Consulta el clima actual y el pronóstico de tu ciudad con atajos de teclado. No requiere cuenta ni clave en ningún servicio."
+msgstr "キーボード ショートカットを使用して、あなたの都市の現在の天気と予報を確認します。どのサービスにもアカウントやパスワードは必要ありません。"
+
+msgid "Copos de nieve"
+msgstr "雪の結晶"
+
+msgid "Despejado"
+msgstr "クリア"
+
+msgid "Días de pronóstico (1 a 16):"
+msgstr "予測日 (1 ～ 16):"
+
+msgid "E"
+msgstr "E"
+
+msgid "Error del servidor: código {}. Motivo: {}"
+msgstr "サーバー エラー: コード {}。理由: {}"
+
+msgid "Error inesperado al consultar el clima."
+msgstr "天気を確認するときに予期しないエラーが発生しました。"
+
+msgid "Error inesperado al consultar el pronóstico."
+msgstr "予測を参照するときに予期しないエラーが発生しました。"
+
+msgid "Fahrenheit"
+msgstr "華氏"
+
+msgid "Humedad: {} por ciento."
+msgstr "湿度: {} パーセント。"
+
+msgid "Llovizna densa"
+msgstr "濃霧雨"
+
+msgid "Llovizna helada densa"
+msgstr "濃い霧雨"
+
+msgid "Llovizna helada ligera"
+msgstr "軽い氷点下の霧雨"
+
+msgid "Llovizna ligera"
+msgstr "小雨"
+
+msgid "Llovizna moderada"
+msgstr "中程度の霧雨"
+
+msgid "Lluvia fuerte"
+msgstr "大雨"
+
+msgid "Lluvia helada fuerte"
+msgstr "激しい氷雨"
+
+msgid "Lluvia helada leve"
+msgstr "冷たい雨が降る"
+
+msgid "Lluvia leve"
+msgstr "小雨"
+
+msgid "Lluvia moderada"
+msgstr "中程度の雨"
+
+msgid "Mayormente despejado"
+msgstr "ほとんど透明"
+
+msgid "N"
+msgstr "N"
+
+msgid "NE"
+msgstr "北東"
+
+msgid "NO"
+msgstr "いいえ"
+
+msgid "Niebla"
+msgstr "霧"
+
+msgid "Niebla con escarcha"
+msgstr "霜がついた霧"
+
+msgid "No hay ciudad configurada. Usá NVDA+Control+W para configurar."
+msgstr "都市が設定されていません。 NVDA+Control+W を使用して設定します。"
+
+msgid "No hay datos seleccionados. Abrí la configuración con NVDA+Control+W."
+msgstr "データが選択されていません。 NVDA+Control+Wで設定を開きました。"
+
+msgid "No se encontró el archivo de documentación."
+msgstr "ドキュメント ファイルが見つかりませんでした。"
+
+msgid "No se pudo conectar al servidor. Verificá tu conexión a Internet."
+msgstr "サーバーに接続できませんでした。インターネット接続を確認してください。"
+
+msgid "No se pudo conectar. Verificá tu conexión a Internet."
+msgstr "接続できませんでした。インターネット接続を確認してください。"
+
+msgid "Nublado"
+msgstr "曇り"
+
+msgid "O"
+msgstr "または"
+
+msgid "Opciones de información a anunciar (Clima Actual):"
+msgstr "発表する情報オプション (現在の天気):"
+
+msgid "Parcialmente nublado"
+msgstr "曇り"
+
+msgid "Por favor esperá, consultando el clima..."
+msgstr "天気を確認しながらお待ちください..."
+
+msgid "Por favor esperá, consultando el pronóstico de {} días..."
+msgstr "{} 日間の予報を確認しながらお待ちください..."
+
+msgid "Precipitación total esperada del día: {} milímetros {}."
+msgstr "その日の予想総降水量: {} ミリメートル {}。"
+
+msgid "Precipitación total esperada del día: {} milímetros."
+msgstr "その日の予想総降水量: {} ミリメートル。"
+
+msgid "Probabilidad máxima de lluvia del día: {} por ciento {}."
+msgstr "その日の最大降水確率: {} パーセント {}。"
+
+msgid "Probabilidad máxima de lluvia del día: {} por ciento."
+msgstr "その日の最大降水確率: {} パーセント。"
+
+msgid "Pronóstico para {} para los próximos {} días."
+msgstr "今後 {} 日間の {} の予報。"
+
+msgid "Ráfaga máxima del día: {} kilómetros por hora."
+msgstr "その日の最大突風: 時速 {} キロメートル。"
+
+msgid "Ráfagas de hasta {} kilómetros por hora."
+msgstr "最大時速 {} キロメートルの突風。"
+
+msgid "S"
+msgstr "はい"
+
+msgid "SE"
+msgstr "SE"
+
+msgid "SO"
+msgstr "OS"
+
+msgid "Tormenta con granizo fuerte"
+msgstr "強い雹を伴う嵐"
+
+msgid "Tormenta con granizo leve"
+msgstr "小雹を伴う嵐"
+
+msgid "Tormenta eléctrica leve"
+msgstr "軽い雷雨"
+
+msgid "Unidad de temperatura:"
+msgstr "温度単位:"
+
+msgid "Viento máximo del día: {} kilómetros por hora."
+msgstr "その日の最大風速: 時速 {} キロメートル。"
+
+msgid "Viento: {} a {} kilómetros por hora."
+msgstr "風: {}、時速 {} キロメートル。"
+
+msgid "abril"
+msgstr "4月"
+
+msgid "agosto"
+msgstr "8月"
+
+msgid "diciembre"
+msgstr "12月"
+
+msgid "domingo"
+msgstr "日曜日"
+
+msgid "enero"
+msgstr "1月"
+
+msgid "esta madrugada"
+msgstr "今朝"
+
+msgid "esta mañana"
+msgstr "今朝"
+
+msgid "esta noche"
+msgstr "今夜"
+
+msgid "esta tarde"
+msgstr "今日の午後"
+
+msgid "este mediodía"
+msgstr "今日の正午"
+
+msgid "febrero"
+msgstr "2月"
+
+msgid "hoy"
+msgstr "今日"
+
+msgid "jueves"
+msgstr "木曜日"
+
+msgid "julio"
+msgstr "7月"
+
+msgid "junio"
+msgstr "6月"
+
+msgid "lunes"
+msgstr "月曜日"
+
+msgid "martes"
+msgstr "火曜日"
+
+msgid "marzo"
+msgstr "行進"
+
+msgid "mayo"
+msgstr "かもしれない"
+
+msgid "mañana"
+msgstr "明日"
+
+msgid "miércoles"
+msgstr "水曜日"
+
+msgid "noviembre"
+msgstr "11月"
+
+msgid "octubre"
+msgstr "10月"
+
+msgid "septiembre"
+msgstr "9月"
+
+msgid "sábado"
+msgstr "土曜日"
+
+msgid "viernes"
+msgstr "金曜日"
+
+msgid "{} {} de {}"
+msgstr "{}/{}"
+
+msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{}"
+msgstr "{}: {}。最大 {} 度、最小 {} 度。最大風速は時速 {} キロメートルです。{}"
+
+msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{} Sol visible de {} a {}."
+msgstr "{}: {}。最大 {} 度、最小 {} 度。最大風速は時速 {} キロメートルです。 {} 太陽は {} から {} まで見えます。"
+
+msgid "Abre la ventana de configuración de ClimaAccesible."
+msgstr "ClimateAccessible 設定ウィンドウを開きます。"
+
+msgid "Anuncia el clima actual de la ciudad configurada."
+msgstr "設定した都市の現在の天気を発表します。"
+
+msgid "Anuncia el pronóstico del clima para los próximos días."
+msgstr "今後数日間の天気予報を発表します。"
+
+msgid "Lectura del clima actual"
+msgstr "現在の天気予報"
+
+msgid "Lectura del pronóstico extendido"
+msgstr "長期予報を読む"
+
+msgid "Ventana de configuración del clima"
+msgstr "気候設定ウィンドウ"
+
+msgid "Weather Plus (superpone atajos globales de clima como NVDA+W)"
+msgstr "Weather Plus (NVDA+W などのグローバル天気ショートカットをオーバーレイ)"
+
+msgid "Weather (superpone atajos globales de información meteorológica)"
+msgstr "天気 (世界の天気情報のショートカットをオーバーレイします)"
+
+msgid "Weather Update"
+msgstr "天気の最新情報"
+
+msgid "No se han detectado conflictos de atajos de teclado ni complementos incompatibles de clima activos en este sistema."
+msgstr "このシステムでは、キーボード ショートカットの競合や互換性のない天気予報プラグインがアクティブであることは検出されていません。"
+
+msgid "Auditoría de compatibilidad - ClimaAccesible"
+msgstr "互換性監査 - ClimaAccessible"
+
+msgid "COLISIONES DIRECTAS DE ATAJOS:"
+msgstr "ショートカットの直接衝突:"
+
+msgid "ADVERTENCIAS DE COMPATIBILIDAD:"
+msgstr "互換性に関する警告:"
+
+msgid "Nota: Los detalles completos también se han registrado en el archivo de log de NVDA."
+msgstr "注: 完全な詳細は NVDA ログ ファイルにも記録されています。"
+
+msgid "Comprueba si existen conflictos de atajos de teclado o complementos incompatibles con ClimaAccesible."
+msgstr "キーボード ショートカットの競合や、ClimaAccesible と互換性のないプラグインがないか確認してください。"
+

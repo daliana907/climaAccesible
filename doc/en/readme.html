@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Accessible Weather (ClimaAccesible) - Documentation</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 860px; margin: 0 auto; padding: 20px; color: #222; }
+  h1 { color: #1a5276; border-bottom: 2px solid #1a5276; padding-bottom: 8px; }
+  h2 { color: #1f618d; margin-top: 32px; }
+  h3 { color: #2874a6; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+  th { background: #1a5276; color: white; padding: 8px 12px; text-align: left; }
+  td { border: 1px solid #aed6f1; padding: 7px 12px; }
+  tr:nth-child(even) td { background: #eaf4fb; }
+  code { background: #eaf4fb; padding: 2px 6px; border-radius: 3px; font-size: 0.97em; }
+  .aviso { background: #fef9e7; border-left: 4px solid #f4d03f; padding: 10px 14px; margin: 16px 0; }
+  ul li { margin: 5px 0; }
+</style>
+</head>
+<body>
+
+<h1>Accessible Weather (ClimaAccesible)</h1>
+<p><strong>Version:</strong> 1.4 &nbsp;|&nbsp; <strong>Author:</strong> Daliana &nbsp;|&nbsp; <strong>Compatibility:</strong> NVDA 2019.3 or later</p>
+
+<p>Accessible Weather is a screen-reader friendly weather and forecasting add-on for NVDA. It allows users to check current weather conditions and detailed multi-day forecasts using simple shortcuts, without requiring accounts, API keys, or private tokens.</p>
+
+<hr>
+
+<h2>Keyboard Shortcuts</h2>
+<table>
+  <tr><th>Shortcut</th><th>Function</th></tr>
+  <tr><td><code>NVDA + W</code></td><td>Announces current weather conditions for the configured city</td></tr>
+  <tr><td><code>NVDA + Shift + W</code></td><td>Announces multi-day extended weather forecast (1 to 14 days)</td></tr>
+  <tr><td><code>NVDA + Control + W</code></td><td>Opens the accessible configuration dialog</td></tr>
+</table>
+
+<h2>Getting Started</h2>
+<ol>
+  <li>Press <code>NVDA + Control + W</code> to open settings.</li>
+  <li>In the <strong>Country</strong> combo box, select your country.</li>
+  <li>Tab to <strong>Region / Department</strong> and select yours.</li>
+  <li>Tab to <strong>City</strong> and pick your city.</li>
+  <li>Check or uncheck which metrics you wish to hear.</li>
+  <li>In the <strong>Extended Forecast</strong> section, pick how many days you want (1 to 14).</li>
+  <li>Click <strong>Save</strong>.</li>
+</ol>
+
+<div class="aviso">
+  <strong>Note:</strong> Over 50,000 cities are stored locally in the add-on. No Internet connection is needed to browse or configure your location, only when requesting real-time weather updates.
+</div>
+
+<h2>Third-Party Data & Attribution</h2>
+<p>Meteorological data is provided by <a href="https://open-meteo.com/">Open-Meteo</a> under the Creative Commons Attribution 4.0 International (CC BY 4.0) license. No personal data or GPS tracking is required.</p>
+
+<h2>Credits and License</h2>
+<p>Created by Daliana. Released under the GNU General Public License version 2 (GPLv2).</p>
+
+</body>
+</html>

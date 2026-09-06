@@ -1,0 +1,397 @@
+# Translations for ClimaAccesible.
+msgid ""
+msgstr ""
+"Project-Id-Version: climaAccesible 1.4\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n\nmsgid " Precipitación esperada {} de {} milímetros."
+msgstr "Oczekiwane opady: {} wynoszące {} milimetrów."
+
+msgid " Precipitación esperada: {} milímetros."
+msgstr "Oczekiwane opady: {} milimetrów."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento con {} milímetros."
+msgstr "Maksymalna szansa na deszcz: {} procent z {} milimetrami."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento {} con {} milímetros."
+msgstr "Maksymalna szansa na deszcz: {} procent {} z {} milimetrami."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento {}."
+msgstr "Maksymalna szansa na deszcz: {} procent {}."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento."
+msgstr "Maksymalna szansa na deszcz: {} procent."
+
+msgid "&Cancelar"
+msgstr "&Anuluj"
+
+msgid "&Guardar"
+msgstr "&Zapisz"
+
+msgid "Abre el panel de configuración de Clima Accesible."
+msgstr "Otwórz panel ustawień dostępnego klimatu."
+
+msgid "Abre la documentación de la API del clima (en el navegador)."
+msgstr "Otwórz dokumentację Weather API (w przeglądarce)."
+
+msgid "Anuncia el clima actual de la ciudad configurada. Pulsá dos veces para copiar al portapapeles."
+msgstr "Ogłasza aktualną pogodę w skonfigurowanym mieście. Naciśnij dwukrotnie, aby skopiować do schowka."
+
+msgid "Anuncia el pronóstico para los próximos días. Pulsá dos veces para copiar al portapapeles."
+msgstr "Ogłasza prognozę na najbliższe dni. Naciśnij dwukrotnie, aby skopiować do schowka."
+
+msgid "Anunciar Humedad"
+msgstr "Ogłoś wilgotność"
+
+msgid "Anunciar Precipitación total"
+msgstr "Ogłoś całkowite opady"
+
+msgid "Anunciar Probabilidad de lluvia"
+msgstr "Ogłoś prawdopodobieństwo deszczu"
+
+msgid "Anunciar Ráfagas de viento"
+msgstr "Ogłoś porywy wiatru"
+
+msgid "Anunciar Sensación Térmica"
+msgstr "Reklamuj Thermal Sensation"
+
+msgid "Anunciar Viento"
+msgstr "Ogłoś Wiatr"
+
+msgid "Caída de nieve fuerte"
+msgstr "Obfite opady śniegu"
+
+msgid "Caída de nieve leve"
+msgstr "Lekkie opady śniegu"
+
+msgid "Caída de nieve moderada"
+msgstr "Umiarkowane opady śniegu"
+
+msgid "Celsius"
+msgstr "Celsjusza"
+
+msgid "Chubascos de nieve fuertes"
+msgstr "Silne opady śniegu"
+
+msgid "Chubascos de nieve leves"
+msgstr "Lekkie opady śniegu"
+
+msgid "Chubascos leves"
+msgstr "Lekkie opady deszczu"
+
+msgid "Chubascos moderados"
+msgstr "Umiarkowane opady"
+
+msgid "Chubascos violentos"
+msgstr "Gwałtowne prysznice"
+
+msgid "Ciudad (Nombre, País):"
+msgstr "Miasto (nazwa, kraj):"
+
+msgid "Clima"
+msgstr "Klimat"
+
+msgid "Clima en {}: {}. Temperatura actual: {} grados."
+msgstr "Pogoda w {}: {}. Aktualna temperatura: {} stopni."
+
+msgid "Clima en {}: {}. Temperatura actual: {} grados. Sensación térmica: {} grados."
+msgstr "Pogoda w {}: {}. Aktualna temperatura: {} stopni. Temperatura odczuwalna: {} stopni."
+
+msgid "ClimaAccesible"
+msgstr "Klimat dostępny"
+
+msgid "Configuración de Clima Accesible"
+msgstr "Dostępne ustawienia klimatyczne"
+
+msgid "Consulta el clima actual y el pronóstico de tu ciudad con atajos de teclado. No requiere cuenta ni clave en ningún servicio."
+msgstr "Sprawdź aktualną pogodę i prognozę dla swojego miasta za pomocą skrótów klawiaturowych. Żadna usługa nie wymaga konta ani hasła."
+
+msgid "Copos de nieve"
+msgstr "płatki śniegu"
+
+msgid "Despejado"
+msgstr "Jasne"
+
+msgid "Días de pronóstico (1 a 16):"
+msgstr "Prognozowane dni (1 do 16):"
+
+msgid "E"
+msgstr "E"
+
+msgid "Error del servidor: código {}. Motivo: {}"
+msgstr "Błąd serwera: kod {}. Powód: {}"
+
+msgid "Error inesperado al consultar el clima."
+msgstr "Nieoczekiwany błąd podczas sprawdzania pogody."
+
+msgid "Error inesperado al consultar el pronóstico."
+msgstr "Nieoczekiwany błąd podczas sprawdzania prognozy."
+
+msgid "Fahrenheit"
+msgstr "Fahrenheita"
+
+msgid "Humedad: {} por ciento."
+msgstr "Wilgotność: {} procent."
+
+msgid "Llovizna densa"
+msgstr "Gęsta mżawka"
+
+msgid "Llovizna helada densa"
+msgstr "Gęsta marznąca mżawka"
+
+msgid "Llovizna helada ligera"
+msgstr "Lekka marznąca mżawka"
+
+msgid "Llovizna ligera"
+msgstr "Lekka mżawka"
+
+msgid "Llovizna moderada"
+msgstr "Umiarkowana mżawka"
+
+msgid "Lluvia fuerte"
+msgstr "ulewny deszcz"
+
+msgid "Lluvia helada fuerte"
+msgstr "Silny marznący deszcz"
+
+msgid "Lluvia helada leve"
+msgstr "Lekki marznący deszcz"
+
+msgid "Lluvia leve"
+msgstr "lekki deszcz"
+
+msgid "Lluvia moderada"
+msgstr "Umiarkowany deszcz"
+
+msgid "Mayormente despejado"
+msgstr "Przeważnie jasne"
+
+msgid "N"
+msgstr "N"
+
+msgid "NE"
+msgstr "NE"
+
+msgid "NO"
+msgstr "NIE"
+
+msgid "Niebla"
+msgstr "Mgła"
+
+msgid "Niebla con escarcha"
+msgstr "Mgła z mrozem"
+
+msgid "No hay ciudad configurada. Usá NVDA+Control+W para configurar."
+msgstr "Nie ma skonfigurowanego miasta. Do konfiguracji użyj NVDA+Control+W."
+
+msgid "No hay datos seleccionados. Abrí la configuración con NVDA+Control+W."
+msgstr "Nie wybrano żadnych danych. Otworzyłem ustawienia za pomocą NVDA+Control+W."
+
+msgid "No se encontró el archivo de documentación."
+msgstr "Nie znaleziono pliku dokumentacji."
+
+msgid "No se pudo conectar al servidor. Verificá tu conexión a Internet."
+msgstr "Nie można połączyć się z serwerem. Sprawdź swoje połączenie internetowe."
+
+msgid "No se pudo conectar. Verificá tu conexión a Internet."
+msgstr "Nie udało się połączyć. Sprawdź swoje połączenie internetowe."
+
+msgid "Nublado"
+msgstr "Pochmurno"
+
+msgid "O"
+msgstr "Lub"
+
+msgid "Opciones de información a anunciar (Clima Actual):"
+msgstr "Opcje informacyjne do ogłoszenia (aktualna pogoda):"
+
+msgid "Parcialmente nublado"
+msgstr "Częściowe zachmurzenie"
+
+msgid "Por favor esperá, consultando el clima..."
+msgstr "Proszę czekać, sprawdzam pogodę..."
+
+msgid "Por favor esperá, consultando el pronóstico de {} días..."
+msgstr "Proszę czekać, sprawdzam prognozę na {} dni..."
+
+msgid "Precipitación total esperada del día: {} milímetros {}."
+msgstr "Całkowite oczekiwane opady w ciągu dnia: {} milimetrów {}."
+
+msgid "Precipitación total esperada del día: {} milímetros."
+msgstr "Całkowite oczekiwane opady w ciągu dnia: {} milimetrów."
+
+msgid "Probabilidad máxima de lluvia del día: {} por ciento {}."
+msgstr "Maksymalna szansa na deszcz w ciągu dnia: {} procent {}."
+
+msgid "Probabilidad máxima de lluvia del día: {} por ciento."
+msgstr "Maksymalna szansa na deszcz w ciągu dnia: {} procent."
+
+msgid "Pronóstico para {} para los próximos {} días."
+msgstr "Prognoza na {} na następne {} dni."
+
+msgid "Ráfaga máxima del día: {} kilómetros por hora."
+msgstr "Maksymalny podmuch dnia: {} kilometrów na godzinę."
+
+msgid "Ráfagas de hasta {} kilómetros por hora."
+msgstr "Porywy dochodzące do {} kilometrów na godzinę."
+
+msgid "S"
+msgstr "Tak"
+
+msgid "SE"
+msgstr "SE"
+
+msgid "SO"
+msgstr "system operacyjny"
+
+msgid "Tormenta con granizo fuerte"
+msgstr "Burza z silnym gradem"
+
+msgid "Tormenta con granizo leve"
+msgstr "Burza z lekkim gradem"
+
+msgid "Tormenta eléctrica leve"
+msgstr "Lekka burza"
+
+msgid "Unidad de temperatura:"
+msgstr "Jednostka temperatury:"
+
+msgid "Viento máximo del día: {} kilómetros por hora."
+msgstr "Maksymalny wiatr dnia: {} kilometrów na godzinę."
+
+msgid "Viento: {} a {} kilómetros por hora."
+msgstr "Wiatr: {} z prędkością {} kilometrów na godzinę."
+
+msgid "abril"
+msgstr "kwiecień"
+
+msgid "agosto"
+msgstr "sierpień"
+
+msgid "diciembre"
+msgstr "grudzień"
+
+msgid "domingo"
+msgstr "niedziela"
+
+msgid "enero"
+msgstr "styczeń"
+
+msgid "esta madrugada"
+msgstr "dziś rano"
+
+msgid "esta mañana"
+msgstr "dziś rano"
+
+msgid "esta noche"
+msgstr "dziś wieczorem"
+
+msgid "esta tarde"
+msgstr "tego popołudnia"
+
+msgid "este mediodía"
+msgstr "tego południa"
+
+msgid "febrero"
+msgstr "luty"
+
+msgid "hoy"
+msgstr "dzisiaj"
+
+msgid "jueves"
+msgstr "czwartek"
+
+msgid "julio"
+msgstr "lipiec"
+
+msgid "junio"
+msgstr "czerwiec"
+
+msgid "lunes"
+msgstr "poniedziałek"
+
+msgid "martes"
+msgstr "wtorek"
+
+msgid "marzo"
+msgstr "marsz"
+
+msgid "mayo"
+msgstr "może"
+
+msgid "mañana"
+msgstr "jutro"
+
+msgid "miércoles"
+msgstr "środa"
+
+msgid "noviembre"
+msgstr "Listopad"
+
+msgid "octubre"
+msgstr "październik"
+
+msgid "septiembre"
+msgstr "wrzesień"
+
+msgid "sábado"
+msgstr "sobota"
+
+msgid "viernes"
+msgstr "piątek"
+
+msgid "{} {} de {}"
+msgstr "{}{} z {}"
+
+msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{}"
+msgstr "{}: {}. Maksymalnie {} stopni, minimalnie {} stopni. Maksymalny wiatr {} kilometrów na godzinę.{}"
+
+msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{} Sol visible de {} a {}."
+msgstr "{}: {}. Maksymalnie {} stopni, minimalnie {} stopni. Maksymalny wiatr {} kilometrów na godzinę. {} Słońce widoczne od {} do {}."
+
+msgid "Abre la ventana de configuración de ClimaAccesible."
+msgstr "Otwórz okno konfiguracji ClimateAccessible."
+
+msgid "Anuncia el clima actual de la ciudad configurada."
+msgstr "Ogłasza aktualną pogodę w skonfigurowanym mieście."
+
+msgid "Anuncia el pronóstico del clima para los próximos días."
+msgstr "Ogłasza prognozę pogody na najbliższe dni."
+
+msgid "Lectura del clima actual"
+msgstr "Aktualny odczyt pogody"
+
+msgid "Lectura del pronóstico extendido"
+msgstr "Odczytanie rozszerzonej prognozy"
+
+msgid "Ventana de configuración del clima"
+msgstr "Okno ustawień klimatu"
+
+msgid "Weather Plus (superpone atajos globales de clima como NVDA+W)"
+msgstr "Weather Plus (nakłada globalne skróty pogodowe, takie jak NVDA+W)"
+
+msgid "Weather (superpone atajos globales de información meteorológica)"
+msgstr "Pogoda (nakłada globalne skróty do informacji o pogodzie)"
+
+msgid "Weather Update"
+msgstr "Aktualizacja pogody"
+
+msgid "No se han detectado conflictos de atajos de teclado ni complementos incompatibles de clima activos en este sistema."
+msgstr "W tym systemie nie wykryto żadnych konfliktów skrótów klawiaturowych ani niekompatybilnych wtyczek pogodowych."
+
+msgid "Auditoría de compatibilidad - ClimaAccesible"
+msgstr "Audyt kompatybilności - ClimaAccessible"
+
+msgid "COLISIONES DIRECTAS DE ATAJOS:"
+msgstr "BEZPOŚREDNIE KOLIZJE NA SKRÓCIE:"
+
+msgid "ADVERTENCIAS DE COMPATIBILIDAD:"
+msgstr "OSTRZEŻENIA DOTYCZĄCE ZGODNOŚCI:"
+
+msgid "Nota: Los detalles completos también se han registrado en el archivo de log de NVDA."
+msgstr "Uwaga: Pełne szczegóły zostały również zapisane w pliku dziennika NVDA."
+
+msgid "Comprueba si existen conflictos de atajos de teclado o complementos incompatibles con ClimaAccesible."
+msgstr "Sprawdź, czy nie występują konflikty skrótów klawiaturowych lub wtyczki niekompatybilne z ClimaAccesible."
+

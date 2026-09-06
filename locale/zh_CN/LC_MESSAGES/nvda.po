@@ -1,0 +1,397 @@
+# Translations for ClimaAccesible.
+msgid ""
+msgstr ""
+"Project-Id-Version: climaAccesible 1.4\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n\nmsgid " Precipitación esperada {} de {} milímetros."
+msgstr "预计降水量为 {} 毫米。"
+
+msgid " Precipitación esperada: {} milímetros."
+msgstr "预计降水量：{} 毫米。"
+
+msgid " Probabilidad máxima de lluvia: {} por ciento con {} milímetros."
+msgstr "最大降雨概率：百分之 {}，降雨量为 {} 毫米。"
+
+msgid " Probabilidad máxima de lluvia: {} por ciento {} con {} milímetros."
+msgstr "最大降雨概率：百分之 {} {}，降雨量为 {} 毫米。"
+
+msgid " Probabilidad máxima de lluvia: {} por ciento {}."
+msgstr "下雨的最大几率：百分之 {} {}。"
+
+msgid " Probabilidad máxima de lluvia: {} por ciento."
+msgstr "下雨的最大几率：百分之 {}。"
+
+msgid "&Cancelar"
+msgstr "取消(&C)"
+
+msgid "&Guardar"
+msgstr "保存(&S)"
+
+msgid "Abre el panel de configuración de Clima Accesible."
+msgstr "打开“无障碍气候”设置面板。"
+
+msgid "Abre la documentación de la API del clima (en el navegador)."
+msgstr "打开天气 API 文档（在浏览器中）。"
+
+msgid "Anuncia el clima actual de la ciudad configurada. Pulsá dos veces para copiar al portapapeles."
+msgstr "公布所配置城市的当前天气。按两次可复制到剪贴板。"
+
+msgid "Anuncia el pronóstico para los próximos días. Pulsá dos veces para copiar al portapapeles."
+msgstr "公布未来几天的天气预报。按两次可复制到剪贴板。"
+
+msgid "Anunciar Humedad"
+msgstr "公布湿度"
+
+msgid "Anunciar Precipitación total"
+msgstr "公布总降水量"
+
+msgid "Anunciar Probabilidad de lluvia"
+msgstr "宣布可能有雨"
+
+msgid "Anunciar Ráfagas de viento"
+msgstr "宣布阵风"
+
+msgid "Anunciar Sensación Térmica"
+msgstr "宣传热感"
+
+msgid "Anunciar Viento"
+msgstr "宣布风"
+
+msgid "Caída de nieve fuerte"
+msgstr "大雪纷飞"
+
+msgid "Caída de nieve leve"
+msgstr "小雪"
+
+msgid "Caída de nieve moderada"
+msgstr "中雪"
+
+msgid "Celsius"
+msgstr "摄氏度"
+
+msgid "Chubascos de nieve fuertes"
+msgstr "大阵雪"
+
+msgid "Chubascos de nieve leves"
+msgstr "小阵雪"
+
+msgid "Chubascos leves"
+msgstr "小阵雨"
+
+msgid "Chubascos moderados"
+msgstr "中等阵雨"
+
+msgid "Chubascos violentos"
+msgstr "猛烈阵雨"
+
+msgid "Ciudad (Nombre, País):"
+msgstr "城市（名称、国家）："
+
+msgid "Clima"
+msgstr "气候"
+
+msgid "Clima en {}: {}. Temperatura actual: {} grados."
+msgstr "{} 的天气：{}。当前温度：{} 度。"
+
+msgid "Clima en {}: {}. Temperatura actual: {} grados. Sensación térmica: {} grados."
+msgstr "{} 的天气：{}。当前温度：{} 度。风寒：{} 度。"
+
+msgid "ClimaAccesible"
+msgstr "气候适宜"
+
+msgid "Configuración de Clima Accesible"
+msgstr "无障碍气候设置"
+
+msgid "Consulta el clima actual y el pronóstico de tu ciudad con atajos de teclado. No requiere cuenta ni clave en ningún servicio."
+msgstr "使用键盘快捷键查看您所在城市的当前天气和天气预报。任何服务均无需帐户或密码。"
+
+msgid "Copos de nieve"
+msgstr "雪花"
+
+msgid "Despejado"
+msgstr "清除"
+
+msgid "Días de pronóstico (1 a 16):"
+msgstr "预报天数（1 至 16）："
+
+msgid "E"
+msgstr "乙"
+
+msgid "Error del servidor: código {}. Motivo: {}"
+msgstr "服务器错误：代码 {}。原因：{}"
+
+msgid "Error inesperado al consultar el clima."
+msgstr "检查天气时出现意外错误。"
+
+msgid "Error inesperado al consultar el pronóstico."
+msgstr "查阅预测时出现意外错误。"
+
+msgid "Fahrenheit"
+msgstr "华氏度"
+
+msgid "Humedad: {} por ciento."
+msgstr "湿度：百分之 {}。"
+
+msgid "Llovizna densa"
+msgstr "细雨"
+
+msgid "Llovizna helada densa"
+msgstr "浓密的冻毛毛雨"
+
+msgid "Llovizna helada ligera"
+msgstr "小冰雨"
+
+msgid "Llovizna ligera"
+msgstr "小雨"
+
+msgid "Llovizna moderada"
+msgstr "中毛毛雨"
+
+msgid "Lluvia fuerte"
+msgstr "大雨"
+
+msgid "Lluvia helada fuerte"
+msgstr "大冻雨"
+
+msgid "Lluvia helada leve"
+msgstr "小冻雨"
+
+msgid "Lluvia leve"
+msgstr "小雨"
+
+msgid "Lluvia moderada"
+msgstr "中雨"
+
+msgid "Mayormente despejado"
+msgstr "基本清晰"
+
+msgid "N"
+msgstr "氮"
+
+msgid "NE"
+msgstr "东北"
+
+msgid "NO"
+msgstr "否"
+
+msgid "Niebla"
+msgstr "雾"
+
+msgid "Niebla con escarcha"
+msgstr "有雾有霜"
+
+msgid "No hay ciudad configurada. Usá NVDA+Control+W para configurar."
+msgstr "没有配置城市。使用NVDA+Control+W进行配置。"
+
+msgid "No hay datos seleccionados. Abrí la configuración con NVDA+Control+W."
+msgstr "没有选择任何数据。我用NVDA+Control+W打开设置。"
+
+msgid "No se encontró el archivo de documentación."
+msgstr "找不到文档文件。"
+
+msgid "No se pudo conectar al servidor. Verificá tu conexión a Internet."
+msgstr "无法连接到服务器。检查您的互联网连接。"
+
+msgid "No se pudo conectar. Verificá tu conexión a Internet."
+msgstr "无法连接。检查您的互联网连接。"
+
+msgid "Nublado"
+msgstr "多云"
+
+msgid "O"
+msgstr "或者"
+
+msgid "Opciones de información a anunciar (Clima Actual):"
+msgstr "发布的信息选项（当前天气）："
+
+msgid "Parcialmente nublado"
+msgstr "晴间多云"
+
+msgid "Por favor esperá, consultando el clima..."
+msgstr "请稍候，正在查看天气..."
+
+msgid "Por favor esperá, consultando el pronóstico de {} días..."
+msgstr "请稍候，正在查看 {} 天的天气预报..."
+
+msgid "Precipitación total esperada del día: {} milímetros {}."
+msgstr "当天预计总降水量：{} 毫米{}。"
+
+msgid "Precipitación total esperada del día: {} milímetros."
+msgstr "当天预计总降水量：{} 毫米。"
+
+msgid "Probabilidad máxima de lluvia del día: {} por ciento {}."
+msgstr "当天下雨的最大几率：百分之 {} {}。"
+
+msgid "Probabilidad máxima de lluvia del día: {} por ciento."
+msgstr "当天下雨的最大几率：百分之 {}。"
+
+msgid "Pronóstico para {} para los próximos {} días."
+msgstr "未来 {} 天的 {} 预测。"
+
+msgid "Ráfaga máxima del día: {} kilómetros por hora."
+msgstr "当天最大阵风：每小时 {} 公里。"
+
+msgid "Ráfagas de hasta {} kilómetros por hora."
+msgstr "阵风高达每小时 {} 公里。"
+
+msgid "S"
+msgstr "是的"
+
+msgid "SE"
+msgstr "东南欧"
+
+msgid "SO"
+msgstr "操作系统"
+
+msgid "Tormenta con granizo fuerte"
+msgstr "暴风雨伴有强冰雹"
+
+msgid "Tormenta con granizo leve"
+msgstr "伴有小冰雹的暴风雨"
+
+msgid "Tormenta eléctrica leve"
+msgstr "小雷阵雨"
+
+msgid "Unidad de temperatura:"
+msgstr "温度单位："
+
+msgid "Viento máximo del día: {} kilómetros por hora."
+msgstr "当天最大风速：每小时 {} 公里。"
+
+msgid "Viento: {} a {} kilómetros por hora."
+msgstr "风：{}，每小时 {} 公里。"
+
+msgid "abril"
+msgstr "四月"
+
+msgid "agosto"
+msgstr "八月"
+
+msgid "diciembre"
+msgstr "十二月"
+
+msgid "domingo"
+msgstr "星期日"
+
+msgid "enero"
+msgstr "一月"
+
+msgid "esta madrugada"
+msgstr "今天早上"
+
+msgid "esta mañana"
+msgstr "今天早上"
+
+msgid "esta noche"
+msgstr "今晚"
+
+msgid "esta tarde"
+msgstr "今天下午"
+
+msgid "este mediodía"
+msgstr "今天中午"
+
+msgid "febrero"
+msgstr "二月"
+
+msgid "hoy"
+msgstr "今天"
+
+msgid "jueves"
+msgstr "星期四"
+
+msgid "julio"
+msgstr "七月"
+
+msgid "junio"
+msgstr "六月"
+
+msgid "lunes"
+msgstr "星期一"
+
+msgid "martes"
+msgstr "星期二"
+
+msgid "marzo"
+msgstr "进行曲"
+
+msgid "mayo"
+msgstr "可能"
+
+msgid "mañana"
+msgstr "明天"
+
+msgid "miércoles"
+msgstr "星期三"
+
+msgid "noviembre"
+msgstr "十一月"
+
+msgid "octubre"
+msgstr "十月"
+
+msgid "septiembre"
+msgstr "九月"
+
+msgid "sábado"
+msgstr "星期六"
+
+msgid "viernes"
+msgstr "星期五"
+
+msgid "{} {} de {}"
+msgstr "{}{}（共 {}）"
+
+msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{}"
+msgstr "{}：{}。最大 {} 度，最小 {} 度。最大风速为每小时 {} 公里。{}"
+
+msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{} Sol visible de {} a {}."
+msgstr "{}：{}。最大 {} 度，最小 {} 度。最大风速为每小时 {} 公里。 {} 从 {} 到 {} 可见太阳。"
+
+msgid "Abre la ventana de configuración de ClimaAccesible."
+msgstr "打开 ClimateAccessible 配置窗口。"
+
+msgid "Anuncia el clima actual de la ciudad configurada."
+msgstr "公布所配置城市的当前天气。"
+
+msgid "Anuncia el pronóstico del clima para los próximos días."
+msgstr "公布未来几天的天气预报。"
+
+msgid "Lectura del clima actual"
+msgstr "当前天气读数"
+
+msgid "Lectura del pronóstico extendido"
+msgstr "阅读扩展预测"
+
+msgid "Ventana de configuración del clima"
+msgstr "气候设置窗口"
+
+msgid "Weather Plus (superpone atajos globales de clima como NVDA+W)"
+msgstr "Weather Plus（覆盖全球天气快捷方式，如 NVDA+W）"
+
+msgid "Weather (superpone atajos globales de información meteorológica)"
+msgstr "天气（覆盖全球天气信息快捷方式）"
+
+msgid "Weather Update"
+msgstr "天气更新"
+
+msgid "No se han detectado conflictos de atajos de teclado ni complementos incompatibles de clima activos en este sistema."
+msgstr "在此系统上未检测到活动的键盘快捷键冲突或不兼容的天气插件。"
+
+msgid "Auditoría de compatibilidad - ClimaAccesible"
+msgstr "兼容性审核 - ClimaAccessible"
+
+msgid "COLISIONES DIRECTAS DE ATAJOS:"
+msgstr "直接快捷碰撞："
+
+msgid "ADVERTENCIAS DE COMPATIBILIDAD:"
+msgstr "兼容性警告："
+
+msgid "Nota: Los detalles completos también se han registrado en el archivo de log de NVDA."
+msgstr "注意：完整的详细信息也已记录在 NVDA 日志文件中。"
+
+msgid "Comprueba si existen conflictos de atajos de teclado o complementos incompatibles con ClimaAccesible."
+msgstr "检查是否存在键盘快捷键冲突或与 ClimaAccesible 不兼容的插件。"
+

@@ -1,0 +1,397 @@
+# Translations for ClimaAccesible.
+msgid ""
+msgstr ""
+"Project-Id-Version: climaAccesible 1.4\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n\nmsgid " Precipitación esperada {} de {} milímetros."
+msgstr "{} milimetre yağış bekleniyor."
+
+msgid " Precipitación esperada: {} milímetros."
+msgstr "Beklenen yağış: {} milimetre."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento con {} milímetros."
+msgstr "Maksimum yağmur ihtimali: {} milimetre ile yüzde {}."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento {} con {} milímetros."
+msgstr "Maksimum yağmur ihtimali: yüzde {} ile {} milimetre."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento {}."
+msgstr "Maksimum yağmur ihtimali: yüzde {} {}."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento."
+msgstr "Maksimum yağmur ihtimali: yüzde {}."
+
+msgid "&Cancelar"
+msgstr "&İptal"
+
+msgid "&Guardar"
+msgstr "&Kaydet"
+
+msgid "Abre el panel de configuración de Clima Accesible."
+msgstr "Erişilebilir İklim ayarları panelini açın."
+
+msgid "Abre la documentación de la API del clima (en el navegador)."
+msgstr "Hava Durumu API belgelerini açın (tarayıcıda)."
+
+msgid "Anuncia el clima actual de la ciudad configurada. Pulsá dos veces para copiar al portapapeles."
+msgstr "Yapılandırılan şehrin mevcut hava durumunu duyurur. Panoya kopyalamak için iki kez basın."
+
+msgid "Anuncia el pronóstico para los próximos días. Pulsá dos veces para copiar al portapapeles."
+msgstr "Önümüzdeki birkaç güne ilişkin tahminleri açıklar. Panoya kopyalamak için iki kez basın."
+
+msgid "Anunciar Humedad"
+msgstr "Nemi Duyur"
+
+msgid "Anunciar Precipitación total"
+msgstr "Toplam Yağışın Açıklanması"
+
+msgid "Anunciar Probabilidad de lluvia"
+msgstr "Yağmur ihtimalini duyurun"
+
+msgid "Anunciar Ráfagas de viento"
+msgstr "Rüzgar Rüzgarlarını Duyurun"
+
+msgid "Anunciar Sensación Térmica"
+msgstr "Termal Algının Reklamını Yapın"
+
+msgid "Anunciar Viento"
+msgstr "Rüzgarı Duyur"
+
+msgid "Caída de nieve fuerte"
+msgstr "Yoğun kar yağışı"
+
+msgid "Caída de nieve leve"
+msgstr "Hafif kar yağışı"
+
+msgid "Caída de nieve moderada"
+msgstr "Orta derecede kar yağışı"
+
+msgid "Celsius"
+msgstr "santigrat"
+
+msgid "Chubascos de nieve fuertes"
+msgstr "Şiddetli kar yağışı"
+
+msgid "Chubascos de nieve leves"
+msgstr "Hafif kar yağışı"
+
+msgid "Chubascos leves"
+msgstr "Hafif sağanak yağışlar"
+
+msgid "Chubascos moderados"
+msgstr "sağanak yağışlar"
+
+msgid "Chubascos violentos"
+msgstr "Şiddetli sağanak yağışlar"
+
+msgid "Ciudad (Nombre, País):"
+msgstr "Şehir (İsim, Ülke):"
+
+msgid "Clima"
+msgstr "İklim"
+
+msgid "Clima en {}: {}. Temperatura actual: {} grados."
+msgstr "{} şehrinde hava durumu: {}. Şu anki sıcaklık: {} derece."
+
+msgid "Clima en {}: {}. Temperatura actual: {} grados. Sensación térmica: {} grados."
+msgstr "{} şehrinde hava durumu: {}. Şu anki sıcaklık: {} derece. Rüzgâr serinliği: {} derece."
+
+msgid "ClimaAccesible"
+msgstr "İklimErişilebilir"
+
+msgid "Configuración de Clima Accesible"
+msgstr "Erişilebilir İklim Ayarları"
+
+msgid "Consulta el clima actual y el pronóstico de tu ciudad con atajos de teclado. No requiere cuenta ni clave en ningún servicio."
+msgstr "Klavye kısayollarını kullanarak şehrinizin mevcut hava durumunu ve tahminlerini kontrol edin. Hiçbir hizmet için hesap veya şifre gerekmez."
+
+msgid "Copos de nieve"
+msgstr "kar taneleri"
+
+msgid "Despejado"
+msgstr "Temizle"
+
+msgid "Días de pronóstico (1 a 16):"
+msgstr "Tahmin günleri (1 ila 16):"
+
+msgid "E"
+msgstr "e"
+
+msgid "Error del servidor: código {}. Motivo: {}"
+msgstr "Sunucu hatası: kod {}. Sebep: {}"
+
+msgid "Error inesperado al consultar el clima."
+msgstr "Hava durumu kontrol edilirken beklenmeyen hata."
+
+msgid "Error inesperado al consultar el pronóstico."
+msgstr "Tahmine başvururken beklenmeyen hata."
+
+msgid "Fahrenheit"
+msgstr "Fahrenhayt"
+
+msgid "Humedad: {} por ciento."
+msgstr "Nem: yüzde {}."
+
+msgid "Llovizna densa"
+msgstr "Yoğun çiseleyen yağmur"
+
+msgid "Llovizna helada densa"
+msgstr "Yoğun dondurucu çiseleme"
+
+msgid "Llovizna helada ligera"
+msgstr "Hafif dondurucu çiseleme"
+
+msgid "Llovizna ligera"
+msgstr "Hafif çiseleyen yağmur"
+
+msgid "Llovizna moderada"
+msgstr "orta derecede yağmur"
+
+msgid "Lluvia fuerte"
+msgstr "şiddetli yağmur"
+
+msgid "Lluvia helada fuerte"
+msgstr "Şiddetli dondurucu yağmur"
+
+msgid "Lluvia helada leve"
+msgstr "Hafif dondurucu yağmur"
+
+msgid "Lluvia leve"
+msgstr "hafif yağmur"
+
+msgid "Lluvia moderada"
+msgstr "Orta şiddette yağmur"
+
+msgid "Mayormente despejado"
+msgstr "Çoğunlukla açık"
+
+msgid "N"
+msgstr "N"
+
+msgid "NE"
+msgstr "kuzeydoğu"
+
+msgid "NO"
+msgstr "HAYIR"
+
+msgid "Niebla"
+msgstr "Sis"
+
+msgid "Niebla con escarcha"
+msgstr "Donlu sis"
+
+msgid "No hay ciudad configurada. Usá NVDA+Control+W para configurar."
+msgstr "Yapılandırılmış şehir yok. Yapılandırmak için NVDA+Control+W tuşlarını kullanın."
+
+msgid "No hay datos seleccionados. Abrí la configuración con NVDA+Control+W."
+msgstr "Seçilen veri yok. Ayarları NVDA+Control+W ile açtım."
+
+msgid "No se encontró el archivo de documentación."
+msgstr "Dokümantasyon dosyası bulunamadı."
+
+msgid "No se pudo conectar al servidor. Verificá tu conexión a Internet."
+msgstr "Sunucuya bağlanılamadı. İnternet bağlantınızı kontrol edin."
+
+msgid "No se pudo conectar. Verificá tu conexión a Internet."
+msgstr "Bağlantı kurulamadı. İnternet bağlantınızı kontrol edin."
+
+msgid "Nublado"
+msgstr "Bulutlu"
+
+msgid "O"
+msgstr "veya"
+
+msgid "Opciones de información a anunciar (Clima Actual):"
+msgstr "Duyurulacak bilgi seçenekleri (Mevcut Hava Durumu):"
+
+msgid "Parcialmente nublado"
+msgstr "Parçalı bulutlu"
+
+msgid "Por favor esperá, consultando el clima..."
+msgstr "Lütfen bekleyin, hava durumu kontrol ediliyor..."
+
+msgid "Por favor esperá, consultando el pronóstico de {} días..."
+msgstr "Lütfen bekleyin, {} günlük hava tahminini kontrol edin..."
+
+msgid "Precipitación total esperada del día: {} milímetros {}."
+msgstr "Gün için beklenen toplam yağış: {} milimetre {}."
+
+msgid "Precipitación total esperada del día: {} milímetros."
+msgstr "Gün için beklenen toplam yağış: {} milimetre."
+
+msgid "Probabilidad máxima de lluvia del día: {} por ciento {}."
+msgstr "Gün için maksimum yağmur ihtimali: yüzde {} {}."
+
+msgid "Probabilidad máxima de lluvia del día: {} por ciento."
+msgstr "Gün için maksimum yağmur ihtimali: yüzde {}."
+
+msgid "Pronóstico para {} para los próximos {} días."
+msgstr "Önümüzdeki {} gün için {} hava tahmini."
+
+msgid "Ráfaga máxima del día: {} kilómetros por hora."
+msgstr "Günün maksimum rüzgarı: saatte {} kilometre."
+
+msgid "Ráfagas de hasta {} kilómetros por hora."
+msgstr "Saatte {} kilometreye varan rüzgarlar."
+
+msgid "S"
+msgstr "Evet"
+
+msgid "SE"
+msgstr "GD"
+
+msgid "SO"
+msgstr "İşletim Sistemi"
+
+msgid "Tormenta con granizo fuerte"
+msgstr "Şiddetli dolu ve fırtına"
+
+msgid "Tormenta con granizo leve"
+msgstr "Hafif dolu ve fırtına"
+
+msgid "Tormenta eléctrica leve"
+msgstr "Hafif gök gürültülü sağanak yağış"
+
+msgid "Unidad de temperatura:"
+msgstr "Sıcaklık birimi:"
+
+msgid "Viento máximo del día: {} kilómetros por hora."
+msgstr "Günün maksimum rüzgarı: saatte {} kilometre."
+
+msgid "Viento: {} a {} kilómetros por hora."
+msgstr "Rüzgar: saatte {} kilometre hızla {}."
+
+msgid "abril"
+msgstr "Nisan"
+
+msgid "agosto"
+msgstr "Ağustos"
+
+msgid "diciembre"
+msgstr "aralık"
+
+msgid "domingo"
+msgstr "pazar"
+
+msgid "enero"
+msgstr "ocak"
+
+msgid "esta madrugada"
+msgstr "bu sabah"
+
+msgid "esta mañana"
+msgstr "bu sabah"
+
+msgid "esta noche"
+msgstr "bu gece"
+
+msgid "esta tarde"
+msgstr "bu öğleden sonra"
+
+msgid "este mediodía"
+msgstr "bu öğlen"
+
+msgid "febrero"
+msgstr "şubat"
+
+msgid "hoy"
+msgstr "bugün"
+
+msgid "jueves"
+msgstr "perşembe"
+
+msgid "julio"
+msgstr "temmuz"
+
+msgid "junio"
+msgstr "haziran"
+
+msgid "lunes"
+msgstr "pazartesi"
+
+msgid "martes"
+msgstr "salı"
+
+msgid "marzo"
+msgstr "Mart"
+
+msgid "mayo"
+msgstr "mayıs"
+
+msgid "mañana"
+msgstr "yarın"
+
+msgid "miércoles"
+msgstr "Çarşamba"
+
+msgid "noviembre"
+msgstr "Kasım"
+
+msgid "octubre"
+msgstr "ekim"
+
+msgid "septiembre"
+msgstr "Eylül"
+
+msgid "sábado"
+msgstr "cumartesi"
+
+msgid "viernes"
+msgstr "cuma"
+
+msgid "{} {} de {}"
+msgstr "{} / {}"
+
+msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{}"
+msgstr "{}: {}. Maksimum {} derece, minimum {} derece. Maksimum rüzgar saatte {} kilometre.{}"
+
+msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{} Sol visible de {} a {}."
+msgstr "{}: {}. Maksimum {} derece, minimum {} derece. Maksimum rüzgar saatte {} kilometre. {} Güneş {} ile {} arasında görünüyor."
+
+msgid "Abre la ventana de configuración de ClimaAccesible."
+msgstr "ClimateAccessible yapılandırma penceresini açın."
+
+msgid "Anuncia el clima actual de la ciudad configurada."
+msgstr "Yapılandırılan şehrin mevcut hava durumunu duyurur."
+
+msgid "Anuncia el pronóstico del clima para los próximos días."
+msgstr "Önümüzdeki birkaç günün hava tahminlerini duyurur."
+
+msgid "Lectura del clima actual"
+msgstr "Güncel hava durumu okuması"
+
+msgid "Lectura del pronóstico extendido"
+msgstr "Genişletilmiş tahminin okunması"
+
+msgid "Ventana de configuración del clima"
+msgstr "İklim ayarları penceresi"
+
+msgid "Weather Plus (superpone atajos globales de clima como NVDA+W)"
+msgstr "Weather Plus (NVDA+W gibi küresel hava durumu kısayollarını kaplar)"
+
+msgid "Weather (superpone atajos globales de información meteorológica)"
+msgstr "Hava Durumu (küresel hava durumu bilgileri kısayollarını kaplar)"
+
+msgid "Weather Update"
+msgstr "Hava Durumu Güncellemesi"
+
+msgid "No se han detectado conflictos de atajos de teclado ni complementos incompatibles de clima activos en este sistema."
+msgstr "Bu sistemde hiçbir klavye kısayolu çakışması veya uyumsuz hava durumu eklentisi etkin olarak algılanmadı."
+
+msgid "Auditoría de compatibilidad - ClimaAccesible"
+msgstr "Uyumluluk denetimi - ClimaAccessible"
+
+msgid "COLISIONES DIRECTAS DE ATAJOS:"
+msgstr "DOĞRUDAN KISAYOL ÇARPIŞMALARI:"
+
+msgid "ADVERTENCIAS DE COMPATIBILIDAD:"
+msgstr "UYUMLULUK UYARILARI:"
+
+msgid "Nota: Los detalles completos también se han registrado en el archivo de log de NVDA."
+msgstr "Not: Tüm ayrıntılar NVDA günlük dosyasına da kaydedilmiştir."
+
+msgid "Comprueba si existen conflictos de atajos de teclado o complementos incompatibles con ClimaAccesible."
+msgstr "ClimaAccesible ile uyumlu olmayan klavye kısayolu çakışmaları veya eklentiler olup olmadığını kontrol edin."
+

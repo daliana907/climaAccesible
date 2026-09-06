@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
-# ClimaAccesible para NVDA
-# NVDA+W = clima actual | NVDA+Shift+W = pronóstico | NVDA+Control+W = configuración
+# Accessible Weather (ClimaAccesible) for NVDA
+#
+# Real-time weather and extended forecast add-on using the open Open-Meteo API.
+# Copyright 2026 Daliana.
+# Released under the GNU General Public License version 2 (GPLv2).
+#
+# Shortcuts: NVDA+W = current weather | NVDA+Shift+W = forecast | NVDA+Control+W = settings
+
 
 import globalPluginHandler
 import scriptHandler

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-# ClimaAccesible - Tareas de instalación y desinstalación
+# Accessible Weather (ClimaAccesible) for NVDA - Install Tasks
+# Copyright 2026 Daliana, released under the GNU General Public License version 2 (GPLv2).
+
 import os
 import globalVars
 from logHandler import log

@@ -1,0 +1,397 @@
+# Translations for ClimaAccesible.
+msgid ""
+msgstr ""
+"Project-Id-Version: climaAccesible 1.4\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n\nmsgid " Precipitación esperada {} de {} milímetros."
+msgstr "Ожидаемое количество осадков {}: {} миллиметров."
+
+msgid " Precipitación esperada: {} milímetros."
+msgstr "Ожидаемые осадки: {} миллиметров."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento con {} milímetros."
+msgstr "Максимальная вероятность дождя: {} процентов на {} миллиметров."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento {} con {} milímetros."
+msgstr "Максимальная вероятность дождя: {} процентов {} на {} миллиметров."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento {}."
+msgstr "Максимальная вероятность дождя: {} процентов {}."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento."
+msgstr "Максимальная вероятность дождя: {} процентов."
+
+msgid "&Cancelar"
+msgstr "&Отменить"
+
+msgid "&Guardar"
+msgstr "&Сохранить"
+
+msgid "Abre el panel de configuración de Clima Accesible."
+msgstr "Откройте панель настроек «Доступный климат»."
+
+msgid "Abre la documentación de la API del clima (en el navegador)."
+msgstr "Откройте документацию Weather API (в браузере)."
+
+msgid "Anuncia el clima actual de la ciudad configurada. Pulsá dos veces para copiar al portapapeles."
+msgstr "Сообщает текущую погоду в настроенном городе. Нажмите дважды, чтобы скопировать в буфер обмена."
+
+msgid "Anuncia el pronóstico para los próximos días. Pulsá dos veces para copiar al portapapeles."
+msgstr "Объявляет прогноз на ближайшие несколько дней. Нажмите дважды, чтобы скопировать в буфер обмена."
+
+msgid "Anunciar Humedad"
+msgstr "Объявить влажность"
+
+msgid "Anunciar Precipitación total"
+msgstr "Объявить общее количество осадков"
+
+msgid "Anunciar Probabilidad de lluvia"
+msgstr "Объявить возможен дождь"
+
+msgid "Anunciar Ráfagas de viento"
+msgstr "Объявлять порывы ветра"
+
+msgid "Anunciar Sensación Térmica"
+msgstr "Реклама Thermal Sensation"
+
+msgid "Anunciar Viento"
+msgstr "Объявить ветер"
+
+msgid "Caída de nieve fuerte"
+msgstr "Сильный снегопад"
+
+msgid "Caída de nieve leve"
+msgstr "Легкий снегопад"
+
+msgid "Caída de nieve moderada"
+msgstr "Умеренный снегопад"
+
+msgid "Celsius"
+msgstr "Цельсия"
+
+msgid "Chubascos de nieve fuertes"
+msgstr "Сильный снегопад"
+
+msgid "Chubascos de nieve leves"
+msgstr "Легкий снегопад"
+
+msgid "Chubascos leves"
+msgstr "Легкий дождь"
+
+msgid "Chubascos moderados"
+msgstr "Умеренный ливень"
+
+msgid "Chubascos violentos"
+msgstr "Сильный ливень"
+
+msgid "Ciudad (Nombre, País):"
+msgstr "Город (Имя, Страна):"
+
+msgid "Clima"
+msgstr "Климат"
+
+msgid "Clima en {}: {}. Temperatura actual: {} grados."
+msgstr "Погода в {}: {}. Текущая температура: {} градусов."
+
+msgid "Clima en {}: {}. Temperatura actual: {} grados. Sensación térmica: {} grados."
+msgstr "Погода в {}: {}. Текущая температура: {} градусов. Холодный ветер: {} градусов."
+
+msgid "ClimaAccesible"
+msgstr "КлиматДоступный"
+
+msgid "Configuración de Clima Accesible"
+msgstr "Доступные климатические настройки"
+
+msgid "Consulta el clima actual y el pronóstico de tu ciudad con atajos de teclado. No requiere cuenta ni clave en ningún servicio."
+msgstr "Проверьте текущую погоду и прогноз для вашего города с помощью сочетаний клавиш. Для каких-либо услуг не требуется учетная запись или пароль."
+
+msgid "Copos de nieve"
+msgstr "снежинки"
+
+msgid "Despejado"
+msgstr "Очистить"
+
+msgid "Días de pronóstico (1 a 16):"
+msgstr "Прогноз дней (от 1 до 16):"
+
+msgid "E"
+msgstr "Э"
+
+msgid "Error del servidor: código {}. Motivo: {}"
+msgstr "Ошибка сервера: код {}. Причина: {}"
+
+msgid "Error inesperado al consultar el clima."
+msgstr "Неожиданная ошибка при проверке погоды."
+
+msgid "Error inesperado al consultar el pronóstico."
+msgstr "Неожиданная ошибка при просмотре прогноза."
+
+msgid "Fahrenheit"
+msgstr "Фаренгейт"
+
+msgid "Humedad: {} por ciento."
+msgstr "Влажность: {} процентов."
+
+msgid "Llovizna densa"
+msgstr "Густой дождь"
+
+msgid "Llovizna helada densa"
+msgstr "Плотный ледяной дождь"
+
+msgid "Llovizna helada ligera"
+msgstr "Легкий ледяной дождь"
+
+msgid "Llovizna ligera"
+msgstr "Легкий дождь"
+
+msgid "Llovizna moderada"
+msgstr "Умеренный дождь"
+
+msgid "Lluvia fuerte"
+msgstr "сильный дождь"
+
+msgid "Lluvia helada fuerte"
+msgstr "Сильный ледяной дождь"
+
+msgid "Lluvia helada leve"
+msgstr "Легкий ледяной дождь"
+
+msgid "Lluvia leve"
+msgstr "небольшой дождь"
+
+msgid "Lluvia moderada"
+msgstr "Умеренный дождь"
+
+msgid "Mayormente despejado"
+msgstr "В основном ясно"
+
+msgid "N"
+msgstr "Н"
+
+msgid "NE"
+msgstr "СВ"
+
+msgid "NO"
+msgstr "НЕТ"
+
+msgid "Niebla"
+msgstr "Туман"
+
+msgid "Niebla con escarcha"
+msgstr "Туман с морозом"
+
+msgid "No hay ciudad configurada. Usá NVDA+Control+W para configurar."
+msgstr "Город не настроен. Используйте NVDA+Control+W для настройки."
+
+msgid "No hay datos seleccionados. Abrí la configuración con NVDA+Control+W."
+msgstr "Данные не выбраны. Я открыл настройки с помощью NVDA+Control+W."
+
+msgid "No se encontró el archivo de documentación."
+msgstr "Файл документации не найден."
+
+msgid "No se pudo conectar al servidor. Verificá tu conexión a Internet."
+msgstr "Не удалось подключиться к серверу. Проверьте подключение к Интернету."
+
+msgid "No se pudo conectar. Verificá tu conexión a Internet."
+msgstr "Не удалось подключиться. Проверьте подключение к Интернету."
+
+msgid "Nublado"
+msgstr "Облачно"
+
+msgid "O"
+msgstr "Или"
+
+msgid "Opciones de información a anunciar (Clima Actual):"
+msgstr "Варианты информации для объявления (текущая погода):"
+
+msgid "Parcialmente nublado"
+msgstr "Небольшая облачность"
+
+msgid "Por favor esperá, consultando el clima..."
+msgstr "Пожалуйста подождите, проверяю погоду..."
+
+msgid "Por favor esperá, consultando el pronóstico de {} días..."
+msgstr "Пожалуйста, подождите, проверяю прогноз на {} дней..."
+
+msgid "Precipitación total esperada del día: {} milímetros {}."
+msgstr "Общее ожидаемое количество осадков за день: {} миллиметров {}."
+
+msgid "Precipitación total esperada del día: {} milímetros."
+msgstr "Общее ожидаемое количество осадков за день: {} миллиметров."
+
+msgid "Probabilidad máxima de lluvia del día: {} por ciento {}."
+msgstr "Максимальная вероятность дождя в течение дня: {} процентов {}."
+
+msgid "Probabilidad máxima de lluvia del día: {} por ciento."
+msgstr "Максимальная вероятность дождя в течение дня: {} процентов."
+
+msgid "Pronóstico para {} para los próximos {} días."
+msgstr "Прогноз для {} на следующие {} дн."
+
+msgid "Ráfaga máxima del día: {} kilómetros por hora."
+msgstr "Максимальный порыв за день: {} километров в час."
+
+msgid "Ráfagas de hasta {} kilómetros por hora."
+msgstr "Порывы до {} километров в час."
+
+msgid "S"
+msgstr "Да"
+
+msgid "SE"
+msgstr "ЮВ"
+
+msgid "SO"
+msgstr "ОС"
+
+msgid "Tormenta con granizo fuerte"
+msgstr "Гроза с сильным градом"
+
+msgid "Tormenta con granizo leve"
+msgstr "Гроза с небольшим градом"
+
+msgid "Tormenta eléctrica leve"
+msgstr "Легкая гроза"
+
+msgid "Unidad de temperatura:"
+msgstr "Единица измерения температуры:"
+
+msgid "Viento máximo del día: {} kilómetros por hora."
+msgstr "Максимальный ветер за день: {} километров в час."
+
+msgid "Viento: {} a {} kilómetros por hora."
+msgstr "Ветер: {}, скорость {} километров в час."
+
+msgid "abril"
+msgstr "апрель"
+
+msgid "agosto"
+msgstr "август"
+
+msgid "diciembre"
+msgstr "декабрь"
+
+msgid "domingo"
+msgstr "воскресенье"
+
+msgid "enero"
+msgstr "январь"
+
+msgid "esta madrugada"
+msgstr "сегодня утром"
+
+msgid "esta mañana"
+msgstr "сегодня утром"
+
+msgid "esta noche"
+msgstr "сегодня вечером"
+
+msgid "esta tarde"
+msgstr "сегодня днем"
+
+msgid "este mediodía"
+msgstr "в этот полдень"
+
+msgid "febrero"
+msgstr "февраль"
+
+msgid "hoy"
+msgstr "сегодня"
+
+msgid "jueves"
+msgstr "Четверг"
+
+msgid "julio"
+msgstr "июль"
+
+msgid "junio"
+msgstr "июнь"
+
+msgid "lunes"
+msgstr "понедельник"
+
+msgid "martes"
+msgstr "вторник"
+
+msgid "marzo"
+msgstr "марш"
+
+msgid "mayo"
+msgstr "может"
+
+msgid "mañana"
+msgstr "завтра"
+
+msgid "miércoles"
+msgstr "среда"
+
+msgid "noviembre"
+msgstr "ноябрь"
+
+msgid "octubre"
+msgstr "октябрь"
+
+msgid "septiembre"
+msgstr "сентябрь"
+
+msgid "sábado"
+msgstr "суббота"
+
+msgid "viernes"
+msgstr "пятница"
+
+msgid "{} {} de {}"
+msgstr "{}{} из {}"
+
+msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{}"
+msgstr "{}: {}. Максимум {} градусов, минимум {} градусов. Максимальный ветер {} километров в час.{}"
+
+msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{} Sol visible de {} a {}."
+msgstr "{}: {}. Максимум {} градусов, минимум {} градусов. Максимальный ветер {} километров в час. {} Солнце видно с {} по {}."
+
+msgid "Abre la ventana de configuración de ClimaAccesible."
+msgstr "Откройте окно конфигурации ClimateAccessible."
+
+msgid "Anuncia el clima actual de la ciudad configurada."
+msgstr "Сообщает текущую погоду в настроенном городе."
+
+msgid "Anuncia el pronóstico del clima para los próximos días."
+msgstr "Объявляет прогноз погоды на ближайшие несколько дней."
+
+msgid "Lectura del clima actual"
+msgstr "Текущая погода"
+
+msgid "Lectura del pronóstico extendido"
+msgstr "Чтение расширенного прогноза"
+
+msgid "Ventana de configuración del clima"
+msgstr "Окно настроек климата"
+
+msgid "Weather Plus (superpone atajos globales de clima como NVDA+W)"
+msgstr "Weather Plus (накладывает глобальные ярлыки погоды, такие как NVDA+W)"
+
+msgid "Weather (superpone atajos globales de información meteorológica)"
+msgstr "Погода (накладывает ярлыки глобальной информации о погоде)"
+
+msgid "Weather Update"
+msgstr "Обновление погоды"
+
+msgid "No se han detectado conflictos de atajos de teclado ni complementos incompatibles de clima activos en este sistema."
+msgstr "В этой системе не обнаружено конфликтов сочетаний клавиш или несовместимых погодных плагинов."
+
+msgid "Auditoría de compatibilidad - ClimaAccesible"
+msgstr "Аудит совместимости - ClimaAccessible"
+
+msgid "COLISIONES DIRECTAS DE ATAJOS:"
+msgstr "ПРЯМЫЕ КОРОТКИЕ СТОЛКНОВЕНИЯ:"
+
+msgid "ADVERTENCIAS DE COMPATIBILIDAD:"
+msgstr "ПРЕДУПРЕЖДЕНИЯ О СОВМЕСТИМОСТИ:"
+
+msgid "Nota: Los detalles completos también se han registrado en el archivo de log de NVDA."
+msgstr "Примечание. Полная информация также записана в файле журнала NVDA."
+
+msgid "Comprueba si existen conflictos de atajos de teclado o complementos incompatibles con ClimaAccesible."
+msgstr "Проверьте, нет ли конфликтов сочетаний клавиш или плагинов, несовместимых с ClimaAccesible."
+
