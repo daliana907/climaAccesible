@@ -23,6 +23,7 @@ import gui
 import os
 import time  # Necesario para medir latencias y tiempos de respuesta HTTP de Open-Meteo
 import datetime
+import socket
 import globalVars
 import core
 from logHandler import log
@@ -666,14 +667,27 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 			url = "https://api.open-meteo.com/v1/forecast" + params
 			log.info(f"ClimaAccesible: Enviando petición HTTP a Open-Meteo: {url}")
-			req = urllib.request.Request(url, headers={"User-Agent": "ClimaAccesible/1.3"})
-			t0 = time.time()
-			with urllib.request.urlopen(req, timeout=10) as r:
-				raw_bytes = r.read()
-				elapsed = time.time() - t0
-				status_code = getattr(r, 'status', 200)
-				log.info(f"ClimaAccesible: Respuesta recibida en {elapsed:.2f}s (HTTP {status_code}, {len(raw_bytes)} bytes).")
-				data = json.loads(raw_bytes.decode("utf-8"))
+			req = urllib.request.Request(url, headers={"User-Agent": "ClimaAccesible/1.4"})
+			raw_bytes = None
+			for attempt in range(2):
+				try:
+					t0 = time.time()
+					with urllib.request.urlopen(req, timeout=15) as r:
+						raw_bytes = r.read()
+						elapsed = time.time() - t0
+						status_code = getattr(r, 'status', 200)
+						log.info(f"ClimaAccesible: Respuesta recibida en {elapsed:.2f}s (HTTP {status_code}, {len(raw_bytes)} bytes, intento {attempt+1}).")
+						break
+				except (TimeoutError, socket.timeout, urllib.error.URLError) as net_err:
+					if attempt == 0 and not self._stopping.is_set():
+						log.warning(f"ClimaAccesible: Reintentando conexión tras error de red: {net_err}")
+						time.sleep(1.0)
+						continue
+					raise
+
+			if self._stopping.is_set() or not raw_bytes:
+				return
+			data = json.loads(raw_bytes.decode("utf-8"))
 
 			# NVDA puede haber empezado a cerrarse mientras esperábamos la red
 			if self._stopping.is_set():
@@ -753,8 +767,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if len(partes) == 1:
 				partes.append(_("No hay datos seleccionados. Abrí la configuración con NVDA+Control+W."))
 
-			self._safeMessage(" ".join(partes))
-
+		except (TimeoutError, socket.timeout):
+			if self._stopping.is_set():
+				return
+			log.error("ClimaAccesible: Tiempo de espera agotado al consultar clima.", exc_info=True)
+			self._safeMessage(_("Tiempo de espera agotado al consultar el clima. Comprobá tu conexión o intentá nuevamente."))
 		except urllib.error.HTTPError as e:
 			if self._stopping.is_set():
 				return
@@ -794,14 +811,27 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			).format(lat=lat, lon=lon, days=forecast_days)
 
 			log.info(f"ClimaAccesible: Enviando petición de pronóstico HTTP a Open-Meteo: {url}")
-			req = urllib.request.Request(url, headers={"User-Agent": "ClimaAccesible/1.3"})
-			t0 = time.time()
-			with urllib.request.urlopen(req, timeout=10) as r:
-				raw_bytes = r.read()
-				elapsed = time.time() - t0
-				status_code = getattr(r, 'status', 200)
-				log.info(f"ClimaAccesible: Respuesta de pronóstico recibida en {elapsed:.2f}s (HTTP {status_code}, {len(raw_bytes)} bytes).")
-				data = json.loads(raw_bytes.decode("utf-8"))
+			req = urllib.request.Request(url, headers={"User-Agent": "ClimaAccesible/1.4"})
+			raw_bytes = None
+			for attempt in range(2):
+				try:
+					t0 = time.time()
+					with urllib.request.urlopen(req, timeout=15) as r:
+						raw_bytes = r.read()
+						elapsed = time.time() - t0
+						status_code = getattr(r, 'status', 200)
+						log.info(f"ClimaAccesible: Respuesta de pronóstico recibida en {elapsed:.2f}s (HTTP {status_code}, {len(raw_bytes)} bytes, intento {attempt+1}).")
+						break
+				except (TimeoutError, socket.timeout, urllib.error.URLError) as net_err:
+					if attempt == 0 and not self._stopping.is_set():
+						log.warning(f"ClimaAccesible: Reintentando pronóstico tras error de red: {net_err}")
+						time.sleep(1.0)
+						continue
+					raise
+
+			if self._stopping.is_set() or not raw_bytes:
+				return
+			data = json.loads(raw_bytes.decode("utf-8"))
 
 			if self._stopping.is_set():
 				return
@@ -903,8 +933,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 						)
 					)
 
-			self._safeMessage(" ".join(partes))
-
+		except (TimeoutError, socket.timeout):
+			if self._stopping.is_set():
+				return
+			log.error("ClimaAccesible: Tiempo de espera agotado en pronóstico.", exc_info=True)
+			self._safeMessage(_("Tiempo de espera agotado al consultar el pronóstico. Comprobá tu conexión o intentá nuevamente."))
 		except urllib.error.HTTPError as e:
 			if self._stopping.is_set():
 				return
