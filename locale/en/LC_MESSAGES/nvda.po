@@ -1,0 +1,403 @@
+# English translations for climaAccesible.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: climaAccesible 1.0\n"
+"POT-Creation-Date: 2026-09-05 12:00+0000\n"
+"PO-Revision-Date: 2026-09-05 12:00+0000\n"
+"Last-Translator: Daliana\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid " Precipitación esperada {} de {} milímetros."
+msgstr " Expected precipitation {} of {} millimeters."
+
+msgid " Precipitación esperada: {} milímetros."
+msgstr " Expected precipitation: {} millimeters."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento con {} milímetros."
+msgstr " Max rain probability: {} percent with {} millimeters."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento {} con {} milímetros."
+msgstr " Max rain probability: {} percent {} with {} millimeters."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento {}."
+msgstr " Max rain probability: {} percent {}."
+
+msgid " Probabilidad máxima de lluvia: {} por ciento."
+msgstr " Max rain probability: {} percent."
+
+msgid "&Cancelar"
+msgstr "&Cancel"
+
+msgid "&Guardar"
+msgstr "&Save"
+
+msgid "Abre el panel de configuración de Clima Accesible."
+msgstr "Opens Accessible Weather configuration panel."
+
+msgid "Abre la documentación de la API del clima (en el navegador)."
+msgstr "Opens weather API documentation (in browser)."
+
+msgid "Anuncia el clima actual de la ciudad configurada. Pulsá dos veces para copiar al portapapeles."
+msgstr "Announces current weather for configured city. Press twice to copy to clipboard."
+
+msgid "Anuncia el pronóstico para los próximos días. Pulsá dos veces para copiar al portapapeles."
+msgstr "Announces forecast for upcoming days. Press twice to copy to clipboard."
+
+msgid "Anunciar Humedad"
+msgstr "Announce Humidity"
+
+msgid "Anunciar Precipitación total"
+msgstr "Announce Total Precipitation"
+
+msgid "Anunciar Probabilidad de lluvia"
+msgstr "Announce Rain Probability"
+
+msgid "Anunciar Ráfagas de viento"
+msgstr "Announce Wind Gusts"
+
+msgid "Anunciar Sensación Térmica"
+msgstr "Announce Feels Like Temperature"
+
+msgid "Anunciar Viento"
+msgstr "Announce Wind"
+
+msgid "Caída de nieve fuerte"
+msgstr "Heavy snowfall"
+
+msgid "Caída de nieve leve"
+msgstr "Light snowfall"
+
+msgid "Caída de nieve moderada"
+msgstr "Moderate snowfall"
+
+msgid "Celsius"
+msgstr "Celsius"
+
+msgid "Chubascos de nieve fuertes"
+msgstr "Heavy snow showers"
+
+msgid "Chubascos de nieve leves"
+msgstr "Light snow showers"
+
+msgid "Chubascos leves"
+msgstr "Light showers"
+
+msgid "Chubascos moderados"
+msgstr "Moderate showers"
+
+msgid "Chubascos violentos"
+msgstr "Violent showers"
+
+msgid "Ciudad (Nombre, País):"
+msgstr "City (Name, Country):"
+
+msgid "Clima"
+msgstr "Weather"
+
+msgid "Clima en {}: {}. Temperatura actual: {} grados."
+msgstr "Weather in {}: {}. Current temp: {} degrees."
+
+msgid "Clima en {}: {}. Temperatura actual: {} grados. Sensación térmica: {} grados."
+msgstr "Weather in {}: {}. Current temp: {} degrees. Feels like: {} degrees."
+
+msgid "ClimaAccesible"
+msgstr "Accessible Weather"
+
+msgid "Configuración de Clima Accesible"
+msgstr "Accessible Weather Configuration"
+
+msgid "Consulta el clima actual y el pronóstico de tu ciudad con atajos de teclado. No requiere cuenta ni clave en ningún servicio."
+msgstr "Check current weather and forecast for your city using keyboard shortcuts. No account or API key required."
+
+msgid "Copos de nieve"
+msgstr "Snow grains"
+
+msgid "Despejado"
+msgstr "Clear"
+
+msgid "Días de pronóstico (1 a 16):"
+msgstr "Forecast days (1 to 16):"
+
+msgid "E"
+msgstr "E"
+
+msgid "Error del servidor: código {}. Motivo: {}"
+msgstr "Server error: code {}. Reason: {}"
+
+msgid "Error inesperado al consultar el clima."
+msgstr "Unexpected error checking weather."
+
+msgid "Error inesperado al consultar el pronóstico."
+msgstr "Unexpected error checking forecast."
+
+msgid "Fahrenheit"
+msgstr "Fahrenheit"
+
+msgid "Humedad: {} por ciento."
+msgstr "Humidity: {} percent."
+
+msgid "Llovizna densa"
+msgstr "Dense drizzle"
+
+msgid "Llovizna helada densa"
+msgstr "Dense freezing drizzle"
+
+msgid "Llovizna helada ligera"
+msgstr "Light freezing drizzle"
+
+msgid "Llovizna ligera"
+msgstr "Light drizzle"
+
+msgid "Llovizna moderada"
+msgstr "Moderate drizzle"
+
+msgid "Lluvia fuerte"
+msgstr "Heavy rain"
+
+msgid "Lluvia helada fuerte"
+msgstr "Heavy freezing rain"
+
+msgid "Lluvia helada leve"
+msgstr "Light freezing rain"
+
+msgid "Lluvia leve"
+msgstr "Light rain"
+
+msgid "Lluvia moderada"
+msgstr "Moderate rain"
+
+msgid "Mayormente despejado"
+msgstr "Mostly clear"
+
+msgid "N"
+msgstr "N"
+
+msgid "NE"
+msgstr "NE"
+
+msgid "NO"
+msgstr "NW"
+
+msgid "Niebla"
+msgstr "Fog"
+
+msgid "Niebla con escarcha"
+msgstr "Freezing fog"
+
+msgid "No hay ciudad configurada. Usá NVDA+Control+W para configurar."
+msgstr "No city configured. Use NVDA+Control+W to configure."
+
+msgid "No hay datos seleccionados. Abrí la configuración con NVDA+Control+W."
+msgstr "No data selected. Open configuration with NVDA+Control+W."
+
+msgid "No se encontró el archivo de documentación."
+msgstr "Documentation file not found."
+
+msgid "No se pudo conectar al servidor. Verificá tu conexión a Internet."
+msgstr "Could not connect to server. Check your internet connection."
+
+msgid "No se pudo conectar. Verificá tu conexión a Internet."
+msgstr "Could not connect. Check your internet connection."
+
+msgid "Nublado"
+msgstr "Cloudy"
+
+msgid "O"
+msgstr "W"
+
+msgid "Opciones de información a anunciar (Clima Actual):"
+msgstr "Options to announce (Current Weather):"
+
+msgid "Parcialmente nublado"
+msgstr "Partly cloudy"
+
+msgid "Por favor esperá, consultando el clima..."
+msgstr "Please wait, checking weather..."
+
+msgid "Por favor esperá, consultando el pronóstico de {} días..."
+msgstr "Please wait, checking {}-day forecast..."
+
+msgid "Precipitación total esperada del día: {} milímetros {}."
+msgstr "Expected total daily precipitation: {} millimeters {}."
+
+msgid "Precipitación total esperada del día: {} milímetros."
+msgstr "Expected total daily precipitation: {} millimeters."
+
+msgid "Probabilidad máxima de lluvia del día: {} por ciento {}."
+msgstr "Max daily rain probability: {} percent {}."
+
+msgid "Probabilidad máxima de lluvia del día: {} por ciento."
+msgstr "Max daily rain probability: {} percent."
+
+msgid "Pronóstico para {} para los próximos {} días."
+msgstr "Forecast for {} for the next {} days."
+
+msgid "Ráfaga máxima del día: {} kilómetros por hora."
+msgstr "Max daily gust: {} km/h."
+
+msgid "Ráfagas de hasta {} kilómetros por hora."
+msgstr "Gusts up to {} km/h."
+
+msgid "S"
+msgstr "S"
+
+msgid "SE"
+msgstr "SE"
+
+msgid "SO"
+msgstr "SW"
+
+msgid "Tormenta con granizo fuerte"
+msgstr "Thunderstorm with heavy hail"
+
+msgid "Tormenta con granizo leve"
+msgstr "Thunderstorm with slight hail"
+
+msgid "Tormenta eléctrica leve"
+msgstr "Light thunderstorm"
+
+msgid "Unidad de temperatura:"
+msgstr "Temperature unit:"
+
+msgid "Viento máximo del día: {} kilómetros por hora."
+msgstr "Max daily wind: {} km/h."
+
+msgid "Viento: {} a {} kilómetros por hora."
+msgstr "Wind: {} to {} km/h."
+
+msgid "abril"
+msgstr "April"
+
+msgid "agosto"
+msgstr "August"
+
+msgid "diciembre"
+msgstr "December"
+
+msgid "domingo"
+msgstr "Sunday"
+
+msgid "enero"
+msgstr "January"
+
+msgid "esta madrugada"
+msgstr "early this morning"
+
+msgid "esta mañana"
+msgstr "this morning"
+
+msgid "esta noche"
+msgstr "tonight"
+
+msgid "esta tarde"
+msgstr "this afternoon"
+
+msgid "este mediodía"
+msgstr "this noon"
+
+msgid "febrero"
+msgstr "February"
+
+msgid "hoy"
+msgstr "today"
+
+msgid "jueves"
+msgstr "Thursday"
+
+msgid "julio"
+msgstr "July"
+
+msgid "junio"
+msgstr "June"
+
+msgid "lunes"
+msgstr "Monday"
+
+msgid "martes"
+msgstr "Tuesday"
+
+msgid "marzo"
+msgstr "March"
+
+msgid "mayo"
+msgstr "May"
+
+msgid "mañana"
+msgstr "tomorrow"
+
+msgid "miércoles"
+msgstr "Wednesday"
+
+msgid "noviembre"
+msgstr "November"
+
+msgid "octubre"
+msgstr "October"
+
+msgid "septiembre"
+msgstr "September"
+
+msgid "sábado"
+msgstr "Saturday"
+
+msgid "viernes"
+msgstr "Friday"
+
+msgid "{} {} de {}"
+msgstr "{} {} {}"
+
+msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{}"
+msgstr "{}: {}. High {} degrees, low {} degrees. Max wind {} km/h.{}"
+
+msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{} Sol visible de {} a {}."
+msgstr "{}: {}. High {} degrees, low {} degrees. Max wind {} km/h.{} Sun visible from {} to {}."
+
+msgid "Abre la ventana de configuración de ClimaAccesible."
+msgstr "Opens the ClimaAccesible configuration window."
+
+msgid "Anuncia el clima actual de la ciudad configurada."
+msgstr "Announces current weather for the configured city."
+
+msgid "Anuncia el pronóstico del clima para los próximos días."
+msgstr "Announces weather forecast for the upcoming days."
+
+msgid "Lectura del clima actual"
+msgstr "Current weather reading"
+
+msgid "Lectura del pronóstico extendido"
+msgstr "Extended forecast reading"
+
+msgid "Ventana de configuración del clima"
+msgstr "Weather configuration window"
+
+msgid "Weather Plus (superpone atajos globales de clima como NVDA+W)"
+msgstr "Weather Plus (overlaps global weather shortcuts such as NVDA+W)"
+
+msgid "Weather (superpone atajos globales de información meteorológica)"
+msgstr "Weather (overlaps global weather information shortcuts)"
+
+msgid "Weather Update"
+msgstr "Weather Update"
+
+msgid "No se han detectado conflictos de atajos de teclado ni complementos incompatibles de clima activos en este sistema."
+msgstr "No keyboard shortcut conflicts or active incompatible weather add-ons detected on this system."
+
+msgid "Auditoría de compatibilidad - ClimaAccesible"
+msgstr "Compatibility Audit - ClimaAccesible"
+
+msgid "COLISIONES DIRECTAS DE ATAJOS:"
+msgstr "DIRECT SHORTCUT COLLISIONS:"
+
+msgid "ADVERTENCIAS DE COMPATIBILIDAD:"
+msgstr "COMPATIBILITY WARNINGS:"
+
+msgid "Nota: Los detalles completos también se han registrado en el archivo de log de NVDA."
+msgstr "Note: Full details have also been logged to the NVDA log file."
+
+msgid "Comprueba si existen conflictos de atajos de teclado o complementos incompatibles con ClimaAccesible."
+msgstr "Checks for keyboard shortcut conflicts or add-ons incompatible with ClimaAccesible."
