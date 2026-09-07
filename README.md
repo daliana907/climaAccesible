@@ -1,67 +1,75 @@
-# Accessible Weather (ClimaAccesible) for NVDA
+# ClimaAccesible para NVDA (Accessible Weather)
 
-* **Author:** Daliana
-* **Version:** 1.4
-* **Compatibility:** NVDA 2019.3 or later
-* **License:** GNU General Public License v2.0 (GPLv2)
+Autora: Daliana
+Versión: 1.4
+Compatibilidad: NVDA 2019.3 en adelante
+Licencia: GNU GPL v2
 
-[Versión en español más abajo](#versión-en-español)
-
----
-
-## English
-
-**Accessible Weather (ClimaAccesible)** is an accessible weather and forecast add-on for the NVDA screen reader. It allows users to check current weather conditions and detailed multi-day forecasts using simple, accessible keyboard shortcuts.
-
-### Why ClimaAccesible?
-Unlike legacy weather add-ons that require obtaining private API keys from commercial services, suffer from confusing date formatting in non-English languages, or bundle heavy legacy libraries, ClimaAccesible was built from scratch to provide a seamless, modern experience:
-
-* **Zero configuration & no API keys:** Powered by the open Open-Meteo API. It requires no registration, no accounts, and no API keys. It works right out of the box upon installation.
-* **Natural language forecast:** Features a human-friendly forecasting engine that clearly announces "today", "tomorrow", and subsequent calendar dates ("Monday, September 7"), avoiding confusing repetitive dates.
-* **Time-of-day rain breakdown:** Announces whether precipitation is expected in the morning, afternoon, evening, or throughout the day.
-* **Offline geographic database:** Includes an offline database (`geodata.json`) with over 50,000 cities organized into accessible cascading dropdowns (Country > Region > City), with no GPS tracking or location permissions needed.
-* **20 customizable weather metrics:** Users can toggle exactly which metrics they wish to hear (temperature, apparent sensation, humidity, wind speed/gusts/direction, atmospheric pressure, UV index, sunrise/sunset, daylight hours, etc.).
-
-### Keyboard Shortcuts
-* **NVDA + W**: Announces current weather conditions for the configured city.
-* **NVDA + Shift + W**: Announces the multi-day extended weather forecast.
-* **NVDA + Control + W**: Opens the accessible settings dialog to choose your city and customize announced metrics.
-
-### Third-Party Data & Privacy
-* Weather forecasts and meteorological data are provided by [Open-Meteo](https://open-meteo.com/) under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
-* The add-on respects user privacy: it transmits only geographical coordinates (latitude and longitude) to fetch public meteorological data, without gathering or storing any personal identifiers or location history.
-
-### Credits & Acknowledgements
-* **Original concept & inspiration:** Inspired by the pioneering concept of **Weather Plus** by Adriano Barbieri and contributors. ClimaAccesible represents a modern, independent ground-up rewrite that replaces commercial private API keys with Open-Meteo, fixes long-standing date repetition bugs in non-English forecasts, removes legacy dependencies/DLLs, and provides an offline geographic database.
-* **Meteorological Data:** Provided by [Open-Meteo](https://open-meteo.com/) under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license.
-* **Author & Maintainer:** Daliana
-* **License:** GNU General Public License v2.0 (GPLv2)
+[Read in English below](#english-version)
 
 ---
 
 ## Versión en Español
 
-**ClimaAccesible** es un complemento de información meteorológica y pronóstico del tiempo para el lector de pantalla NVDA. Permite consultar el clima actual y el pronóstico de los próximos días mediante atajos de teclado accesibles.
+ClimaAccesible es un complemento para NVDA pensado para consultar el estado del tiempo y el pronóstico de los próximos días de forma rápida, cómoda y sin complicaciones.
 
-### Características Principales
-* **Sin cuentas ni claves API:** Funciona de forma inmediata gracias a la API abierta de Open-Meteo, sin necesidad de registros externos ni claves privadas.
-* **Pronóstico con lenguaje natural:** Distingue con total claridad entre «hoy», «mañana» y las fechas posteriores («lunes 7 de septiembre»), sin mezclar días.
-* **Precipitaciones por franja horaria:** Informa si las lluvias ocurrirán por la mañana, por la tarde, por la noche o durante todo el día.
-* **Base de datos de ciudades sin conexión:** Más de 50.000 localidades organizadas en listas desplegables (País > Departamento/Región > Ciudad) sin requerir GPS.
-* **20 opciones personalizables:** Permite elegir con casillas de verificación qué datos escuchar (temperatura, sensación térmica, humedad, viento, ráfagas, presión, índice UV, horas de luz, etc.).
+### Ventajas de este complemento
+- Funciona de inmediato: Utiliza la API abierta de Open-Meteo. No tienes que entrar a ninguna página web rara a crearte cuentas ni conseguir claves privadas. Lo instalas, eliges tu ciudad y ya funciona.
+- Pronóstico fácil de entender: Dice claramente hoy, mañana y los días que siguen (por ejemplo: lunes 7 de septiembre), sin repetir fechas ni mezclar días.
+- Avisos de lluvia por momento del día: Si va a llover, te dice si será por la mañana, por la tarde, por la noche o durante todo el día.
+- Ciudades sin conexión: Contiene una lista de más de 50.000 localidades organizadas por País, Provincia o Departamento y Ciudad, para que elijas la tuya sin necesidad de GPS ni permisos especiales.
+- Elige qué quieres escuchar: Desde las opciones puedes marcar o desmarcar con casillas si quieres saber la sensación térmica, humedad, viento, presión, índice UV o la hora en que sale y se pone el sol.
 
-### Atajos de Teclado
-* **NVDA + W**: Anuncia el clima actual de la ciudad configurada.
-* **NVDA + Shift + W**: Anuncia el pronóstico del tiempo para los próximos días.
-* **NVDA + Control + W**: Abre la ventana de configuración.
+### Atajos de teclado
+- NVDA + W: Escuchar el clima actual en tu ciudad.
+- NVDA + Shift + W: Escuchar el pronóstico para los próximos días.
+- NVDA + Control + W: Abrir la ventana de configuración para elegir tu ciudad o cambiar las opciones.
 
-### Datos de Terceros y Privacidad
-* Datos meteorológicos proporcionados por [Open-Meteo](https://open-meteo.com/) bajo licencia [Creative Commons Atribución 4.0 Internacional (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
-* El complemento no recopila datos personales ni requiere permisos de rastreo.
+### Menú en Herramientas de NVDA
+También puedes acceder desde el menú de NVDA > Herramientas > ClimaAccesible:
+- Configuración del complemento: Abre la ventana de opciones.
+- Comprobar conflictos con otros complementos...: Verifica si otros complementos interfieren con los atajos.
+- Documentación: Abre este manual de ayuda.
+
+### Cómo empezar
+1. Presiona NVDA + Control + W para abrir las opciones.
+2. En la lista País, selecciona tu país.
+3. Con Tabulador pasa a Región / Departamento y elige el tuyo.
+4. Con Tabulador pasa a Ciudad y elige tu localidad.
+5. Marca las casillas de los datos que te interesen y pulsa Guardar.
 
 ### Créditos y Agradecimientos
-* **Inspiración conceptual original:** Inspirado en el concepto pionero de **Weather Plus** creado por Adriano Barbieri y colaboradores. ClimaAccesible es una reimplementación moderna e independiente diseñada para eliminar la necesidad de claves API privadas, solucionar las ambigüedades de fechas en los pronósticos en español, prescindir de librerías binarias heredadas e integrar una base de datos geográfica sin conexión.
-* **Datos meteorológicos:** Suministrados por [Open-Meteo](https://open-meteo.com/) bajo licencia [Creative Commons Atribución 4.0 Internacional (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
-* **Base de datos geográfica:** Countries States Cities Database bajo licencia [Open Database License (ODbL 1.0)](https://opendatacommons.org/licenses/odbl/1-0/).
-* **Autora y mantenimiento:** Daliana
-* **Licencia:** GNU General Public License versión 2.0 (GPLv2)
+- Idea original: Inspirado en el concepto pionero de Weather Plus creado por Adriano Barbieri y colaboradores. ClimaAccesible fue reescrito desde cero para funcionar con Open-Meteo sin claves API, con fechas naturales en español y base de ciudades local.
+- Datos del clima: Provistos por Open-Meteo bajo licencia Creative Commons Atribución 4.0 (CC BY 4.0).
+
+---
+
+## English Version
+
+Accessible Weather is an NVDA add-on providing fast, accurate current weather and forecasts without needing API keys or account registration.
+
+### Key Highlights
+- Works out of the box: Powered by Open-Meteo open weather API. No signup or private API keys required.
+- Natural multi-day forecasts: Plain-language summaries for today, tomorrow, and upcoming days with temperature trends and precipitation periods.
+- Offline city database: Over 50,000 cities organized by Country, Province/State, and City.
+- Customizable speech output: Toggle feels-like temperature, humidity, wind, pressure, UV index, and sunrise/sunset times.
+
+### Keyboard Shortcuts
+- NVDA + W: Announce current weather conditions.
+- NVDA + Shift + W: Announce forecast for upcoming days.
+- NVDA + Control + W: Open settings dialog.
+
+### NVDA Tools Menu
+You can also access the add-on from NVDA > Tools > ClimaAccesible:
+- Add-on settings: Open configuration dialog.
+- Check add-on conflicts: Check if any other installed add-on conflicts with weather shortcuts.
+- Documentation: Open this user guide.
+
+### Getting Started
+1. Press NVDA + Control + W to open settings.
+2. Choose your Country, Province/State, and City.
+3. Select your desired weather details and click Save.
+
+### Credits
+- Inspired by Weather Plus by Adriano Barbieri and contributors.
+- Weather data provided by Open-Meteo under CC BY 4.0.

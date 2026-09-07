@@ -528,7 +528,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self._subMenu, "ClimaAccesible", "Opciones de ClimaAccesible"
 		)
 		threading.Thread(target=self._startupBackgroundWorker, daemon=True).start()
-		log.info("ClimaAccesible: Inicializando complemento (v1.3)...")
+		log.info("ClimaAccesible: Inicializando complemento (v1.4)...")
 		log.info("ClimaAccesible: Submenú registrado en Herramientas exitosamente.")
 
 	def terminate(self):
