@@ -642,6 +642,31 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				except Exception as ex:
 					log.error(f"ClimaAccesible: _safeMessage falló: {ex}", exc_info=True)
 
+	def _getJsonFromApi(self, url, label="general"):
+		"""Envía petición HTTP a Open-Meteo con reintento automático y decodifica JSON."""
+		log.info(f"ClimaAccesible: Enviando petición HTTP ({label}) a Open-Meteo: {url}")
+		req = urllib.request.Request(url, headers={"User-Agent": "ClimaAccesible/1.4"})
+		raw_bytes = None
+		for attempt in range(2):
+			try:
+				t0 = time.time()
+				with urllib.request.urlopen(req, timeout=15) as r:
+					raw_bytes = r.read()
+					elapsed = time.time() - t0
+					status_code = getattr(r, 'status', 200)
+					log.info(f"ClimaAccesible: Respuesta ({label}) recibida en {elapsed:.2f}s (HTTP {status_code}, {len(raw_bytes)} bytes, intento {attempt+1}).")
+					break
+			except (TimeoutError, socket.timeout, urllib.error.URLError) as net_err:
+				if attempt == 0 and not self._stopping.is_set():
+					log.warning(f"ClimaAccesible: Reintentando petición ({label}) tras error de red: {net_err}")
+					time.sleep(1.0)
+					continue
+				raise
+
+		if self._stopping.is_set() or not raw_bytes:
+			return None
+		return json.loads(raw_bytes.decode("utf-8"))
+
 	# ── consulta clima actual ─────────────────────────────────────────────────
 
 	def _fetchWeather(self, cfg):
@@ -666,31 +691,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			params += "&hourly=precipitation_probability,precipitation"
 
 			url = "https://api.open-meteo.com/v1/forecast" + params
-			log.info(f"ClimaAccesible: Enviando petición HTTP a Open-Meteo: {url}")
-			req = urllib.request.Request(url, headers={"User-Agent": "ClimaAccesible/1.4"})
-			raw_bytes = None
-			for attempt in range(2):
-				try:
-					t0 = time.time()
-					with urllib.request.urlopen(req, timeout=15) as r:
-						raw_bytes = r.read()
-						elapsed = time.time() - t0
-						status_code = getattr(r, 'status', 200)
-						log.info(f"ClimaAccesible: Respuesta recibida en {elapsed:.2f}s (HTTP {status_code}, {len(raw_bytes)} bytes, intento {attempt+1}).")
-						break
-				except (TimeoutError, socket.timeout, urllib.error.URLError) as net_err:
-					if attempt == 0 and not self._stopping.is_set():
-						log.warning(f"ClimaAccesible: Reintentando conexión tras error de red: {net_err}")
-						time.sleep(1.0)
-						continue
-					raise
-
-			if self._stopping.is_set() or not raw_bytes:
-				return
-			data = json.loads(raw_bytes.decode("utf-8"))
-
-			# NVDA puede haber empezado a cerrarse mientras esperábamos la red
-			if self._stopping.is_set():
+			data = self._getJsonFromApi(url, "clima actual")
+			if not data or self._stopping.is_set():
 				return
 
 			c = data.get("current", {})
@@ -812,30 +814,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				"&wind_speed_unit=kmh&timezone=auto&forecast_days={days}"
 			).format(lat=lat, lon=lon, days=forecast_days)
 
-			log.info(f"ClimaAccesible: Enviando petición de pronóstico HTTP a Open-Meteo: {url}")
-			req = urllib.request.Request(url, headers={"User-Agent": "ClimaAccesible/1.4"})
-			raw_bytes = None
-			for attempt in range(2):
-				try:
-					t0 = time.time()
-					with urllib.request.urlopen(req, timeout=15) as r:
-						raw_bytes = r.read()
-						elapsed = time.time() - t0
-						status_code = getattr(r, 'status', 200)
-						log.info(f"ClimaAccesible: Respuesta de pronóstico recibida en {elapsed:.2f}s (HTTP {status_code}, {len(raw_bytes)} bytes, intento {attempt+1}).")
-						break
-				except (TimeoutError, socket.timeout, urllib.error.URLError) as net_err:
-					if attempt == 0 and not self._stopping.is_set():
-						log.warning(f"ClimaAccesible: Reintentando pronóstico tras error de red: {net_err}")
-						time.sleep(1.0)
-						continue
-					raise
-
-			if self._stopping.is_set() or not raw_bytes:
-				return
-			data = json.loads(raw_bytes.decode("utf-8"))
-
-			if self._stopping.is_set():
+			data = self._getJsonFromApi(url, "pronóstico")
+			if not data or self._stopping.is_set():
 				return
 
 			d           = data.get("daily", {})
@@ -964,7 +944,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def _startupBackgroundWorker(self):
 		try:
-			import time
 			time.sleep(3.0)
 			self._checkAddonConflicts(interactive=False)
 		except Exception as e:
