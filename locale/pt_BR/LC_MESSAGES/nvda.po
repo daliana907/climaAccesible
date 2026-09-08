@@ -2,396 +2,908 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: climaAccesible 1.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-08 06:42+0000\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n\nmsgid " Precipitación esperada {} de {} milímetros."
-msgstr "Precipitação esperada {} de {} milímetros."
+"Content-Transfer-Encoding: 8bit\n"
 
-msgid " Precipitación esperada: {} milímetros."
-msgstr "Precipitação esperada: {} milímetros."
+#: climaAccesible/globalPlugins/climaAccesible.py:54
+msgid "Temperatura actual"
+msgstr ""
 
-msgid " Probabilidad máxima de lluvia: {} por ciento con {} milímetros."
-msgstr "Chance máxima de chuva: {} por cento com {} milímetros."
-
-msgid " Probabilidad máxima de lluvia: {} por ciento {} con {} milímetros."
-msgstr "Chance máxima de chuva: {} por cento {} com {} milímetros."
-
-msgid " Probabilidad máxima de lluvia: {} por ciento {}."
-msgstr "Chance máxima de chuva: {} por cento {}."
-
-msgid " Probabilidad máxima de lluvia: {} por ciento."
-msgstr "Chance máxima de chuva: {} por cento."
-
-msgid "&Cancelar"
-msgstr "&Cancelar"
-
-msgid "&Guardar"
-msgstr "&Salvar"
-
-msgid "Abre el panel de configuración de Clima Accesible."
-msgstr "Abra o painel de configurações de Clima Acessível."
-
-msgid "Abre la documentación de la API del clima (en el navegador)."
-msgstr "Abra a documentação da API Weather (no navegador)."
-
-msgid "Anuncia el clima actual de la ciudad configurada. Pulsá dos veces para copiar al portapapeles."
-msgstr "Anuncia o clima atual da cidade configurada. Pressione duas vezes para copiar para a área de transferência."
-
-msgid "Anuncia el pronóstico para los próximos días. Pulsá dos veces para copiar al portapapeles."
-msgstr "Anuncia a previsão para os próximos dias. Pressione duas vezes para copiar para a área de transferência."
-
-msgid "Anunciar Humedad"
-msgstr "Anunciar umidade"
-
-msgid "Anunciar Precipitación total"
-msgstr "Anunciar precipitação total"
-
-msgid "Anunciar Probabilidad de lluvia"
-msgstr "Anunciar possibilidade de chuva"
-
-msgid "Anunciar Ráfagas de viento"
-msgstr "Anuncie rajadas de vento"
-
-msgid "Anunciar Sensación Térmica"
+#: climaAccesible/globalPlugins/climaAccesible.py:55
+#, fuzzy
+msgid "Sensación térmica"
 msgstr "Anuncie Sensação Térmica"
 
-msgid "Anunciar Viento"
-msgstr "Anunciar Vento"
+#: climaAccesible/globalPlugins/climaAccesible.py:56
+#, fuzzy
+msgid "Condición del cielo"
+msgstr "Configurações climáticas acessíveis"
 
-msgid "Caída de nieve fuerte"
-msgstr "Queda de neve forte"
+#: climaAccesible/globalPlugins/climaAccesible.py:57
+msgid "Si es de día o de noche"
+msgstr ""
 
-msgid "Caída de nieve leve"
-msgstr "Queda de neve leve"
+#: climaAccesible/globalPlugins/climaAccesible.py:58
+#, fuzzy
+msgid "Humedad"
+msgstr "Anunciar umidade"
 
-msgid "Caída de nieve moderada"
-msgstr "Queda de neve moderada"
+#: climaAccesible/globalPlugins/climaAccesible.py:59
+msgid "Punto de rocío"
+msgstr ""
 
-msgid "Celsius"
-msgstr "Celsius"
+#: climaAccesible/globalPlugins/climaAccesible.py:60
+msgid "Velocidad del viento"
+msgstr ""
 
-msgid "Chubascos de nieve fuertes"
-msgstr "Fortes pancadas de neve"
+#: climaAccesible/globalPlugins/climaAccesible.py:61
+msgid "Dirección del viento"
+msgstr ""
 
-msgid "Chubascos de nieve leves"
-msgstr "Chuvas de neve fracas"
+#: climaAccesible/globalPlugins/climaAccesible.py:62
+#, fuzzy
+msgid "Ráfagas de viento"
+msgstr "Anuncie rajadas de vento"
 
-msgid "Chubascos leves"
+#: climaAccesible/globalPlugins/climaAccesible.py:63
+msgid "Nubosidad"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:64
+#, fuzzy
+msgid "Precipitación actual"
+msgstr "Anunciar precipitação total"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:65
+msgid "Presión atmosférica"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:66
+msgid "Hora de salida del sol"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:67
+msgid "Hora de puesta del sol"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:68
+msgid "Horas de luz solar del día"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:69
+msgid "Índice UV máximo del día"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:70
+#, fuzzy
+msgid "Probabilidad máxima de lluvia del día"
+msgstr "Probabilidade máxima de chuva para o dia: {} por cento."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:71
+#, fuzzy
+msgid "Precipitación total esperada del día"
+msgstr "Precipitação total esperada para o dia: {} milímetros."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:72
+#, fuzzy
+msgid "Viento máximo del día"
+msgstr "Vento máximo do dia: {} quilômetros por hora."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:73
+#, fuzzy
+msgid "Ráfaga máxima del día"
+msgstr "Rajada máxima do dia: {} quilômetros por hora."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:119
+msgid "{} horas y {} minutos"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:121
+msgid "{} horas"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:123
+msgid "{} minutos"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:129
+msgid "dirección desconocida"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:131
+msgid "norte"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:131
+msgid "nor noreste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:131
+msgid "noreste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:131
+msgid "este noreste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:132
+msgid "este"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:132
+msgid "este sureste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:132
+msgid "sureste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:132
+msgid "sur sureste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:133
+msgid "sur"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:133
+msgid "sur suroeste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:133
+msgid "suroeste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:133
+msgid "oeste suroeste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:134
+msgid "oeste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:134
+msgid "oeste noroeste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:134
+msgid "noroeste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:134
+msgid "nor noroeste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:140
+#, fuzzy
+msgid "cielo despejado"
+msgstr "Limpar"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:140
+#, fuzzy
+msgid "mayormente despejado"
+msgstr "Principalmente claro"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:140
+#, fuzzy
+msgid "parcialmente nublado"
+msgstr "Parcialmente nublado"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:141
+#, fuzzy
+msgid "nublado"
+msgstr "Nublado"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:141
+#, fuzzy
+msgid "niebla"
+msgstr "Nevoeiro"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:141
+#, fuzzy
+msgid "niebla con escarcha"
+msgstr "Nevoeiro com geada"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:142
+#, fuzzy
+msgid "llovizna ligera"
+msgstr "Chuvisco leve"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:142
+#, fuzzy
+msgid "llovizna moderada"
+msgstr "Chuvisco moderado"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:142
+#, fuzzy
+msgid "llovizna densa"
+msgstr "Chuvisco denso"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:143
+#, fuzzy
+msgid "lluvia ligera"
+msgstr "Chuvisco leve"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:143
+#, fuzzy
+msgid "lluvia moderada"
+msgstr "Chuva moderada"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:143
+#, fuzzy
+msgid "lluvia intensa"
+msgstr "Chuvisco denso"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:144
+#, fuzzy
+msgid "nevada ligera"
+msgstr "Chuvisco leve e gelado"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:144
+#, fuzzy
+msgid "nevada moderada"
+msgstr "Chuva moderada"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:144
+msgid "nevada intensa"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:145
+msgid "granizo fino"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:145
+#, fuzzy
+msgid "chubascos ligeros"
 msgstr "Chuveiros leves"
 
-msgid "Chubascos moderados"
+#: climaAccesible/globalPlugins/climaAccesible.py:145
+#, fuzzy
+msgid "chubascos moderados"
 msgstr "Chuveiros moderados"
 
-msgid "Chubascos violentos"
+#: climaAccesible/globalPlugins/climaAccesible.py:146
+#, fuzzy
+msgid "chubascos intensos"
 msgstr "Chuvas violentas"
 
-msgid "Ciudad (Nombre, País):"
-msgstr "Cidade (Nome, País):"
+#: climaAccesible/globalPlugins/climaAccesible.py:146
+#, fuzzy
+msgid "chubascos de nieve ligeros"
+msgstr "Chuvas de neve fracas"
 
-msgid "Clima"
-msgstr "Clima"
+#: climaAccesible/globalPlugins/climaAccesible.py:147
+#, fuzzy
+msgid "chubascos de nieve intensos"
+msgstr "Fortes pancadas de neve"
 
-msgid "Clima en {}: {}. Temperatura actual: {} grados."
-msgstr "Tempo em {}: {}. Temperatura atual: {} graus."
+#: climaAccesible/globalPlugins/climaAccesible.py:148
+#, fuzzy
+msgid "tormenta eléctrica"
+msgstr "Tempestade leve"
 
-msgid "Clima en {}: {}. Temperatura actual: {} grados. Sensación térmica: {} grados."
-msgstr "Tempo em {}: {}. Temperatura atual: {} graus. Sensação térmica: {} graus."
+#: climaAccesible/globalPlugins/climaAccesible.py:148
+#, fuzzy
+msgid "tormenta con granizo ligero"
+msgstr "Tempestade com granizo leve"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:149
+#, fuzzy
+msgid "tormenta con granizo intenso"
+msgstr "Tempestade com granizo forte"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:151
+msgid "condición desconocida"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:193
+#, fuzzy
+msgid "la madrugada"
+msgstr "esta manhã"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:195
+#, fuzzy
+msgid "la mañana"
+msgstr "amanhã"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:197
+#, fuzzy
+msgid "la tarde"
+msgstr "esta tarde"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:199
+#, fuzzy
+msgid "la noche"
+msgstr "esta noite"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:204
+msgid "durante todo el día"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:206
+msgid "por {}"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:208
+#: climaAccesible/globalPlugins/climaAccesible.py:209
+msgid "por {} y por {}"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:219
+#, fuzzy
+msgid "ClimaAccesible - Configuración"
+msgstr "ClimaAcessível"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:238
+msgid "Ubicación"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:241
+msgid "País:"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:247
+msgid "Departamento / Región:"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:253
+msgid "Ciudad:"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:261
+msgid "Cargando datos..."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:267
+msgid "Datos actuales que quiero escuchar"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:278
+msgid "Datos del día que quiero escuchar"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:289
+msgid "Pronóstico extendido (NVDA+Shift+W)"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:291
+#, fuzzy
+msgid "Días a consultar (1 a 14):"
+msgstr "Dias de previsão (1 a 16):"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:298
+#, fuzzy
+msgid "Guardar todo"
+msgstr "&Salvar"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:302
+#, fuzzy
+msgid "Cancelar"
+msgstr "&Cancelar"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:382
+msgid "Error al cargar datos geográficos."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:411
+msgid "Listo. Elige tu ubicación."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:483
+msgid "Elige una ciudad antes de guardar."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:501
+#, python-brace-format
+msgid ""
+"Configuración guardada.\n"
+"Ciudad: {c}\n"
+"Usa NVDA+W para consultar el clima."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:502
+#: climaAccesible/globalPlugins/climaAccesible.py:522
 msgid "ClimaAccesible"
 msgstr "ClimaAcessível"
 
-msgid "Configuración de Clima Accesible"
+#: climaAccesible/globalPlugins/climaAccesible.py:530
+#, fuzzy
+msgid "Configuración del complemento"
 msgstr "Configurações climáticas acessíveis"
 
-msgid "Consulta el clima actual y el pronóstico de tu ciudad con atajos de teclado. No requiere cuenta ni clave en ningún servicio."
-msgstr "Verifique o clima e a previsão atuais para sua cidade com atalhos de teclado. Nenhuma conta ou senha é necessária para qualquer serviço."
+#: climaAccesible/globalPlugins/climaAccesible.py:531
+msgid "Comprobar conflictos con otros complementos..."
+msgstr ""
 
-msgid "Copos de nieve"
-msgstr "flocos de neve"
+#: climaAccesible/globalPlugins/climaAccesible.py:532
+msgid "Documentación"
+msgstr ""
 
-msgid "Despejado"
-msgstr "Limpar"
+#: climaAccesible/globalPlugins/climaAccesible.py:537
+#, fuzzy
+msgid "Opciones de ClimaAccesible"
+msgstr "Configurações climáticas acessíveis"
 
-msgid "Días de pronóstico (1 a 16):"
-msgstr "Dias de previsão (1 a 16):"
-
-msgid "E"
-msgstr "E"
-
-msgid "Error del servidor: código {}. Motivo: {}"
-msgstr "Erro do servidor: código {}. Motivo: {}"
-
-msgid "Error inesperado al consultar el clima."
-msgstr "Erro inesperado ao verificar o tempo."
-
-msgid "Error inesperado al consultar el pronóstico."
-msgstr "Erro inesperado ao consultar a previsão."
-
-msgid "Fahrenheit"
-msgstr "Fahrenheit"
-
-msgid "Humedad: {} por ciento."
-msgstr "Umidade: {} por cento."
-
-msgid "Llovizna densa"
-msgstr "Chuvisco denso"
-
-msgid "Llovizna helada densa"
-msgstr "Chuvisco denso e gelado"
-
-msgid "Llovizna helada ligera"
-msgstr "Chuvisco leve e gelado"
-
-msgid "Llovizna ligera"
-msgstr "Chuvisco leve"
-
-msgid "Llovizna moderada"
-msgstr "Chuvisco moderado"
-
-msgid "Lluvia fuerte"
-msgstr "chuva forte"
-
-msgid "Lluvia helada fuerte"
-msgstr "Chuva forte e gelada"
-
-msgid "Lluvia helada leve"
-msgstr "Chuva leve e gelada"
-
-msgid "Lluvia leve"
-msgstr "chuva fraca"
-
-msgid "Lluvia moderada"
-msgstr "Chuva moderada"
-
-msgid "Mayormente despejado"
-msgstr "Principalmente claro"
-
-msgid "N"
-msgstr "N"
-
-msgid "NE"
-msgstr "NE"
-
-msgid "NO"
-msgstr "NÃO"
-
-msgid "Niebla"
-msgstr "Nevoeiro"
-
-msgid "Niebla con escarcha"
-msgstr "Nevoeiro com geada"
-
-msgid "No hay ciudad configurada. Usá NVDA+Control+W para configurar."
-msgstr "Não há nenhuma cidade configurada. Use NVDA+Control+W para configurar."
-
-msgid "No hay datos seleccionados. Abrí la configuración con NVDA+Control+W."
-msgstr "Não há dados selecionados. Abri as configurações com NVDA+Control+W."
-
+#: climaAccesible/globalPlugins/climaAccesible.py:573
 msgid "No se encontró el archivo de documentación."
 msgstr "O arquivo de documentação não foi encontrado."
 
-msgid "No se pudo conectar al servidor. Verificá tu conexión a Internet."
-msgstr "Não foi possível conectar-se ao servidor. Verifique sua conexão com a Internet."
-
-msgid "No se pudo conectar. Verificá tu conexión a Internet."
-msgstr "Não foi possível conectar. Verifique sua conexão com a Internet."
-
-msgid "Nublado"
-msgstr "Nublado"
-
-msgid "O"
-msgstr "Ou"
-
-msgid "Opciones de información a anunciar (Clima Actual):"
-msgstr "Opções de informação para anunciar (clima atual):"
-
-msgid "Parcialmente nublado"
-msgstr "Parcialmente nublado"
-
-msgid "Por favor esperá, consultando el clima..."
-msgstr "Aguarde, verificando a previsão do tempo..."
-
-msgid "Por favor esperá, consultando el pronóstico de {} días..."
-msgstr "Aguarde, verificando a previsão para {} dias..."
-
-msgid "Precipitación total esperada del día: {} milímetros {}."
-msgstr "Precipitação total esperada para o dia: {} milímetros {}."
-
-msgid "Precipitación total esperada del día: {} milímetros."
-msgstr "Precipitação total esperada para o dia: {} milímetros."
-
-msgid "Probabilidad máxima de lluvia del día: {} por ciento {}."
-msgstr "Probabilidade máxima de chuva para o dia: {} por cento {}."
-
-msgid "Probabilidad máxima de lluvia del día: {} por ciento."
-msgstr "Probabilidade máxima de chuva para o dia: {} por cento."
-
-msgid "Pronóstico para {} para los próximos {} días."
-msgstr "Previsão para {} para os próximos {} dias."
-
-msgid "Ráfaga máxima del día: {} kilómetros por hora."
-msgstr "Rajada máxima do dia: {} quilômetros por hora."
-
-msgid "Ráfagas de hasta {} kilómetros por hora."
-msgstr "Rajadas de até {} quilômetros por hora."
-
-msgid "S"
-msgstr "Sim"
-
-msgid "SE"
-msgstr "SE"
-
-msgid "SO"
-msgstr "SO"
-
-msgid "Tormenta con granizo fuerte"
-msgstr "Tempestade com granizo forte"
-
-msgid "Tormenta con granizo leve"
-msgstr "Tempestade com granizo leve"
-
-msgid "Tormenta eléctrica leve"
-msgstr "Tempestade leve"
-
-msgid "Unidad de temperatura:"
-msgstr "Unidade de temperatura:"
-
-msgid "Viento máximo del día: {} kilómetros por hora."
-msgstr "Vento máximo do dia: {} quilômetros por hora."
-
-msgid "Viento: {} a {} kilómetros por hora."
-msgstr "Vento: {} a {} quilômetros por hora."
-
-msgid "abril"
-msgstr "Abril"
-
-msgid "agosto"
-msgstr "Agosto"
-
-msgid "diciembre"
-msgstr "dezembro"
-
-msgid "domingo"
-msgstr "domingo"
-
-msgid "enero"
-msgstr "janeiro"
-
-msgid "esta madrugada"
-msgstr "esta manhã"
-
-msgid "esta mañana"
-msgstr "esta manhã"
-
-msgid "esta noche"
-msgstr "esta noite"
-
-msgid "esta tarde"
-msgstr "esta tarde"
-
-msgid "este mediodía"
-msgstr "este meio-dia"
-
-msgid "febrero"
-msgstr "fevereiro"
-
-msgid "hoy"
-msgstr "hoje"
-
-msgid "jueves"
-msgstr "Quinta-feira"
-
-msgid "julio"
-msgstr "julho"
-
-msgid "junio"
-msgstr "junho"
-
-msgid "lunes"
-msgstr "segunda-feira"
-
-msgid "martes"
-msgstr "terça-feira"
-
-msgid "marzo"
-msgstr "março"
-
-msgid "mayo"
-msgstr "pode"
-
-msgid "mañana"
-msgstr "amanhã"
-
-msgid "miércoles"
-msgstr "Quarta-feira"
-
-msgid "noviembre"
-msgstr "Novembro"
-
-msgid "octubre"
-msgstr "outubro"
-
-msgid "septiembre"
-msgstr "setembro"
-
-msgid "sábado"
-msgstr "sábado"
-
-msgid "viernes"
-msgstr "sexta-feira"
-
-msgid "{} {} de {}"
-msgstr "{}{} de {}"
-
-msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{}"
-msgstr "{}: {}. Máximo de {} graus, mínimo de {} graus. Vento máximo de {} quilômetros por hora.{}"
-
-msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{} Sol visible de {} a {}."
-msgstr "{}: {}. Máximo de {} graus, mínimo de {} graus. Vento máximo {} quilômetros por hora. {} Sol visível de {} a {}."
-
-msgid "Abre la ventana de configuración de ClimaAccesible."
-msgstr "Abra a janela de configuração do ClimateAccessible."
-
+#: climaAccesible/globalPlugins/climaAccesible.py:578
 msgid "Anuncia el clima actual de la ciudad configurada."
 msgstr "Anuncia o clima atual da cidade configurada."
 
+#: climaAccesible/globalPlugins/climaAccesible.py:588
+#: climaAccesible/globalPlugins/climaAccesible.py:606
+msgid "No hay ciudad configurada. Usa NVDA+Control+W para configurar."
+msgstr "Não há nenhuma cidade configurada. Use NVDA+Control+W para configurar."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:591
+msgid "Por favor espera, consultando el clima..."
+msgstr "Aguarde, verificando a previsão do tempo..."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:596
 msgid "Anuncia el pronóstico del clima para los próximos días."
 msgstr "Anuncia a previsão do tempo para os próximos dias."
 
+#: climaAccesible/globalPlugins/climaAccesible.py:610
+msgid "Por favor espera, consultando el pronóstico de {} días..."
+msgstr "Aguarde, verificando a previsão para {} dias..."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:615
+msgid "Abre la ventana de configuración de ClimaAccesible."
+msgstr "Abra a janela de configuração do ClimateAccessible."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:721
+msgid "En {}, el reporte del clima es el siguiente."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:724
+msgid "Temperatura: {} grados Celsius."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:726
+#, fuzzy
+msgid "Sensación térmica: {} grados."
+msgstr "Anuncie Sensação Térmica"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:728
+msgid "Condición: {}."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:730
+msgid "Ahora es {}."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:730
+msgid "de día"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:730
+#, fuzzy
+msgid "de noche"
+msgstr "esta noite"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:732
+msgid "Humedad: {} por ciento."
+msgstr "Umidade: {} por cento."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:734
+msgid "Punto de rocío: {} grados."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:736
+#, fuzzy
+msgid "Viento a {} kilómetros por hora."
+msgstr "Vento: {} a {} quilômetros por hora."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:738
+msgid "Dirección del viento: {}."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:740
+msgid "Ráfagas de hasta {} kilómetros por hora."
+msgstr "Rajadas de até {} quilômetros por hora."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:742
+#, fuzzy
+msgid "Nubosidad: {} por ciento."
+msgstr "Umidade: {} por cento."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:746
+#, fuzzy
+msgid "Precipitación actual: {} milímetros."
+msgstr "Precipitação esperada: {} milímetros."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:748
+msgid "Presión atmosférica: {} hectopascales."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:754
+msgid "Salida del sol: {}."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:756
+msgid "Puesta del sol: {}."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:758
+msgid "Horas de luz hoy: {}."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:760
+msgid "Índice UV máximo del día: {}."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:764
+msgid "Probabilidad máxima de lluvia del día: {} por ciento {}."
+msgstr "Probabilidade máxima de chuva para o dia: {} por cento {}."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:766
+msgid "Probabilidad máxima de lluvia del día: {} por ciento."
+msgstr "Probabilidade máxima de chuva para o dia: {} por cento."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:770
+msgid "Precipitación total esperada del día: {} milímetros {}."
+msgstr "Precipitação total esperada para o dia: {} milímetros {}."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:772
+msgid "Precipitación total esperada del día: {} milímetros."
+msgstr "Precipitação total esperada para o dia: {} milímetros."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:774
+msgid "Viento máximo del día: {} kilómetros por hora."
+msgstr "Vento máximo do dia: {} quilômetros por hora."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:776
+msgid "Ráfaga máxima del día: {} kilómetros por hora."
+msgstr "Rajada máxima do dia: {} quilômetros por hora."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:779
+msgid "No hay datos seleccionados. Abre la configuración con NVDA+Control+W."
+msgstr "Não há dados selecionados. Abri as configurações com NVDA+Control+W."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:787
+msgid ""
+"Tiempo de espera agotado al consultar el clima. Comprueba tu conexión o "
+"inténtalo nuevamente."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:796
+#: climaAccesible/globalPlugins/climaAccesible.py:942
+msgid "Error del servidor: código {}. Motivo: {}"
+msgstr "Erro do servidor: código {}. Motivo: {}"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:801
+msgid "No se pudo conectar al servidor. Verifica tu conexión a Internet."
+msgstr ""
+"Não foi possível conectar-se ao servidor. Verifique sua conexão com a "
+"Internet."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:806
+msgid "Error inesperado al consultar el clima."
+msgstr "Erro inesperado ao verificar o tempo."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:846
+msgid "lunes"
+msgstr "segunda-feira"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:846
+msgid "martes"
+msgstr "terça-feira"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:846
+msgid "miércoles"
+msgstr "Quarta-feira"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:847
+msgid "jueves"
+msgstr "Quinta-feira"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:847
+msgid "viernes"
+msgstr "sexta-feira"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:847
+msgid "sábado"
+msgstr "sábado"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:847
+msgid "domingo"
+msgstr "domingo"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:850
+msgid "enero"
+msgstr "janeiro"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:850
+msgid "febrero"
+msgstr "fevereiro"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:850
+msgid "marzo"
+msgstr "março"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:851
+msgid "abril"
+msgstr "Abril"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:851
+msgid "mayo"
+msgstr "pode"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:851
+msgid "junio"
+msgstr "junho"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:852
+msgid "julio"
+msgstr "julho"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:852
+msgid "agosto"
+msgstr "Agosto"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:852
+msgid "septiembre"
+msgstr "setembro"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:853
+msgid "octubre"
+msgstr "outubro"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:853
+msgid "noviembre"
+msgstr "Novembro"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:853
+msgid "diciembre"
+msgstr "dezembro"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:857
+msgid "hoy"
+msgstr "hoje"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:858
+msgid "mañana"
+msgstr "amanhã"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:863
+msgid "{} {} de {}"
+msgstr "{}{} de {}"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:867
+msgid "Pronóstico para {} para los próximos {} días."
+msgstr "Previsão para {} para os próximos {} dias."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:895
+msgid " Probabilidad máxima de lluvia: {} por ciento {} con {} milímetros."
+msgstr "Chance máxima de chuva: {} por cento {} com {} milímetros."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:897
+msgid " Probabilidad máxima de lluvia: {} por ciento con {} milímetros."
+msgstr "Chance máxima de chuva: {} por cento com {} milímetros."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:900
+msgid " Probabilidad máxima de lluvia: {} por ciento {}."
+msgstr "Chance máxima de chuva: {} por cento {}."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:902
+msgid " Probabilidad máxima de lluvia: {} por ciento."
+msgstr "Chance máxima de chuva: {} por cento."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:905
+msgid " Precipitación esperada {} de {} milímetros."
+msgstr "Precipitação esperada {} de {} milímetros."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:907
+msgid " Precipitación esperada: {} milímetros."
+msgstr "Precipitação esperada: {} milímetros."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:933
+msgid ""
+"Tiempo de espera agotado al consultar el pronóstico. Comprueba tu conexión o "
+"inténtalo nuevamente."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:947
+msgid "No se pudo conectar. Verifica tu conexión a Internet."
+msgstr "Não foi possível conectar. Verifique sua conexão com a Internet."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:952
+msgid "Error inesperado al consultar el pronóstico."
+msgstr "Erro inesperado ao consultar a previsão."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:971
 msgid "Lectura del clima actual"
 msgstr "Leitura do tempo atual"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:972
 msgid "Lectura del pronóstico extendido"
 msgstr "Lendo a previsão estendida"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:973
 msgid "Ventana de configuración del clima"
 msgstr "Janela de configurações climáticas"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:980
 msgid "Weather Plus (superpone atajos globales de clima como NVDA+W)"
 msgstr "Weather Plus (sobrepõe atalhos climáticos globais como NVDA+W)"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:981
 msgid "Weather (superpone atajos globales de información meteorológica)"
 msgstr "Clima (sobrepõe atalhos de informações meteorológicas globais)"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:982
 msgid "Weather Update"
 msgstr "Atualização do tempo"
 
-msgid "No se han detectado conflictos de atajos de teclado ni complementos incompatibles de clima activos en este sistema."
-msgstr "Nenhum conflito de atalho de teclado ou plug-ins climáticos incompatíveis foram detectados ativos neste sistema."
+#: climaAccesible/globalPlugins/climaAccesible.py:1056
+msgid ""
+"No se han detectado conflictos de atajos de teclado ni complementos "
+"incompatibles de clima activos en este sistema."
+msgstr ""
+"Nenhum conflito de atalho de teclado ou plug-ins climáticos incompatíveis "
+"foram detectados ativos neste sistema."
 
+#: climaAccesible/globalPlugins/climaAccesible.py:1057
+#: climaAccesible/globalPlugins/climaAccesible.py:1076
 msgid "Auditoría de compatibilidad - ClimaAccesible"
 msgstr "Auditoria de compatibilidade - ClimaAccessible"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:1063
 msgid "COLISIONES DIRECTAS DE ATAJOS:"
 msgstr "COLISÕES DIRETAS DE ATALHO:"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:1069
 msgid "ADVERTENCIAS DE COMPATIBILIDAD:"
 msgstr "AVISOS DE COMPATIBILIDADE:"
 
-msgid "Nota: Los detalles completos también se han registrado en el archivo de log de NVDA."
-msgstr "Nota: Detalhes completos também foram registrados no arquivo de log do NVDA."
+#: climaAccesible/globalPlugins/climaAccesible.py:1073
+msgid ""
+"Nota: Los detalles completos también se han registrado en el archivo de log "
+"de NVDA."
+msgstr ""
+"Nota: Detalhes completos também foram registrados no arquivo de log do NVDA."
 
-msgid "Comprueba si existen conflictos de atajos de teclado o complementos incompatibles con ClimaAccesible."
-msgstr "Verifique se há conflitos de atalhos de teclado ou plugins incompatíveis com o ClimaAccesible."
+#: climaAccesible/globalPlugins/climaAccesible.py:1084
+msgid ""
+"Comprueba si existen conflictos de atajos de teclado o complementos "
+"incompatibles con ClimaAccesible."
+msgstr ""
+"Verifique se há conflitos de atalhos de teclado ou plugins incompatíveis com "
+"o ClimaAccesible."
 
+#~ msgid "Abre el panel de configuración de Clima Accesible."
+#~ msgstr "Abra o painel de configurações de Clima Acessível."
+
+#~ msgid "Abre la documentación de la API del clima (en el navegador)."
+#~ msgstr "Abra a documentação da API Weather (no navegador)."
+
+#~ msgid ""
+#~ "Anuncia el clima actual de la ciudad configurada. Pulsá dos veces para "
+#~ "copiar al portapapeles."
+#~ msgstr ""
+#~ "Anuncia o clima atual da cidade configurada. Pressione duas vezes para "
+#~ "copiar para a área de transferência."
+
+#~ msgid ""
+#~ "Anuncia el pronóstico para los próximos días. Pulsá dos veces para copiar "
+#~ "al portapapeles."
+#~ msgstr ""
+#~ "Anuncia a previsão para os próximos dias. Pressione duas vezes para "
+#~ "copiar para a área de transferência."
+
+#~ msgid "Anunciar Probabilidad de lluvia"
+#~ msgstr "Anunciar possibilidade de chuva"
+
+#~ msgid "Anunciar Viento"
+#~ msgstr "Anunciar Vento"
+
+#~ msgid "Caída de nieve fuerte"
+#~ msgstr "Queda de neve forte"
+
+#~ msgid "Caída de nieve leve"
+#~ msgstr "Queda de neve leve"
+
+#~ msgid "Caída de nieve moderada"
+#~ msgstr "Queda de neve moderada"
+
+#~ msgid "Celsius"
+#~ msgstr "Celsius"
+
+#~ msgid "Ciudad (Nombre, País):"
+#~ msgstr "Cidade (Nome, País):"
+
+#~ msgid "Clima"
+#~ msgstr "Clima"
+
+#~ msgid "Clima en {}: {}. Temperatura actual: {} grados."
+#~ msgstr "Tempo em {}: {}. Temperatura atual: {} graus."
+
+#~ msgid ""
+#~ "Clima en {}: {}. Temperatura actual: {} grados. Sensación térmica: {} "
+#~ "grados."
+#~ msgstr ""
+#~ "Tempo em {}: {}. Temperatura atual: {} graus. Sensação térmica: {} graus."
+
+#~ msgid ""
+#~ "Consulta el clima actual y el pronóstico de tu ciudad con atajos de "
+#~ "teclado. No requiere cuenta ni clave en ningún servicio."
+#~ msgstr ""
+#~ "Verifique o clima e a previsão atuais para sua cidade com atalhos de "
+#~ "teclado. Nenhuma conta ou senha é necessária para qualquer serviço."
+
+#~ msgid "Copos de nieve"
+#~ msgstr "flocos de neve"
+
+#~ msgid "E"
+#~ msgstr "E"
+
+#~ msgid "Fahrenheit"
+#~ msgstr "Fahrenheit"
+
+#~ msgid "Llovizna helada densa"
+#~ msgstr "Chuvisco denso e gelado"
+
+#~ msgid "Lluvia fuerte"
+#~ msgstr "chuva forte"
+
+#~ msgid "Lluvia helada fuerte"
+#~ msgstr "Chuva forte e gelada"
+
+#~ msgid "Lluvia helada leve"
+#~ msgstr "Chuva leve e gelada"
+
+#~ msgid "Lluvia leve"
+#~ msgstr "chuva fraca"
+
+#~ msgid "N"
+#~ msgstr "N"
+
+#~ msgid "NE"
+#~ msgstr "NE"
+
+#~ msgid "NO"
+#~ msgstr "NÃO"
+
+#~ msgid "O"
+#~ msgstr "Ou"
+
+#~ msgid "Opciones de información a anunciar (Clima Actual):"
+#~ msgstr "Opções de informação para anunciar (clima atual):"
+
+#~ msgid "S"
+#~ msgstr "Sim"
+
+#~ msgid "SE"
+#~ msgstr "SE"
+
+#~ msgid "SO"
+#~ msgstr "SO"
+
+#~ msgid "Unidad de temperatura:"
+#~ msgstr "Unidade de temperatura:"
+
+#~ msgid "esta mañana"
+#~ msgstr "esta manhã"
+
+#~ msgid "este mediodía"
+#~ msgstr "este meio-dia"
+
+#~ msgid ""
+#~ "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros "
+#~ "por hora.{}"
+#~ msgstr ""
+#~ "{}: {}. Máximo de {} graus, mínimo de {} graus. Vento máximo de {} "
+#~ "quilômetros por hora.{}"
+
+#~ msgid ""
+#~ "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros "
+#~ "por hora.{} Sol visible de {} a {}."
+#~ msgstr ""
+#~ "{}: {}. Máximo de {} graus, mínimo de {} graus. Vento máximo {} "
+#~ "quilômetros por hora. {} Sol visível de {} a {}."

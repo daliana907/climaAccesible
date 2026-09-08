@@ -40,28 +40,37 @@ def _configPath():
 _geoData = None
 
 # ── opciones de datos del clima ───────────────────────────────────────────────
+def N_(texto):
+	"""Marca un texto para que el extractor de traducciones lo recoja.
+
+	Se usa en las tablas que se crean al cargar el complemento: ahí no se puede
+	traducir todavía, así que se traduce con _() en el momento de mostrarlo.
+	"""
+	return texto
+
+
 OPCIONES = [
 	# (clave, etiqueta, campo_api, tipo)
-	("temperatura",     "Temperatura actual",                       "temperature_2m",                "current"),
-	("sensacion",       "Sensación térmica",                        "apparent_temperature",           "current"),
-	("condicion",       "Condición del cielo",                      "weather_code",                   "current"),
-	("es_dia",          "Si es de día o de noche",                  "is_day",                         "current"),
-	("humedad",         "Humedad",                                  "relative_humidity_2m",           "current"),
-	("punto_rocio",     "Punto de rocío",                           "dew_point_2m",                   "current"),
-	("viento_vel",      "Velocidad del viento",                     "wind_speed_10m",                 "current"),
-	("viento_dir",      "Dirección del viento",                     "wind_direction_10m",             "current"),
-	("viento_rafagas",  "Ráfagas de viento",                        "wind_gusts_10m",                 "current"),
-	("nubosidad",       "Nubosidad",                                "cloud_cover",                    "current"),
-	("precipitacion",   "Precipitación actual",                     "precipitation",                  "current"),
-	("presion",         "Presión atmosférica",                      "surface_pressure",               "current"),
-	("amanecer",        "Hora de salida del sol",                   "sunrise",                        "daily"),
-	("atardecer",       "Hora de puesta del sol",                   "sunset",                         "daily"),
-	("horas_luz",       "Horas de luz solar del día",               "daylight_duration",              "daily"),
-	("uv_max",          "Índice UV máximo del día",                 "uv_index_max",                   "daily"),
-	("precip_prob_max", "Probabilidad máxima de lluvia del día",    "precipitation_probability_max", "daily"),
-	("precip_total",    "Precipitación total esperada del día",     "precipitation_sum",              "daily"),
-	("viento_max",      "Viento máximo del día",                    "wind_speed_10m_max",             "daily"),
-	("rafaga_max",      "Ráfaga máxima del día",                    "wind_gusts_10m_max",             "daily"),
+	("temperatura",     N_("Temperatura actual"),                       "temperature_2m",                "current"),
+	("sensacion",       N_("Sensación térmica"),                        "apparent_temperature",           "current"),
+	("condicion",       N_("Condición del cielo"),                      "weather_code",                   "current"),
+	("es_dia",          N_("Si es de día o de noche"),                  "is_day",                         "current"),
+	("humedad",         N_("Humedad"),                                  "relative_humidity_2m",           "current"),
+	("punto_rocio",     N_("Punto de rocío"),                           "dew_point_2m",                   "current"),
+	("viento_vel",      N_("Velocidad del viento"),                     "wind_speed_10m",                 "current"),
+	("viento_dir",      N_("Dirección del viento"),                     "wind_direction_10m",             "current"),
+	("viento_rafagas",  N_("Ráfagas de viento"),                        "wind_gusts_10m",                 "current"),
+	("nubosidad",       N_("Nubosidad"),                                "cloud_cover",                    "current"),
+	("precipitacion",   N_("Precipitación actual"),                     "precipitation",                  "current"),
+	("presion",         N_("Presión atmosférica"),                      "surface_pressure",               "current"),
+	("amanecer",        N_("Hora de salida del sol"),                   "sunrise",                        "daily"),
+	("atardecer",       N_("Hora de puesta del sol"),                   "sunset",                         "daily"),
+	("horas_luz",       N_("Horas de luz solar del día"),               "daylight_duration",              "daily"),
+	("uv_max",          N_("Índice UV máximo del día"),                 "uv_index_max",                   "daily"),
+	("precip_prob_max", N_("Probabilidad máxima de lluvia del día"),    "precipitation_probability_max", "daily"),
+	("precip_total",    N_("Precipitación total esperada del día"),     "precipitation_sum",              "daily"),
+	("viento_max",      N_("Viento máximo del día"),                    "wind_speed_10m_max",             "daily"),
+	("rafaga_max",      N_("Ráfaga máxima del día"),                    "wind_gusts_10m_max",             "daily"),
 ]
 
 PREFS_DEFECTO = {op[0]: True for op in OPCIONES}
@@ -107,39 +116,39 @@ def formatSegundos(seg):
 		h   = seg // 3600
 		m   = (seg % 3600) // 60
 		if h > 0 and m > 0:
-			return "{} horas y {} minutos".format(h, m)
+			return _("{} horas y {} minutos").format(h, m)
 		elif h > 0:
-			return "{} horas".format(h)
+			return _("{} horas").format(h)
 		else:
-			return "{} minutos".format(m)
+			return _("{} minutos").format(m)
 	except Exception:
 		return str(seg)
 
 def cardinal(deg):
 	if deg is None:
-		return "dirección desconocida"
+		return _("dirección desconocida")
 	dirs = [
-		"norte", "nor noreste", "noreste", "este noreste",
-		"este", "este sureste", "sureste", "sur sureste",
-		"sur", "sur suroeste", "suroeste", "oeste suroeste",
-		"oeste", "oeste noroeste", "noroeste", "nor noroeste",
+		_("norte"), _("nor noreste"), _("noreste"), _("este noreste"),
+		_("este"), _("este sureste"), _("sureste"), _("sur sureste"),
+		_("sur"), _("sur suroeste"), _("suroeste"), _("oeste suroeste"),
+		_("oeste"), _("oeste noroeste"), _("noroeste"), _("nor noroeste"),
 	]
 	return dirs[round(deg / 22.5) % 16]
 
 def codigoClima(code):
 	m = {
-		0:"cielo despejado",       1:"mayormente despejado",   2:"parcialmente nublado",
-		3:"nublado",               45:"niebla",                48:"niebla con escarcha",
-		51:"llovizna ligera",      53:"llovizna moderada",     55:"llovizna densa",
-		61:"lluvia ligera",        63:"lluvia moderada",       65:"lluvia intensa",
-		71:"nevada ligera",        73:"nevada moderada",       75:"nevada intensa",
-		77:"granizo fino",         80:"chubascos ligeros",     81:"chubascos moderados",
-		82:"chubascos intensos",   85:"chubascos de nieve ligeros",
-		86:"chubascos de nieve intensos",
-		95:"tormenta eléctrica",   96:"tormenta con granizo ligero",
-		99:"tormenta con granizo intenso",
+		0:_("cielo despejado"),       1:_("mayormente despejado"),   2:_("parcialmente nublado"),
+		3:_("nublado"),               45:_("niebla"),                48:_("niebla con escarcha"),
+		51:_("llovizna ligera"),      53:_("llovizna moderada"),     55:_("llovizna densa"),
+		61:_("lluvia ligera"),        63:_("lluvia moderada"),       65:_("lluvia intensa"),
+		71:_("nevada ligera"),        73:_("nevada moderada"),       75:_("nevada intensa"),
+		77:_("granizo fino"),         80:_("chubascos ligeros"),     81:_("chubascos moderados"),
+		82:_("chubascos intensos"),   85:_("chubascos de nieve ligeros"),
+		86:_("chubascos de nieve intensos"),
+		95:_("tormenta eléctrica"),   96:_("tormenta con granizo ligero"),
+		99:_("tormenta con granizo intenso"),
 	}
-	return m.get(code, "condición desconocida")
+	return m.get(code, _("condición desconocida"))
 
 def momentoLluvia(fecha, hourly_times, hourly_probs, hourly_precs):
 	"""
@@ -181,23 +190,23 @@ def momentoLluvia(fecha, hourly_times, hourly_probs, hourly_precs):
 
 	periodos = []
 	if madrugada:
-		periodos.append("la madrugada")
+		periodos.append(_("la madrugada"))
 	if manana:
-		periodos.append("la mañana")
+		periodos.append(_("la mañana"))
 	if tarde:
-		periodos.append("la tarde")
+		periodos.append(_("la tarde"))
 	if noche:
-		periodos.append("la noche")
+		periodos.append(_("la noche"))
 
 	if not periodos:
 		return ""
 	if len(periodos) >= 3 or (manana and tarde and (noche or madrugada)):
-		return "durante todo el día"
+		return _("durante todo el día")
 	if len(periodos) == 1:
-		return "por " + periodos[0]
+		return _("por {}").format(periodos[0])
 	if len(periodos) == 2:
-		return "por {} y por {}".format(periodos[0], periodos[1])
-	return "por " + ", ".join(periodos[:-1]) + " y por " + periodos[-1]
+		return _("por {} y por {}").format(periodos[0], periodos[1])
+	return _("por {} y por {}").format(", ".join(periodos[:-1]), periodos[-1])
 
 
 # ── diálogo de configuración ──────────────────────────────────────────────────
@@ -207,7 +216,7 @@ class ConfigDialog(wx.Dialog):
 	def __init__(self, parent):
 		super(ConfigDialog, self).__init__(
 			parent,
-			title="ClimaAccesible - Configuración",
+			title=_("ClimaAccesible - Configuración"),
 			style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER
 		)
 		self._isClosing = False
@@ -226,22 +235,22 @@ class ConfigDialog(wx.Dialog):
 		main = wx.BoxSizer(wx.VERTICAL)
 
 		# ── ubicación ────────────────────────────────────────────────────────
-		box_loc   = wx.StaticBox(p, label="Ubicación")
+		box_loc   = wx.StaticBox(p, label=_("Ubicación"))
 		sizer_loc = wx.StaticBoxSizer(box_loc, wx.VERTICAL)
 
-		sizer_loc.Add(wx.StaticText(p, label="País:"), 0, wx.LEFT|wx.TOP, 4)
+		sizer_loc.Add(wx.StaticText(p, label=_("País:")), 0, wx.LEFT|wx.TOP, 4)
 		self.cboCountry = wx.ComboBox(p, style=wx.CB_READONLY, size=(420, -1))
 		self.cboCountry.Disable()
 		self.cboCountry.Bind(wx.EVT_COMBOBOX, self.onCountryChange)
 		sizer_loc.Add(self.cboCountry, 0, wx.LEFT|wx.RIGHT, 4)
 
-		sizer_loc.Add(wx.StaticText(p, label="Departamento / Región:"), 0, wx.LEFT|wx.TOP, 4)
+		sizer_loc.Add(wx.StaticText(p, label=_("Departamento / Región:")), 0, wx.LEFT|wx.TOP, 4)
 		self.cboRegion = wx.ComboBox(p, style=wx.CB_READONLY, size=(420, -1))
 		self.cboRegion.Disable()
 		self.cboRegion.Bind(wx.EVT_COMBOBOX, self.onRegionChange)
 		sizer_loc.Add(self.cboRegion, 0, wx.LEFT|wx.RIGHT, 4)
 
-		sizer_loc.Add(wx.StaticText(p, label="Ciudad:"), 0, wx.LEFT|wx.TOP, 4)
+		sizer_loc.Add(wx.StaticText(p, label=_("Ciudad:")), 0, wx.LEFT|wx.TOP, 4)
 		self.cboCity = wx.ComboBox(p, style=wx.CB_READONLY, size=(420, -1))
 		self.cboCity.Disable()
 		self.cboCity.Bind(wx.EVT_COMBOBOX, self.onCityChange)
@@ -249,15 +258,15 @@ class ConfigDialog(wx.Dialog):
 
 		self.progressBar = wx.Gauge(p, range=100, size=(420, 18), style=wx.GA_HORIZONTAL|wx.GA_SMOOTH)
 		sizer_loc.Add(self.progressBar, 0, wx.LEFT|wx.RIGHT, 4)
-		self.lblStatus = wx.StaticText(p, label="Cargando datos...")
+		self.lblStatus = wx.StaticText(p, label=_("Cargando datos..."))
 		sizer_loc.Add(self.lblStatus, 0, wx.LEFT|wx.TOP|wx.BOTTOM, 4)
 		main.Add(sizer_loc, 0, wx.EXPAND|wx.ALL, 8)
 
 		# ── datos actuales ────────────────────────────────────────────────────
 		prefs  = self._cfg.get("prefs", dict(PREFS_DEFECTO))
-		box_c  = wx.StaticBox(p, label="Datos actuales que quiero escuchar")
+		box_c  = wx.StaticBox(p, label=_("Datos actuales que quiero escuchar"))
 		sizer_c = wx.StaticBoxSizer(box_c, wx.VERTICAL)
-		for key, label, _, tipo in OPCIONES:
+		for key, label, campoApi, tipo in OPCIONES:
 			if tipo == "current":
 				cb = wx.CheckBox(p, label=label)
 				cb.SetValue(prefs.get(key, True))
@@ -266,9 +275,9 @@ class ConfigDialog(wx.Dialog):
 		main.Add(sizer_c, 0, wx.EXPAND|wx.LEFT|wx.RIGHT|wx.BOTTOM, 8)
 
 		# ── datos del día ─────────────────────────────────────────────────────
-		box_d  = wx.StaticBox(p, label="Datos del día que quiero escuchar")
+		box_d  = wx.StaticBox(p, label=_("Datos del día que quiero escuchar"))
 		sizer_d = wx.StaticBoxSizer(box_d, wx.VERTICAL)
-		for key, label, _, tipo in OPCIONES:
+		for key, label, campoApi, tipo in OPCIONES:
 			if tipo == "daily":
 				cb = wx.CheckBox(p, label=label)
 				cb.SetValue(prefs.get(key, True))
@@ -277,20 +286,20 @@ class ConfigDialog(wx.Dialog):
 		main.Add(sizer_d, 0, wx.EXPAND|wx.LEFT|wx.RIGHT|wx.BOTTOM, 8)
 
 		# ── pronóstico ────────────────────────────────────────────────────────
-		box_f  = wx.StaticBox(p, label="Pronóstico extendido (NVDA+Shift+W)")
+		box_f  = wx.StaticBox(p, label=_("Pronóstico extendido (NVDA+Shift+W)"))
 		sizer_f = wx.StaticBoxSizer(box_f, wx.HORIZONTAL)
-		sizer_f.Add(wx.StaticText(p, label="Días a consultar (1 a 14):"), 0, wx.ALIGN_CENTER_VERTICAL|wx.LEFT, 4)
+		sizer_f.Add(wx.StaticText(p, label=_("Días a consultar (1 a 14):")), 0, wx.ALIGN_CENTER_VERTICAL|wx.LEFT, 4)
 		self.spinDays = wx.SpinCtrl(p, min=1, max=14, initial=self._cfg.get("forecast_days", 6))
 		sizer_f.Add(self.spinDays, 0, wx.LEFT|wx.RIGHT, 8)
 		main.Add(sizer_f, 0, wx.EXPAND|wx.LEFT|wx.RIGHT|wx.BOTTOM, 8)
 
 		# ── botones ───────────────────────────────────────────────────────────
 		row = wx.BoxSizer(wx.HORIZONTAL)
-		self.btnSave = wx.Button(p, wx.ID_OK, label="Guardar todo")
+		self.btnSave = wx.Button(p, wx.ID_OK, label=_("Guardar todo"))
 		self.btnSave.Disable()
 		self.btnSave.Bind(wx.EVT_BUTTON, self.onSave)
 		row.Add(self.btnSave, 0, wx.RIGHT, 8)
-		self.btnCancel = wx.Button(p, wx.ID_CANCEL, label="Cancelar")
+		self.btnCancel = wx.Button(p, wx.ID_CANCEL, label=_("Cancelar"))
 		self.btnCancel.Bind(wx.EVT_BUTTON, self.onCancel)
 		row.Add(self.btnCancel)
 		main.Add(row, 0, wx.ALL, 10)
@@ -370,7 +379,7 @@ class ConfigDialog(wx.Dialog):
 			log.error("ClimaAccesible: error al cargar países: {}".format(e))
 			if not self._isClosing:
 				wx.CallAfter(self._stopProgress)
-				wx.CallAfter(self._status, "Error al cargar datos geográficos.")
+				wx.CallAfter(self._status, _("Error al cargar datos geográficos."))
 
 	def _populate_countries(self, countries):
 		if self._isClosing:
@@ -399,7 +408,7 @@ class ConfigDialog(wx.Dialog):
 			self.cboCountry.SetFocus()
 			if self.cboCity.GetSelection() != wx.NOT_FOUND:
 				self.btnSave.Enable()
-			self._status("Listo. Elegí tu ubicación.")
+			self._status(_("Listo. Elige tu ubicación."))
 		except (RuntimeError, Exception) as e:
 			log.debugWarning("ClimaAccesible: _populate_countries ignorado: {}".format(e))
 
@@ -471,11 +480,11 @@ class ConfigDialog(wx.Dialog):
 		ri = self.cboRegion.GetSelection()
 		co = self.cboCountry.GetSelection()
 		if ci == wx.NOT_FOUND or not self._cities:
-			self._status("Elegí una ciudad antes de guardar.")
+			self._status(_("Elige una ciudad antes de guardar."))
 			return
 		name, lat, lon   = self._cities[ci]
-		region_name, _   = self._regions[ri]
-		_, country_iso2  = self._countries[co]
+		region_name, regionResto  = self._regions[ri]
+		paisResto, country_iso2  = self._countries[co]
 		prefs = {key: cb.GetValue() for key, cb in self._checks.items()}
 		saveJSON(_configPath(), {
 			"city":          name,
@@ -486,11 +495,11 @@ class ConfigDialog(wx.Dialog):
 			"prefs":         prefs,
 			"forecast_days": self.spinDays.GetValue(),
 		})
-		log.info(f"ClimaAccesible: Guardando configuración - Ciudad: {name}, Coordenadas: ({lat}, {lon}), Días pronóstico: {days}")
+		log.info(f"ClimaAccesible: Guardando configuración - Ciudad: {name}, Coordenadas: ({lat}, {lon}), Días pronóstico: {self.spinDays.GetValue()}")
 		self._status("Configuración guardada para: " + name)
 		gui.messageBox(
-			"Configuración guardada.\nCiudad: {c}\nUsá NVDA+W para consultar el clima.".format(c=name),
-			"ClimaAccesible", wx.OK | wx.ICON_INFORMATION, parent=self
+			_("Configuración guardada.\nCiudad: {c}\nUsa NVDA+W para consultar el clima.").format(c=name),
+			_("ClimaAccesible"), wx.OK | wx.ICON_INFORMATION, parent=self
 		)
 		self._stopProgress()
 		self.EndModal(wx.ID_OK)
@@ -518,14 +527,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self._isConfigOpen = False
 		self._toolsMenu = gui.mainFrame.sysTrayIcon.toolsMenu
 		self._subMenu = wx.Menu()
-		self._itemConfig = self._subMenu.Append(wx.ID_ANY, "Configuración del complemento")
-		self._itemConflicts = self._subMenu.Append(wx.ID_ANY, "Comprobar conflictos con otros complementos...")
-		self._itemDoc = self._subMenu.Append(wx.ID_ANY, "Documentación")
+		self._itemConfig = self._subMenu.Append(wx.ID_ANY, _("Configuración del complemento"))
+		self._itemConflicts = self._subMenu.Append(wx.ID_ANY, _("Comprobar conflictos con otros complementos..."))
+		self._itemDoc = self._subMenu.Append(wx.ID_ANY, _("Documentación"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self._onMenuConfig, self._itemConfig)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self._onMenuConflicts, self._itemConflicts)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self._onMenuDoc, self._itemDoc)
 		self._subMenuItem = self._toolsMenu.AppendSubMenu(
-			self._subMenu, "ClimaAccesible", "Opciones de ClimaAccesible"
+			self._subMenu, "ClimaAccesible", _("Opciones de ClimaAccesible")
 		)
 		threading.Thread(target=self._startupBackgroundWorker, daemon=True).start()
 		log.info("ClimaAccesible: Inicializando complemento (v1.4)...")
@@ -576,10 +585,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		cfg = loadJSON(_configPath())
 		if not cfg.get("lat") or not cfg.get("lon"):
 			log.warning("ClimaAccesible: Intento de consulta de clima sin ciudad configurada.")
-			ui.message(_("No hay ciudad configurada. Usá NVDA+Control+W para configurar."))
+			ui.message(_("No hay ciudad configurada. Usa NVDA+Control+W para configurar."))
 			return
 		log.info(f"ClimaAccesible: Consultando reporte para ciudad='{cfg.get('city')}' ({cfg.get('lat')}, {cfg.get('lon')})...")
-		ui.message(_("Por favor esperá, consultando el clima..."))
+		ui.message(_("Por favor espera, consultando el clima..."))
 		t = threading.Thread(target=self._fetchWeather, args=(cfg,), daemon=True)
 		t.start()
 
@@ -594,11 +603,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		cfg = loadJSON(_configPath())
 		if not cfg.get("lat") or not cfg.get("lon"):
 			log.warning("ClimaAccesible: Intento de consulta de pronóstico sin ciudad configurada.")
-			ui.message(_("No hay ciudad configurada. Usá NVDA+Control+W para configurar."))
+			ui.message(_("No hay ciudad configurada. Usa NVDA+Control+W para configurar."))
 			return
 		dias = cfg.get("forecast_days", 6)
 		log.info(f"ClimaAccesible: Consultando pronóstico de {dias} días para ciudad='{cfg.get('city')}'...")
-		ui.message(_("Por favor esperá, consultando el pronóstico de {} días...").format(dias))
+		ui.message(_("Por favor espera, consultando el pronóstico de {} días...").format(dias))
 		t = threading.Thread(target=self._fetchForecast, args=(cfg,), daemon=True)
 		t.start()
 
@@ -709,46 +718,46 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			hoy     = datetime.date.today().isoformat()
 			momento = momentoLluvia(hoy, horas_time, horas_prob, horas_prec)
 
-			partes = ["En {}, el reporte del clima es el siguiente.".format(city)]
+			partes = [_("En {}, el reporte del clima es el siguiente.").format(city)]
 
 			if prefs.get("temperatura")    and "temperature_2m"       in c:
-				partes.append("Temperatura: {} grados Celsius.".format(c["temperature_2m"]))
+				partes.append(_("Temperatura: {} grados Celsius.").format(c["temperature_2m"]))
 			if prefs.get("sensacion")      and "apparent_temperature"  in c:
-				partes.append("Sensación térmica: {} grados.".format(c["apparent_temperature"]))
+				partes.append(_("Sensación térmica: {} grados.").format(c["apparent_temperature"]))
 			if prefs.get("condicion")      and "weather_code"          in c:
-				partes.append("Condición: {}.".format(codigoClima(c["weather_code"])))
+				partes.append(_("Condición: {}.").format(codigoClima(c["weather_code"])))
 			if prefs.get("es_dia")         and "is_day"                in c:
-				partes.append("Ahora es {}.".format("de día" if c["is_day"] == 1 else "de noche"))
+				partes.append(_("Ahora es {}.").format(_("de día") if c["is_day"] == 1 else _("de noche")))
 			if prefs.get("humedad")        and "relative_humidity_2m"  in c:
 				partes.append(_("Humedad: {} por ciento.").format(c["relative_humidity_2m"]))
 			if prefs.get("punto_rocio")    and "dew_point_2m"          in c:
-				partes.append("Punto de rocío: {} grados.".format(c["dew_point_2m"]))
+				partes.append(_("Punto de rocío: {} grados.").format(c["dew_point_2m"]))
 			if prefs.get("viento_vel")     and "wind_speed_10m"        in c:
-				partes.append("Viento a {} kilómetros por hora.".format(c["wind_speed_10m"]))
+				partes.append(_("Viento a {} kilómetros por hora.").format(c["wind_speed_10m"]))
 			if prefs.get("viento_dir")     and "wind_direction_10m"    in c:
-				partes.append("Dirección del viento: {}.".format(cardinal(c["wind_direction_10m"])))
+				partes.append(_("Dirección del viento: {}.").format(cardinal(c["wind_direction_10m"])))
 			if prefs.get("viento_rafagas") and "wind_gusts_10m"        in c:
 				partes.append(_("Ráfagas de hasta {} kilómetros por hora.").format(c["wind_gusts_10m"]))
 			if prefs.get("nubosidad")      and "cloud_cover"           in c:
-				partes.append("Nubosidad: {} por ciento.".format(c["cloud_cover"]))
+				partes.append(_("Nubosidad: {} por ciento.").format(c["cloud_cover"]))
 			if prefs.get("precipitacion")  and "precipitation"         in c:
 				precip_val = float(c.get("precipitation", 0))
 				if precip_val > 0:
-					partes.append("Precipitación actual: {} milímetros.".format(precip_val))
+					partes.append(_("Precipitación actual: {} milímetros.").format(precip_val))
 			if prefs.get("presion")        and "surface_pressure"      in c:
-				partes.append("Presión atmosférica: {} hectopascales.".format(c["surface_pressure"]))
+				partes.append(_("Presión atmosférica: {} hectopascales.").format(c["surface_pressure"]))
 
 			codigo_actual   = c.get("weather_code", 99)
 			cielo_despejado = codigo_actual in (0, 1)
 			if cielo_despejado:
 				if prefs.get("amanecer")  and dv("sunrise")           is not None:
-					partes.append("Salida del sol: {}.".format(formatHora(dv("sunrise"))))
+					partes.append(_("Salida del sol: {}.").format(formatHora(dv("sunrise"))))
 				if prefs.get("atardecer") and dv("sunset")            is not None:
-					partes.append("Puesta del sol: {}.".format(formatHora(dv("sunset"))))
+					partes.append(_("Puesta del sol: {}.").format(formatHora(dv("sunset"))))
 				if prefs.get("horas_luz") and dv("daylight_duration") is not None:
-					partes.append("Horas de luz hoy: {}.".format(formatSegundos(dv("daylight_duration"))))
+					partes.append(_("Horas de luz hoy: {}.").format(formatSegundos(dv("daylight_duration"))))
 			if prefs.get("uv_max") and dv("uv_index_max") is not None:
-				partes.append("Índice UV máximo del día: {}.".format(dv("uv_index_max")))
+				partes.append(_("Índice UV máximo del día: {}.").format(dv("uv_index_max")))
 			if prefs.get("precip_prob_max") and dv("precipitation_probability_max") is not None:
 				prob_max = int(dv("precipitation_probability_max") or 0)
 				if prob_max > 0 and momento:
@@ -767,7 +776,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				partes.append(_("Ráfaga máxima del día: {} kilómetros por hora.").format(dv("wind_gusts_10m_max")))
 
 			if len(partes) == 1:
-				partes.append(_("No hay datos seleccionados. Abrí la configuración con NVDA+Control+W."))
+				partes.append(_("No hay datos seleccionados. Abre la configuración con NVDA+Control+W."))
 
 			self._safeMessage(" ".join(partes))
 
@@ -775,7 +784,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if self._stopping.is_set():
 				return
 			log.error("ClimaAccesible: Tiempo de espera agotado al consultar clima.", exc_info=True)
-			self._safeMessage(_("Tiempo de espera agotado al consultar el clima. Comprobá tu conexión o intentá nuevamente."))
+			self._safeMessage(_("Tiempo de espera agotado al consultar el clima. Comprueba tu conexión o inténtalo nuevamente."))
 		except urllib.error.HTTPError as e:
 			if self._stopping.is_set():
 				return
@@ -789,7 +798,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if self._stopping.is_set():
 				return
 			log.error(f"ClimaAccesible: Error de conexión de red (URLError) al consultar clima: {e.reason}", exc_info=True)
-			self._safeMessage(_("No se pudo conectar al servidor. Verificá tu conexión a Internet."))
+			self._safeMessage(_("No se pudo conectar al servidor. Verifica tu conexión a Internet."))
 		except Exception as e:
 			if self._stopping.is_set():
 				return
@@ -921,7 +930,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if self._stopping.is_set():
 				return
 			log.error("ClimaAccesible: Tiempo de espera agotado en pronóstico.", exc_info=True)
-			self._safeMessage(_("Tiempo de espera agotado al consultar el pronóstico. Comprobá tu conexión o intentá nuevamente."))
+			self._safeMessage(_("Tiempo de espera agotado al consultar el pronóstico. Comprueba tu conexión o inténtalo nuevamente."))
 		except urllib.error.HTTPError as e:
 			if self._stopping.is_set():
 				return
@@ -935,7 +944,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if self._stopping.is_set():
 				return
 			log.error(f"ClimaAccesible: Error de conexión de red (URLError) en pronóstico: {e.reason}", exc_info=True)
-			self._safeMessage(_("No se pudo conectar. Verificá tu conexión a Internet."))
+			self._safeMessage(_("No se pudo conectar. Verifica tu conexión a Internet."))
 		except Exception as e:
 			if self._stopping.is_set():
 				return

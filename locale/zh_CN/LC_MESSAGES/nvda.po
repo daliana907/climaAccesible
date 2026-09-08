@@ -2,396 +2,894 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: climaAccesible 1.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-08 06:42+0000\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n\nmsgid " Precipitación esperada {} de {} milímetros."
-msgstr "预计降水量为 {} 毫米。"
+"Content-Transfer-Encoding: 8bit\n"
 
-msgid " Precipitación esperada: {} milímetros."
-msgstr "预计降水量：{} 毫米。"
+#: climaAccesible/globalPlugins/climaAccesible.py:54
+msgid "Temperatura actual"
+msgstr ""
 
-msgid " Probabilidad máxima de lluvia: {} por ciento con {} milímetros."
-msgstr "最大降雨概率：百分之 {}，降雨量为 {} 毫米。"
-
-msgid " Probabilidad máxima de lluvia: {} por ciento {} con {} milímetros."
-msgstr "最大降雨概率：百分之 {} {}，降雨量为 {} 毫米。"
-
-msgid " Probabilidad máxima de lluvia: {} por ciento {}."
-msgstr "下雨的最大几率：百分之 {} {}。"
-
-msgid " Probabilidad máxima de lluvia: {} por ciento."
-msgstr "下雨的最大几率：百分之 {}。"
-
-msgid "&Cancelar"
-msgstr "取消(&C)"
-
-msgid "&Guardar"
-msgstr "保存(&S)"
-
-msgid "Abre el panel de configuración de Clima Accesible."
-msgstr "打开“无障碍气候”设置面板。"
-
-msgid "Abre la documentación de la API del clima (en el navegador)."
-msgstr "打开天气 API 文档（在浏览器中）。"
-
-msgid "Anuncia el clima actual de la ciudad configurada. Pulsá dos veces para copiar al portapapeles."
-msgstr "公布所配置城市的当前天气。按两次可复制到剪贴板。"
-
-msgid "Anuncia el pronóstico para los próximos días. Pulsá dos veces para copiar al portapapeles."
-msgstr "公布未来几天的天气预报。按两次可复制到剪贴板。"
-
-msgid "Anunciar Humedad"
-msgstr "公布湿度"
-
-msgid "Anunciar Precipitación total"
-msgstr "公布总降水量"
-
-msgid "Anunciar Probabilidad de lluvia"
-msgstr "宣布可能有雨"
-
-msgid "Anunciar Ráfagas de viento"
-msgstr "宣布阵风"
-
-msgid "Anunciar Sensación Térmica"
+#: climaAccesible/globalPlugins/climaAccesible.py:55
+#, fuzzy
+msgid "Sensación térmica"
 msgstr "宣传热感"
 
-msgid "Anunciar Viento"
-msgstr "宣布风"
+#: climaAccesible/globalPlugins/climaAccesible.py:56
+#, fuzzy
+msgid "Condición del cielo"
+msgstr "无障碍气候设置"
 
-msgid "Caída de nieve fuerte"
-msgstr "大雪纷飞"
+#: climaAccesible/globalPlugins/climaAccesible.py:57
+msgid "Si es de día o de noche"
+msgstr ""
 
-msgid "Caída de nieve leve"
-msgstr "小雪"
+#: climaAccesible/globalPlugins/climaAccesible.py:58
+#, fuzzy
+msgid "Humedad"
+msgstr "公布湿度"
 
-msgid "Caída de nieve moderada"
-msgstr "中雪"
+#: climaAccesible/globalPlugins/climaAccesible.py:59
+msgid "Punto de rocío"
+msgstr ""
 
-msgid "Celsius"
-msgstr "摄氏度"
+#: climaAccesible/globalPlugins/climaAccesible.py:60
+msgid "Velocidad del viento"
+msgstr ""
 
-msgid "Chubascos de nieve fuertes"
-msgstr "大阵雪"
+#: climaAccesible/globalPlugins/climaAccesible.py:61
+msgid "Dirección del viento"
+msgstr ""
 
-msgid "Chubascos de nieve leves"
-msgstr "小阵雪"
+#: climaAccesible/globalPlugins/climaAccesible.py:62
+#, fuzzy
+msgid "Ráfagas de viento"
+msgstr "宣布阵风"
 
-msgid "Chubascos leves"
+#: climaAccesible/globalPlugins/climaAccesible.py:63
+msgid "Nubosidad"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:64
+#, fuzzy
+msgid "Precipitación actual"
+msgstr "公布总降水量"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:65
+msgid "Presión atmosférica"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:66
+msgid "Hora de salida del sol"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:67
+msgid "Hora de puesta del sol"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:68
+msgid "Horas de luz solar del día"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:69
+msgid "Índice UV máximo del día"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:70
+#, fuzzy
+msgid "Probabilidad máxima de lluvia del día"
+msgstr "当天下雨的最大几率：百分之 {}。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:71
+#, fuzzy
+msgid "Precipitación total esperada del día"
+msgstr "当天预计总降水量：{} 毫米。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:72
+#, fuzzy
+msgid "Viento máximo del día"
+msgstr "当天最大风速：每小时 {} 公里。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:73
+#, fuzzy
+msgid "Ráfaga máxima del día"
+msgstr "当天最大阵风：每小时 {} 公里。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:119
+msgid "{} horas y {} minutos"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:121
+msgid "{} horas"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:123
+msgid "{} minutos"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:129
+msgid "dirección desconocida"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:131
+msgid "norte"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:131
+msgid "nor noreste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:131
+msgid "noreste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:131
+msgid "este noreste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:132
+msgid "este"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:132
+msgid "este sureste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:132
+msgid "sureste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:132
+msgid "sur sureste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:133
+msgid "sur"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:133
+msgid "sur suroeste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:133
+msgid "suroeste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:133
+msgid "oeste suroeste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:134
+msgid "oeste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:134
+msgid "oeste noroeste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:134
+msgid "noroeste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:134
+msgid "nor noroeste"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:140
+#, fuzzy
+msgid "cielo despejado"
+msgstr "清除"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:140
+#, fuzzy
+msgid "mayormente despejado"
+msgstr "基本清晰"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:140
+#, fuzzy
+msgid "parcialmente nublado"
+msgstr "晴间多云"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:141
+#, fuzzy
+msgid "nublado"
+msgstr "多云"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:141
+#, fuzzy
+msgid "niebla"
+msgstr "雾"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:141
+#, fuzzy
+msgid "niebla con escarcha"
+msgstr "有雾有霜"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:142
+#, fuzzy
+msgid "llovizna ligera"
+msgstr "小雨"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:142
+#, fuzzy
+msgid "llovizna moderada"
+msgstr "中毛毛雨"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:142
+#, fuzzy
+msgid "llovizna densa"
+msgstr "细雨"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:143
+#, fuzzy
+msgid "lluvia ligera"
+msgstr "小雨"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:143
+#, fuzzy
+msgid "lluvia moderada"
+msgstr "中雨"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:143
+#, fuzzy
+msgid "lluvia intensa"
+msgstr "细雨"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:144
+#, fuzzy
+msgid "nevada ligera"
+msgstr "小冰雨"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:144
+#, fuzzy
+msgid "nevada moderada"
+msgstr "中雨"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:144
+msgid "nevada intensa"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:145
+msgid "granizo fino"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:145
+#, fuzzy
+msgid "chubascos ligeros"
 msgstr "小阵雨"
 
-msgid "Chubascos moderados"
+#: climaAccesible/globalPlugins/climaAccesible.py:145
+#, fuzzy
+msgid "chubascos moderados"
 msgstr "中等阵雨"
 
-msgid "Chubascos violentos"
+#: climaAccesible/globalPlugins/climaAccesible.py:146
+#, fuzzy
+msgid "chubascos intensos"
 msgstr "猛烈阵雨"
 
-msgid "Ciudad (Nombre, País):"
-msgstr "城市（名称、国家）："
+#: climaAccesible/globalPlugins/climaAccesible.py:146
+#, fuzzy
+msgid "chubascos de nieve ligeros"
+msgstr "小阵雪"
 
-msgid "Clima"
-msgstr "气候"
+#: climaAccesible/globalPlugins/climaAccesible.py:147
+#, fuzzy
+msgid "chubascos de nieve intensos"
+msgstr "大阵雪"
 
-msgid "Clima en {}: {}. Temperatura actual: {} grados."
-msgstr "{} 的天气：{}。当前温度：{} 度。"
+#: climaAccesible/globalPlugins/climaAccesible.py:148
+#, fuzzy
+msgid "tormenta eléctrica"
+msgstr "小雷阵雨"
 
-msgid "Clima en {}: {}. Temperatura actual: {} grados. Sensación térmica: {} grados."
-msgstr "{} 的天气：{}。当前温度：{} 度。风寒：{} 度。"
+#: climaAccesible/globalPlugins/climaAccesible.py:148
+#, fuzzy
+msgid "tormenta con granizo ligero"
+msgstr "伴有小冰雹的暴风雨"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:149
+#, fuzzy
+msgid "tormenta con granizo intenso"
+msgstr "暴风雨伴有强冰雹"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:151
+msgid "condición desconocida"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:193
+#, fuzzy
+msgid "la madrugada"
+msgstr "今天早上"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:195
+#, fuzzy
+msgid "la mañana"
+msgstr "明天"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:197
+#, fuzzy
+msgid "la tarde"
+msgstr "今天下午"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:199
+#, fuzzy
+msgid "la noche"
+msgstr "今晚"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:204
+msgid "durante todo el día"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:206
+msgid "por {}"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:208
+#: climaAccesible/globalPlugins/climaAccesible.py:209
+msgid "por {} y por {}"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:219
+#, fuzzy
+msgid "ClimaAccesible - Configuración"
+msgstr "气候适宜"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:238
+msgid "Ubicación"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:241
+msgid "País:"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:247
+msgid "Departamento / Región:"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:253
+msgid "Ciudad:"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:261
+msgid "Cargando datos..."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:267
+msgid "Datos actuales que quiero escuchar"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:278
+msgid "Datos del día que quiero escuchar"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:289
+msgid "Pronóstico extendido (NVDA+Shift+W)"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:291
+#, fuzzy
+msgid "Días a consultar (1 a 14):"
+msgstr "预报天数（1 至 16）："
+
+#: climaAccesible/globalPlugins/climaAccesible.py:298
+#, fuzzy
+msgid "Guardar todo"
+msgstr "保存(&S)"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:302
+#, fuzzy
+msgid "Cancelar"
+msgstr "取消(&C)"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:382
+msgid "Error al cargar datos geográficos."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:411
+msgid "Listo. Elige tu ubicación."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:483
+msgid "Elige una ciudad antes de guardar."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:501
+#, python-brace-format
+msgid ""
+"Configuración guardada.\n"
+"Ciudad: {c}\n"
+"Usa NVDA+W para consultar el clima."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:502
+#: climaAccesible/globalPlugins/climaAccesible.py:522
 msgid "ClimaAccesible"
 msgstr "气候适宜"
 
-msgid "Configuración de Clima Accesible"
+#: climaAccesible/globalPlugins/climaAccesible.py:530
+#, fuzzy
+msgid "Configuración del complemento"
 msgstr "无障碍气候设置"
 
-msgid "Consulta el clima actual y el pronóstico de tu ciudad con atajos de teclado. No requiere cuenta ni clave en ningún servicio."
-msgstr "使用键盘快捷键查看您所在城市的当前天气和天气预报。任何服务均无需帐户或密码。"
+#: climaAccesible/globalPlugins/climaAccesible.py:531
+msgid "Comprobar conflictos con otros complementos..."
+msgstr ""
 
-msgid "Copos de nieve"
-msgstr "雪花"
+#: climaAccesible/globalPlugins/climaAccesible.py:532
+msgid "Documentación"
+msgstr ""
 
-msgid "Despejado"
-msgstr "清除"
+#: climaAccesible/globalPlugins/climaAccesible.py:537
+#, fuzzy
+msgid "Opciones de ClimaAccesible"
+msgstr "无障碍气候设置"
 
-msgid "Días de pronóstico (1 a 16):"
-msgstr "预报天数（1 至 16）："
-
-msgid "E"
-msgstr "乙"
-
-msgid "Error del servidor: código {}. Motivo: {}"
-msgstr "服务器错误：代码 {}。原因：{}"
-
-msgid "Error inesperado al consultar el clima."
-msgstr "检查天气时出现意外错误。"
-
-msgid "Error inesperado al consultar el pronóstico."
-msgstr "查阅预测时出现意外错误。"
-
-msgid "Fahrenheit"
-msgstr "华氏度"
-
-msgid "Humedad: {} por ciento."
-msgstr "湿度：百分之 {}。"
-
-msgid "Llovizna densa"
-msgstr "细雨"
-
-msgid "Llovizna helada densa"
-msgstr "浓密的冻毛毛雨"
-
-msgid "Llovizna helada ligera"
-msgstr "小冰雨"
-
-msgid "Llovizna ligera"
-msgstr "小雨"
-
-msgid "Llovizna moderada"
-msgstr "中毛毛雨"
-
-msgid "Lluvia fuerte"
-msgstr "大雨"
-
-msgid "Lluvia helada fuerte"
-msgstr "大冻雨"
-
-msgid "Lluvia helada leve"
-msgstr "小冻雨"
-
-msgid "Lluvia leve"
-msgstr "小雨"
-
-msgid "Lluvia moderada"
-msgstr "中雨"
-
-msgid "Mayormente despejado"
-msgstr "基本清晰"
-
-msgid "N"
-msgstr "氮"
-
-msgid "NE"
-msgstr "东北"
-
-msgid "NO"
-msgstr "否"
-
-msgid "Niebla"
-msgstr "雾"
-
-msgid "Niebla con escarcha"
-msgstr "有雾有霜"
-
-msgid "No hay ciudad configurada. Usá NVDA+Control+W para configurar."
-msgstr "没有配置城市。使用NVDA+Control+W进行配置。"
-
-msgid "No hay datos seleccionados. Abrí la configuración con NVDA+Control+W."
-msgstr "没有选择任何数据。我用NVDA+Control+W打开设置。"
-
+#: climaAccesible/globalPlugins/climaAccesible.py:573
 msgid "No se encontró el archivo de documentación."
 msgstr "找不到文档文件。"
 
-msgid "No se pudo conectar al servidor. Verificá tu conexión a Internet."
-msgstr "无法连接到服务器。检查您的互联网连接。"
-
-msgid "No se pudo conectar. Verificá tu conexión a Internet."
-msgstr "无法连接。检查您的互联网连接。"
-
-msgid "Nublado"
-msgstr "多云"
-
-msgid "O"
-msgstr "或者"
-
-msgid "Opciones de información a anunciar (Clima Actual):"
-msgstr "发布的信息选项（当前天气）："
-
-msgid "Parcialmente nublado"
-msgstr "晴间多云"
-
-msgid "Por favor esperá, consultando el clima..."
-msgstr "请稍候，正在查看天气..."
-
-msgid "Por favor esperá, consultando el pronóstico de {} días..."
-msgstr "请稍候，正在查看 {} 天的天气预报..."
-
-msgid "Precipitación total esperada del día: {} milímetros {}."
-msgstr "当天预计总降水量：{} 毫米{}。"
-
-msgid "Precipitación total esperada del día: {} milímetros."
-msgstr "当天预计总降水量：{} 毫米。"
-
-msgid "Probabilidad máxima de lluvia del día: {} por ciento {}."
-msgstr "当天下雨的最大几率：百分之 {} {}。"
-
-msgid "Probabilidad máxima de lluvia del día: {} por ciento."
-msgstr "当天下雨的最大几率：百分之 {}。"
-
-msgid "Pronóstico para {} para los próximos {} días."
-msgstr "未来 {} 天的 {} 预测。"
-
-msgid "Ráfaga máxima del día: {} kilómetros por hora."
-msgstr "当天最大阵风：每小时 {} 公里。"
-
-msgid "Ráfagas de hasta {} kilómetros por hora."
-msgstr "阵风高达每小时 {} 公里。"
-
-msgid "S"
-msgstr "是的"
-
-msgid "SE"
-msgstr "东南欧"
-
-msgid "SO"
-msgstr "操作系统"
-
-msgid "Tormenta con granizo fuerte"
-msgstr "暴风雨伴有强冰雹"
-
-msgid "Tormenta con granizo leve"
-msgstr "伴有小冰雹的暴风雨"
-
-msgid "Tormenta eléctrica leve"
-msgstr "小雷阵雨"
-
-msgid "Unidad de temperatura:"
-msgstr "温度单位："
-
-msgid "Viento máximo del día: {} kilómetros por hora."
-msgstr "当天最大风速：每小时 {} 公里。"
-
-msgid "Viento: {} a {} kilómetros por hora."
-msgstr "风：{}，每小时 {} 公里。"
-
-msgid "abril"
-msgstr "四月"
-
-msgid "agosto"
-msgstr "八月"
-
-msgid "diciembre"
-msgstr "十二月"
-
-msgid "domingo"
-msgstr "星期日"
-
-msgid "enero"
-msgstr "一月"
-
-msgid "esta madrugada"
-msgstr "今天早上"
-
-msgid "esta mañana"
-msgstr "今天早上"
-
-msgid "esta noche"
-msgstr "今晚"
-
-msgid "esta tarde"
-msgstr "今天下午"
-
-msgid "este mediodía"
-msgstr "今天中午"
-
-msgid "febrero"
-msgstr "二月"
-
-msgid "hoy"
-msgstr "今天"
-
-msgid "jueves"
-msgstr "星期四"
-
-msgid "julio"
-msgstr "七月"
-
-msgid "junio"
-msgstr "六月"
-
-msgid "lunes"
-msgstr "星期一"
-
-msgid "martes"
-msgstr "星期二"
-
-msgid "marzo"
-msgstr "进行曲"
-
-msgid "mayo"
-msgstr "可能"
-
-msgid "mañana"
-msgstr "明天"
-
-msgid "miércoles"
-msgstr "星期三"
-
-msgid "noviembre"
-msgstr "十一月"
-
-msgid "octubre"
-msgstr "十月"
-
-msgid "septiembre"
-msgstr "九月"
-
-msgid "sábado"
-msgstr "星期六"
-
-msgid "viernes"
-msgstr "星期五"
-
-msgid "{} {} de {}"
-msgstr "{}{}（共 {}）"
-
-msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{}"
-msgstr "{}：{}。最大 {} 度，最小 {} 度。最大风速为每小时 {} 公里。{}"
-
-msgid "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros por hora.{} Sol visible de {} a {}."
-msgstr "{}：{}。最大 {} 度，最小 {} 度。最大风速为每小时 {} 公里。 {} 从 {} 到 {} 可见太阳。"
-
-msgid "Abre la ventana de configuración de ClimaAccesible."
-msgstr "打开 ClimateAccessible 配置窗口。"
-
+#: climaAccesible/globalPlugins/climaAccesible.py:578
 msgid "Anuncia el clima actual de la ciudad configurada."
 msgstr "公布所配置城市的当前天气。"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:588
+#: climaAccesible/globalPlugins/climaAccesible.py:606
+msgid "No hay ciudad configurada. Usa NVDA+Control+W para configurar."
+msgstr "没有配置城市。使用NVDA+Control+W进行配置。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:591
+msgid "Por favor espera, consultando el clima..."
+msgstr "请稍候，正在查看天气..."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:596
 msgid "Anuncia el pronóstico del clima para los próximos días."
 msgstr "公布未来几天的天气预报。"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:610
+msgid "Por favor espera, consultando el pronóstico de {} días..."
+msgstr "请稍候，正在查看 {} 天的天气预报..."
+
+#: climaAccesible/globalPlugins/climaAccesible.py:615
+msgid "Abre la ventana de configuración de ClimaAccesible."
+msgstr "打开 ClimateAccessible 配置窗口。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:721
+msgid "En {}, el reporte del clima es el siguiente."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:724
+msgid "Temperatura: {} grados Celsius."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:726
+#, fuzzy
+msgid "Sensación térmica: {} grados."
+msgstr "宣传热感"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:728
+msgid "Condición: {}."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:730
+msgid "Ahora es {}."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:730
+msgid "de día"
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:730
+#, fuzzy
+msgid "de noche"
+msgstr "今晚"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:732
+msgid "Humedad: {} por ciento."
+msgstr "湿度：百分之 {}。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:734
+msgid "Punto de rocío: {} grados."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:736
+#, fuzzy
+msgid "Viento a {} kilómetros por hora."
+msgstr "风：{}，每小时 {} 公里。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:738
+msgid "Dirección del viento: {}."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:740
+msgid "Ráfagas de hasta {} kilómetros por hora."
+msgstr "阵风高达每小时 {} 公里。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:742
+#, fuzzy
+msgid "Nubosidad: {} por ciento."
+msgstr "湿度：百分之 {}。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:746
+#, fuzzy
+msgid "Precipitación actual: {} milímetros."
+msgstr "预计降水量：{} 毫米。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:748
+msgid "Presión atmosférica: {} hectopascales."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:754
+msgid "Salida del sol: {}."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:756
+msgid "Puesta del sol: {}."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:758
+msgid "Horas de luz hoy: {}."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:760
+msgid "Índice UV máximo del día: {}."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:764
+msgid "Probabilidad máxima de lluvia del día: {} por ciento {}."
+msgstr "当天下雨的最大几率：百分之 {} {}。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:766
+msgid "Probabilidad máxima de lluvia del día: {} por ciento."
+msgstr "当天下雨的最大几率：百分之 {}。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:770
+msgid "Precipitación total esperada del día: {} milímetros {}."
+msgstr "当天预计总降水量：{} 毫米{}。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:772
+msgid "Precipitación total esperada del día: {} milímetros."
+msgstr "当天预计总降水量：{} 毫米。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:774
+msgid "Viento máximo del día: {} kilómetros por hora."
+msgstr "当天最大风速：每小时 {} 公里。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:776
+msgid "Ráfaga máxima del día: {} kilómetros por hora."
+msgstr "当天最大阵风：每小时 {} 公里。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:779
+msgid "No hay datos seleccionados. Abre la configuración con NVDA+Control+W."
+msgstr "没有选择任何数据。我用NVDA+Control+W打开设置。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:787
+msgid ""
+"Tiempo de espera agotado al consultar el clima. Comprueba tu conexión o "
+"inténtalo nuevamente."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:796
+#: climaAccesible/globalPlugins/climaAccesible.py:942
+msgid "Error del servidor: código {}. Motivo: {}"
+msgstr "服务器错误：代码 {}。原因：{}"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:801
+msgid "No se pudo conectar al servidor. Verifica tu conexión a Internet."
+msgstr "无法连接到服务器。检查您的互联网连接。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:806
+msgid "Error inesperado al consultar el clima."
+msgstr "检查天气时出现意外错误。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:846
+msgid "lunes"
+msgstr "星期一"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:846
+msgid "martes"
+msgstr "星期二"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:846
+msgid "miércoles"
+msgstr "星期三"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:847
+msgid "jueves"
+msgstr "星期四"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:847
+msgid "viernes"
+msgstr "星期五"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:847
+msgid "sábado"
+msgstr "星期六"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:847
+msgid "domingo"
+msgstr "星期日"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:850
+msgid "enero"
+msgstr "一月"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:850
+msgid "febrero"
+msgstr "二月"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:850
+msgid "marzo"
+msgstr "进行曲"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:851
+msgid "abril"
+msgstr "四月"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:851
+msgid "mayo"
+msgstr "可能"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:851
+msgid "junio"
+msgstr "六月"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:852
+msgid "julio"
+msgstr "七月"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:852
+msgid "agosto"
+msgstr "八月"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:852
+msgid "septiembre"
+msgstr "九月"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:853
+msgid "octubre"
+msgstr "十月"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:853
+msgid "noviembre"
+msgstr "十一月"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:853
+msgid "diciembre"
+msgstr "十二月"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:857
+msgid "hoy"
+msgstr "今天"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:858
+msgid "mañana"
+msgstr "明天"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:863
+msgid "{} {} de {}"
+msgstr "{}{}（共 {}）"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:867
+msgid "Pronóstico para {} para los próximos {} días."
+msgstr "未来 {} 天的 {} 预测。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:895
+msgid " Probabilidad máxima de lluvia: {} por ciento {} con {} milímetros."
+msgstr "最大降雨概率：百分之 {} {}，降雨量为 {} 毫米。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:897
+msgid " Probabilidad máxima de lluvia: {} por ciento con {} milímetros."
+msgstr "最大降雨概率：百分之 {}，降雨量为 {} 毫米。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:900
+msgid " Probabilidad máxima de lluvia: {} por ciento {}."
+msgstr "下雨的最大几率：百分之 {} {}。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:902
+msgid " Probabilidad máxima de lluvia: {} por ciento."
+msgstr "下雨的最大几率：百分之 {}。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:905
+msgid " Precipitación esperada {} de {} milímetros."
+msgstr "预计降水量为 {} 毫米。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:907
+msgid " Precipitación esperada: {} milímetros."
+msgstr "预计降水量：{} 毫米。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:933
+msgid ""
+"Tiempo de espera agotado al consultar el pronóstico. Comprueba tu conexión o "
+"inténtalo nuevamente."
+msgstr ""
+
+#: climaAccesible/globalPlugins/climaAccesible.py:947
+msgid "No se pudo conectar. Verifica tu conexión a Internet."
+msgstr "无法连接。检查您的互联网连接。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:952
+msgid "Error inesperado al consultar el pronóstico."
+msgstr "查阅预测时出现意外错误。"
+
+#: climaAccesible/globalPlugins/climaAccesible.py:971
 msgid "Lectura del clima actual"
 msgstr "当前天气读数"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:972
 msgid "Lectura del pronóstico extendido"
 msgstr "阅读扩展预测"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:973
 msgid "Ventana de configuración del clima"
 msgstr "气候设置窗口"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:980
 msgid "Weather Plus (superpone atajos globales de clima como NVDA+W)"
 msgstr "Weather Plus（覆盖全球天气快捷方式，如 NVDA+W）"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:981
 msgid "Weather (superpone atajos globales de información meteorológica)"
 msgstr "天气（覆盖全球天气信息快捷方式）"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:982
 msgid "Weather Update"
 msgstr "天气更新"
 
-msgid "No se han detectado conflictos de atajos de teclado ni complementos incompatibles de clima activos en este sistema."
+#: climaAccesible/globalPlugins/climaAccesible.py:1056
+msgid ""
+"No se han detectado conflictos de atajos de teclado ni complementos "
+"incompatibles de clima activos en este sistema."
 msgstr "在此系统上未检测到活动的键盘快捷键冲突或不兼容的天气插件。"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:1057
+#: climaAccesible/globalPlugins/climaAccesible.py:1076
 msgid "Auditoría de compatibilidad - ClimaAccesible"
 msgstr "兼容性审核 - ClimaAccessible"
 
+#: climaAccesible/globalPlugins/climaAccesible.py:1063
 msgid "COLISIONES DIRECTAS DE ATAJOS:"
 msgstr "直接快捷碰撞："
 
+#: climaAccesible/globalPlugins/climaAccesible.py:1069
 msgid "ADVERTENCIAS DE COMPATIBILIDAD:"
 msgstr "兼容性警告："
 
-msgid "Nota: Los detalles completos también se han registrado en el archivo de log de NVDA."
+#: climaAccesible/globalPlugins/climaAccesible.py:1073
+msgid ""
+"Nota: Los detalles completos también se han registrado en el archivo de log "
+"de NVDA."
 msgstr "注意：完整的详细信息也已记录在 NVDA 日志文件中。"
 
-msgid "Comprueba si existen conflictos de atajos de teclado o complementos incompatibles con ClimaAccesible."
+#: climaAccesible/globalPlugins/climaAccesible.py:1084
+msgid ""
+"Comprueba si existen conflictos de atajos de teclado o complementos "
+"incompatibles con ClimaAccesible."
 msgstr "检查是否存在键盘快捷键冲突或与 ClimaAccesible 不兼容的插件。"
 
+#~ msgid "Abre el panel de configuración de Clima Accesible."
+#~ msgstr "打开“无障碍气候”设置面板。"
+
+#~ msgid "Abre la documentación de la API del clima (en el navegador)."
+#~ msgstr "打开天气 API 文档（在浏览器中）。"
+
+#~ msgid ""
+#~ "Anuncia el clima actual de la ciudad configurada. Pulsá dos veces para "
+#~ "copiar al portapapeles."
+#~ msgstr "公布所配置城市的当前天气。按两次可复制到剪贴板。"
+
+#~ msgid ""
+#~ "Anuncia el pronóstico para los próximos días. Pulsá dos veces para copiar "
+#~ "al portapapeles."
+#~ msgstr "公布未来几天的天气预报。按两次可复制到剪贴板。"
+
+#~ msgid "Anunciar Probabilidad de lluvia"
+#~ msgstr "宣布可能有雨"
+
+#~ msgid "Anunciar Viento"
+#~ msgstr "宣布风"
+
+#~ msgid "Caída de nieve fuerte"
+#~ msgstr "大雪纷飞"
+
+#~ msgid "Caída de nieve leve"
+#~ msgstr "小雪"
+
+#~ msgid "Caída de nieve moderada"
+#~ msgstr "中雪"
+
+#~ msgid "Celsius"
+#~ msgstr "摄氏度"
+
+#~ msgid "Ciudad (Nombre, País):"
+#~ msgstr "城市（名称、国家）："
+
+#~ msgid "Clima"
+#~ msgstr "气候"
+
+#~ msgid "Clima en {}: {}. Temperatura actual: {} grados."
+#~ msgstr "{} 的天气：{}。当前温度：{} 度。"
+
+#~ msgid ""
+#~ "Clima en {}: {}. Temperatura actual: {} grados. Sensación térmica: {} "
+#~ "grados."
+#~ msgstr "{} 的天气：{}。当前温度：{} 度。风寒：{} 度。"
+
+#~ msgid ""
+#~ "Consulta el clima actual y el pronóstico de tu ciudad con atajos de "
+#~ "teclado. No requiere cuenta ni clave en ningún servicio."
+#~ msgstr ""
+#~ "使用键盘快捷键查看您所在城市的当前天气和天气预报。任何服务均无需帐户或密"
+#~ "码。"
+
+#~ msgid "Copos de nieve"
+#~ msgstr "雪花"
+
+#~ msgid "E"
+#~ msgstr "乙"
+
+#~ msgid "Fahrenheit"
+#~ msgstr "华氏度"
+
+#~ msgid "Llovizna helada densa"
+#~ msgstr "浓密的冻毛毛雨"
+
+#~ msgid "Lluvia fuerte"
+#~ msgstr "大雨"
+
+#~ msgid "Lluvia helada fuerte"
+#~ msgstr "大冻雨"
+
+#~ msgid "Lluvia helada leve"
+#~ msgstr "小冻雨"
+
+#~ msgid "Lluvia leve"
+#~ msgstr "小雨"
+
+#~ msgid "N"
+#~ msgstr "氮"
+
+#~ msgid "NE"
+#~ msgstr "东北"
+
+#~ msgid "NO"
+#~ msgstr "否"
+
+#~ msgid "O"
+#~ msgstr "或者"
+
+#~ msgid "Opciones de información a anunciar (Clima Actual):"
+#~ msgstr "发布的信息选项（当前天气）："
+
+#~ msgid "S"
+#~ msgstr "是的"
+
+#~ msgid "SE"
+#~ msgstr "东南欧"
+
+#~ msgid "SO"
+#~ msgstr "操作系统"
+
+#~ msgid "Unidad de temperatura:"
+#~ msgstr "温度单位："
+
+#~ msgid "esta mañana"
+#~ msgstr "今天早上"
+
+#~ msgid "este mediodía"
+#~ msgstr "今天中午"
+
+#~ msgid ""
+#~ "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros "
+#~ "por hora.{}"
+#~ msgstr "{}：{}。最大 {} 度，最小 {} 度。最大风速为每小时 {} 公里。{}"
+
+#~ msgid ""
+#~ "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros "
+#~ "por hora.{} Sol visible de {} a {}."
+#~ msgstr ""
+#~ "{}：{}。最大 {} 度，最小 {} 度。最大风速为每小时 {} 公里。 {} 从 {} 到 {} "
+#~ "可见太阳。"
