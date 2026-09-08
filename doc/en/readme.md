@@ -1,7 +1,7 @@
 # Accessible Weather for NVDA
 
 Author: Daliana
-Version: 1.4
+Version: 1.5
 Compatibility: NVDA 2019.3 or later
 License: GNU GPL v2
 
@@ -28,6 +28,25 @@ You can also access the add-on from NVDA > Tools > ClimaAccesible:
 1. Press NVDA + Control + W to open settings.
 2. Choose your Country, Province/State, and City.
 3. Select your desired weather details and click Save.
+
+## What's new in 1.5 (8 September 2026)
+
+### Fixed
+
+- Settings could not be saved: the code used a value that did not exist and the operation failed.
+- The multi-day forecast was always read in Spanish, even with NVDA in another language. It is now translated like everything else.
+- About 45 weather vocabulary phrases (wind directions, sky conditions, times of day) were not translatable. They now are, and were translated into English.
+- Several technical names from the weather service were wrongly exposed as translatable text.
+
+### Internal changes
+
+- The current weather and forecast queries were split into named pieces: build the request, read the answer, write each sentence.
+- The part that decides how each day's rain is described is now separate and has its own tests.
+- Added texts were reworded into the neutral Spanish used across the add-on.
+- Added 43 automatic checks that run on their own on GitHub with every change.
+
+The full history of every version is in the CHANGELOG.md file of the
+add-on repository.
 
 ### Credits
 - Inspired by Weather Plus by Adriano Barbieri and contributors.

@@ -15,7 +15,7 @@
 </head>
 <body>
 <h1>Accessible Weather for NVDA</h1>
-<p>Author: Daliana | Version 1.4 | Compatibility: NVDA 2019.3 or later</p>
+<p>Author: Daliana | Version 1.5 | Compatibility: NVDA 2019.3 or later</p>
 
 <p>Accessible Weather provides quick and accessible weather reports and multi-day forecasts.</p>
 
@@ -35,6 +35,22 @@
   <li><strong>Documentation</strong>: Open this user guide.</li>
 </ul>
 
+<h2>What's new in 1.5 (8 September 2026)</h2>
+<h3>Fixed</h3>
+<ul>
+  <li>Settings could not be saved: the code used a value that did not exist and the operation failed.</li>
+  <li>The multi-day forecast was always read in Spanish, even with NVDA in another language. It is now translated like everything else.</li>
+  <li>About 45 weather vocabulary phrases (wind directions, sky conditions, times of day) were not translatable. They now are, and were translated into English.</li>
+  <li>Several technical names from the weather service were wrongly exposed as translatable text.</li>
+</ul>
+<h3>Internal changes</h3>
+<ul>
+  <li>The current weather and forecast queries were split into named pieces: build the request, read the answer, write each sentence.</li>
+  <li>The part that decides how each day's rain is described is now separate and has its own tests.</li>
+  <li>Added texts were reworded into the neutral Spanish used across the add-on.</li>
+  <li>Added 43 automatic checks that run on their own on GitHub with every change.</li>
+</ul>
+<p>The full history of every version is in the CHANGELOG.md file of the add-on repository.</p>
 <h2>Credits</h2>
 <p>Inspired by Weather Plus by Adriano Barbieri and contributors. Weather data provided by Open-Meteo under CC BY 4.0.</p>
 

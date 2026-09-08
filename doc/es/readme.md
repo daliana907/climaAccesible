@@ -1,7 +1,7 @@
 # ClimaAccesible para NVDA (Accessible Weather)
 
 Autora: Daliana
-Versión: 1.4
+Versión: 1.5
 Compatibilidad: NVDA 2019.3 en adelante
 Licencia: GNU GPL v2
 
@@ -37,6 +37,25 @@ También puedes acceder desde el menú de NVDA > Herramientas > ClimaAccesible:
 3. Con Tabulador pasa a Región / Departamento y elige el tuyo.
 4. Con Tabulador pasa a Ciudad y elige tu localidad.
 5. Marca las casillas de los datos que te interesen y pulsa Guardar.
+
+## Novedades de la versión 1.5 (8 de septiembre de 2026)
+
+### Corregido
+
+- No se podía guardar la configuración: se usaba un dato que no existía y la operación fallaba.
+- El pronóstico de los próximos días se leía siempre en español, aunque NVDA estuviera en otro idioma. Ahora se traduce como el resto.
+- Unas 45 frases del vocabulario meteorológico (direcciones del viento, estados del cielo, momentos del día) no estaban preparadas para traducirse. Ya lo están, y se tradujeron al inglés.
+- Varios nombres técnicos del servicio meteorológico aparecían por error como texto traducible.
+
+### Cambios internos
+
+- La consulta del tiempo actual y la del pronóstico se repartieron en piezas con nombre: armar la petición, interpretar la respuesta y redactar cada frase.
+- La parte que decide cómo se cuenta la lluvia de cada día quedó separada y con pruebas propias.
+- Los textos añadidos se pasaron al español neutro del resto del complemento.
+- Se añadieron 43 comprobaciones automáticas que se ejecutan solas en GitHub con cada cambio.
+
+El listado completo de todas las versiones está en el archivo CHANGELOG.md
+del repositorio del complemento.
 
 ### Créditos y Agradecimientos
 - Idea original: Inspirado en el concepto pionero de Weather Plus creado por Adriano Barbieri y colaboradores. ClimaAccesible fue reescrito desde cero para funcionar con Open-Meteo sin claves API, con fechas naturales en español y base de ciudades local.
