@@ -1,5 +1,7 @@
 # ClimaAccesible para NVDA (Accessible Weather)
 
+[![Pruebas](https://github.com/daliana907/climaAccesible/actions/workflows/pruebas.yml/badge.svg)](https://github.com/daliana907/climaAccesible/actions/workflows/pruebas.yml)
+
 Autora: Daliana
 Versión: 1.4
 Compatibilidad: NVDA 2019.3 en adelante

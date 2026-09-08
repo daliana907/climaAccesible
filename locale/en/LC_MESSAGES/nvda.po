@@ -732,6 +732,18 @@ msgstr ""
 "Checks for keyboard shortcut conflicts or add-ons incompatible with "
 "ClimaAccesible."
 
+msgid ""
+"{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros "
+"por hora.{}"
+msgstr "{}: {}. High {} degrees, low {} degrees. Max wind {} km/h.{}"
+
+msgid ""
+"{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros "
+"por hora.{} Sol visible de {} a {}."
+msgstr ""
+"{}: {}. High {} degrees, low {} degrees. Max wind {} km/h.{} Sun visible "
+"from {} to {}."
+
 #~ msgid "Abre el panel de configuración de Clima Accesible."
 #~ msgstr "Opens Accessible Weather configuration panel."
 
@@ -848,14 +860,3 @@ msgstr ""
 #~ msgid "este mediodía"
 #~ msgstr "this noon"
 
-#~ msgid ""
-#~ "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros "
-#~ "por hora.{}"
-#~ msgstr "{}: {}. High {} degrees, low {} degrees. Max wind {} km/h.{}"
-
-#~ msgid ""
-#~ "{}: {}. Máxima {} grados, mínima {} grados. Viento máximo {} kilómetros "
-#~ "por hora.{} Sol visible de {} a {}."
-#~ msgstr ""
-#~ "{}: {}. High {} degrees, low {} degrees. Max wind {} km/h.{} Sun visible "
-#~ "from {} to {}."

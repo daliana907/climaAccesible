@@ -97,5 +97,67 @@ class MomentosDeLluvia(unittest.TestCase):
         self.assertIsInstance(clima.momentoLluvia("2026-09-08", [], [], []), str)
 
 
+class FraseDeLluviaDeUnDia(unittest.TestCase):
+    """Como se cuenta la lluvia de un dia del pronostico.
+
+    Hay cuatro casos (probabilidad, milimetros, los dos, ninguno) y cada uno
+    cambia segun se conozca o no el momento del dia. Estaba metido dentro de un
+    bucle de cincuenta lineas donde no se podia comprobar por separado.
+    """
+
+    def frase(self, prob, milimetros, momento=""):
+        return clima.GlobalPlugin._fraseDeLluvia(None, prob, milimetros, momento)
+
+    def test_sin_lluvia_no_dice_nada(self):
+        for prob, mm in ((None, None), (0, 0), ("0", "0"), (0, None), (None, 0)):
+            with self.subTest(prob=prob, mm=mm):
+                self.assertEqual(self.frase(prob, mm), "")
+
+    def test_solo_probabilidad(self):
+        texto = self.frase(60, 0)
+        self.assertIn("60", texto)
+        self.assertNotIn("milímetros", texto)
+
+    def test_solo_milimetros(self):
+        texto = self.frase(0, 3.5)
+        self.assertIn("3.5", texto)
+
+    def test_probabilidad_y_milimetros(self):
+        texto = self.frase(80, 12)
+        self.assertIn("80", texto)
+        self.assertIn("12", texto)
+
+    def test_el_momento_del_dia_se_anade_cuando_se_conoce(self):
+        con = self.frase(60, 0, "por la tarde")
+        sin = self.frase(60, 0, "")
+        self.assertIn("por la tarde", con)
+        self.assertNotIn("por la tarde", sin)
+
+    def test_un_dato_estropeado_no_revienta(self):
+        """El servicio puede devolver texto donde deberia haber un numero."""
+        for prob, mm in (("abc", None), (None, "x"), ("", ""), ([], {})):
+            with self.subTest(prob=prob, mm=mm):
+                self.assertIsInstance(self.frase(prob, mm), str)
+
+
+class NombreDeUnDia(unittest.TestCase):
+    """Los dos primeros dias se nombran hoy y manana; el resto por su fecha."""
+
+    def nombre(self, fecha, indice):
+        return clima.GlobalPlugin._nombreDeDia(None, fecha, indice)
+
+    def test_los_dos_primeros_dias(self):
+        self.assertEqual(self.nombre("2026-09-08", 0), "hoy")
+        self.assertEqual(self.nombre("2026-09-08", 1), "mañana")
+
+    def test_los_siguientes_llevan_dia_y_mes(self):
+        texto = self.nombre("2026-09-10", 2)
+        self.assertIn("10", texto)
+        self.assertIn("septiembre", texto)
+
+    def test_una_fecha_ilegible_se_devuelve_tal_cual(self):
+        self.assertEqual(self.nombre("no es una fecha", 3), "no es una fecha")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

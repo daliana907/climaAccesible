@@ -687,19 +687,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			claves_validas = {op[0] for op in OPCIONES}
 			prefs = {k: prefs_raw.get(k, True) for k in claves_validas}
 
-			current_fields = [api for k, _, api, t in OPCIONES if t == "current" and prefs.get(k, True)]
-			daily_fields   = [api for k, _, api, t in OPCIONES if t == "daily"   and prefs.get(k, True)]
-
-			params = "?latitude={lat}&longitude={lon}&wind_speed_unit=kmh&timezone=auto&forecast_days=1".format(
-				lat=lat, lon=lon
-			)
-			if current_fields:
-				params += "&current=" + ",".join(current_fields)
-			if daily_fields:
-				params += "&daily=" + ",".join(daily_fields)
-			params += "&hourly=precipitation_probability,precipitation"
-
-			url = "https://api.open-meteo.com/v1/forecast" + params
+			url = self._urlDelClimaActual(lat, lon, prefs)
 			data = self._getJsonFromApi(url, "clima actual")
 			if not data or self._stopping.is_set():
 				return
@@ -719,61 +707,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			momento = momentoLluvia(hoy, horas_time, horas_prob, horas_prec)
 
 			partes = [_("En {}, el reporte del clima es el siguiente.").format(city)]
-
-			if prefs.get("temperatura")    and "temperature_2m"       in c:
-				partes.append(_("Temperatura: {} grados Celsius.").format(c["temperature_2m"]))
-			if prefs.get("sensacion")      and "apparent_temperature"  in c:
-				partes.append(_("Sensación térmica: {} grados.").format(c["apparent_temperature"]))
-			if prefs.get("condicion")      and "weather_code"          in c:
-				partes.append(_("Condición: {}.").format(codigoClima(c["weather_code"])))
-			if prefs.get("es_dia")         and "is_day"                in c:
-				partes.append(_("Ahora es {}.").format(_("de día") if c["is_day"] == 1 else _("de noche")))
-			if prefs.get("humedad")        and "relative_humidity_2m"  in c:
-				partes.append(_("Humedad: {} por ciento.").format(c["relative_humidity_2m"]))
-			if prefs.get("punto_rocio")    and "dew_point_2m"          in c:
-				partes.append(_("Punto de rocío: {} grados.").format(c["dew_point_2m"]))
-			if prefs.get("viento_vel")     and "wind_speed_10m"        in c:
-				partes.append(_("Viento a {} kilómetros por hora.").format(c["wind_speed_10m"]))
-			if prefs.get("viento_dir")     and "wind_direction_10m"    in c:
-				partes.append(_("Dirección del viento: {}.").format(cardinal(c["wind_direction_10m"])))
-			if prefs.get("viento_rafagas") and "wind_gusts_10m"        in c:
-				partes.append(_("Ráfagas de hasta {} kilómetros por hora.").format(c["wind_gusts_10m"]))
-			if prefs.get("nubosidad")      and "cloud_cover"           in c:
-				partes.append(_("Nubosidad: {} por ciento.").format(c["cloud_cover"]))
-			if prefs.get("precipitacion")  and "precipitation"         in c:
-				precip_val = float(c.get("precipitation", 0))
-				if precip_val > 0:
-					partes.append(_("Precipitación actual: {} milímetros.").format(precip_val))
-			if prefs.get("presion")        and "surface_pressure"      in c:
-				partes.append(_("Presión atmosférica: {} hectopascales.").format(c["surface_pressure"]))
-
-			codigo_actual   = c.get("weather_code", 99)
-			cielo_despejado = codigo_actual in (0, 1)
-			if cielo_despejado:
-				if prefs.get("amanecer")  and dv("sunrise")           is not None:
-					partes.append(_("Salida del sol: {}.").format(formatHora(dv("sunrise"))))
-				if prefs.get("atardecer") and dv("sunset")            is not None:
-					partes.append(_("Puesta del sol: {}.").format(formatHora(dv("sunset"))))
-				if prefs.get("horas_luz") and dv("daylight_duration") is not None:
-					partes.append(_("Horas de luz hoy: {}.").format(formatSegundos(dv("daylight_duration"))))
-			if prefs.get("uv_max") and dv("uv_index_max") is not None:
-				partes.append(_("Índice UV máximo del día: {}.").format(dv("uv_index_max")))
-			if prefs.get("precip_prob_max") and dv("precipitation_probability_max") is not None:
-				prob_max = int(dv("precipitation_probability_max") or 0)
-				if prob_max > 0 and momento:
-					partes.append(_("Probabilidad máxima de lluvia del día: {} por ciento {}.").format(prob_max, momento))
-				else:
-					partes.append(_("Probabilidad máxima de lluvia del día: {} por ciento.").format(prob_max))
-			lluvia_total = float(dv("precipitation_sum") or 0)
-			if prefs.get("precip_total") and lluvia_total > 0:
-				if not prefs.get("precip_prob_max") and momento:
-					partes.append(_("Precipitación total esperada del día: {} milímetros {}.").format(lluvia_total, momento))
-				else:
-					partes.append(_("Precipitación total esperada del día: {} milímetros.").format(dv("precipitation_sum")))
-			if prefs.get("viento_max") and dv("wind_speed_10m_max") is not None:
-				partes.append(_("Viento máximo del día: {} kilómetros por hora.").format(dv("wind_speed_10m_max")))
-			if prefs.get("rafaga_max") and dv("wind_gusts_10m_max") is not None:
-				partes.append(_("Ráfaga máxima del día: {} kilómetros por hora.").format(dv("wind_gusts_10m_max")))
+			partes += self._frasesDelClimaActual(c, prefs)
+			partes += self._frasesDelResumenDeHoy(c, dv, prefs, momento)
 
 			if len(partes) == 1:
 				partes.append(_("No hay datos seleccionados. Abre la configuración con NVDA+Control+W."))
@@ -805,6 +740,99 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			log.error(f"ClimaAccesible: Error inesperado al consultar clima: {e}", exc_info=True)
 			self._safeMessage(_("Error inesperado al consultar el clima."))
 
+	def _urlDelClimaActual(self, lat, lon, prefs):
+		"""Direccion a la que se le piden los datos del clima de ahora mismo.
+
+		Solo se piden los datos marcados en la configuracion, para no pedirle al
+		servicio lo que no se va a leer.
+		"""
+		current_fields = [api for k, _, api, t in OPCIONES if t == "current" and prefs.get(k, True)]
+		daily_fields   = [api for k, _, api, t in OPCIONES if t == "daily"   and prefs.get(k, True)]
+
+		params = "?latitude={lat}&longitude={lon}&wind_speed_unit=kmh&timezone=auto&forecast_days=1".format(
+			lat=lat, lon=lon
+		)
+		if current_fields:
+			params += "&current=" + ",".join(current_fields)
+		if daily_fields:
+			params += "&daily=" + ",".join(daily_fields)
+		params += "&hourly=precipitation_probability,precipitation"
+
+		url = "https://api.open-meteo.com/v1/forecast" + params
+		return url
+
+	def _frasesDelClimaActual(self, c, prefs):
+		"""Frases sobre como esta el tiempo en este momento.
+
+		'c' son los datos actuales y 'prefs' lo que se quiere oir. Devuelve una
+		lista de frases, que puede quedar vacia si no hay nada marcado.
+		"""
+		partes = []
+		if prefs.get("temperatura")    and "temperature_2m"       in c:
+			partes.append(_("Temperatura: {} grados Celsius.").format(c["temperature_2m"]))
+		if prefs.get("sensacion")      and "apparent_temperature"  in c:
+			partes.append(_("Sensación térmica: {} grados.").format(c["apparent_temperature"]))
+		if prefs.get("condicion")      and "weather_code"          in c:
+			partes.append(_("Condición: {}.").format(codigoClima(c["weather_code"])))
+		if prefs.get("es_dia")         and "is_day"                in c:
+			partes.append(_("Ahora es {}.").format(_("de día") if c["is_day"] == 1 else _("de noche")))
+		if prefs.get("humedad")        and "relative_humidity_2m"  in c:
+			partes.append(_("Humedad: {} por ciento.").format(c["relative_humidity_2m"]))
+		if prefs.get("punto_rocio")    and "dew_point_2m"          in c:
+			partes.append(_("Punto de rocío: {} grados.").format(c["dew_point_2m"]))
+		if prefs.get("viento_vel")     and "wind_speed_10m"        in c:
+			partes.append(_("Viento a {} kilómetros por hora.").format(c["wind_speed_10m"]))
+		if prefs.get("viento_dir")     and "wind_direction_10m"    in c:
+			partes.append(_("Dirección del viento: {}.").format(cardinal(c["wind_direction_10m"])))
+		if prefs.get("viento_rafagas") and "wind_gusts_10m"        in c:
+			partes.append(_("Ráfagas de hasta {} kilómetros por hora.").format(c["wind_gusts_10m"]))
+		if prefs.get("nubosidad")      and "cloud_cover"           in c:
+			partes.append(_("Nubosidad: {} por ciento.").format(c["cloud_cover"]))
+		if prefs.get("precipitacion")  and "precipitation"         in c:
+			precip_val = float(c.get("precipitation", 0))
+			if precip_val > 0:
+				partes.append(_("Precipitación actual: {} milímetros.").format(precip_val))
+		if prefs.get("presion")        and "surface_pressure"      in c:
+			partes.append(_("Presión atmosférica: {} hectopascales.").format(c["surface_pressure"]))
+		return partes
+
+	def _frasesDelResumenDeHoy(self, c, dv, prefs, momento):
+		"""Frases sobre como sera el resto del dia.
+
+		Lo del amanecer y las horas de luz solo se dice con el cielo despejado: con
+		nubes o lluvia no aporta nada y alarga el anuncio.
+		"""
+		partes = []
+		codigo_actual   = c.get("weather_code", 99)
+		cielo_despejado = codigo_actual in (0, 1)
+		if cielo_despejado:
+			if prefs.get("amanecer")  and dv("sunrise")           is not None:
+				partes.append(_("Salida del sol: {}.").format(formatHora(dv("sunrise"))))
+			if prefs.get("atardecer") and dv("sunset")            is not None:
+				partes.append(_("Puesta del sol: {}.").format(formatHora(dv("sunset"))))
+			if prefs.get("horas_luz") and dv("daylight_duration") is not None:
+				partes.append(_("Horas de luz hoy: {}.").format(formatSegundos(dv("daylight_duration"))))
+		if prefs.get("uv_max") and dv("uv_index_max") is not None:
+			partes.append(_("Índice UV máximo del día: {}.").format(dv("uv_index_max")))
+		if prefs.get("precip_prob_max") and dv("precipitation_probability_max") is not None:
+			prob_max = int(dv("precipitation_probability_max") or 0)
+			if prob_max > 0 and momento:
+				partes.append(_("Probabilidad máxima de lluvia del día: {} por ciento {}.").format(prob_max, momento))
+			else:
+				partes.append(_("Probabilidad máxima de lluvia del día: {} por ciento.").format(prob_max))
+		lluvia_total = float(dv("precipitation_sum") or 0)
+		if prefs.get("precip_total") and lluvia_total > 0:
+			if not prefs.get("precip_prob_max") and momento:
+				partes.append(_("Precipitación total esperada del día: {} milímetros {}.").format(lluvia_total, momento))
+			else:
+				partes.append(_("Precipitación total esperada del día: {} milímetros.").format(dv("precipitation_sum")))
+		if prefs.get("viento_max") and dv("wind_speed_10m_max") is not None:
+			partes.append(_("Viento máximo del día: {} kilómetros por hora.").format(dv("wind_speed_10m_max")))
+		if prefs.get("rafaga_max") and dv("wind_gusts_10m_max") is not None:
+			partes.append(_("Ráfaga máxima del día: {} kilómetros por hora.").format(dv("wind_gusts_10m_max")))
+		return partes
+
+
 	# ── consulta pronóstico ───────────────────────────────────────────────────
 
 	def _fetchForecast(self, cfg):
@@ -814,15 +842,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			lon           = cfg["lon"]
 			forecast_days = cfg.get("forecast_days", 6)
 
-			url = (
-				"https://api.open-meteo.com/v1/forecast"
-				"?latitude={lat}&longitude={lon}"
-				"&daily=weather_code,temperature_2m_max,temperature_2m_min,"
-				"precipitation_sum,precipitation_probability_max,wind_speed_10m_max,sunrise,sunset"
-				"&hourly=precipitation_probability,precipitation"
-				"&wind_speed_unit=kmh&timezone=auto&forecast_days={days}"
-			).format(lat=lat, lon=lon, days=forecast_days)
-
+			url = self._urlDelPronostico(lat, lon, forecast_days)
 			data = self._getJsonFromApi(url, "pronóstico")
 			if not data or self._stopping.is_set():
 				return
@@ -841,33 +861,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			precip_sum  = d.get("precipitation_sum",             [])
 			amaneceres  = d.get("sunrise",                       [])
 			atardeceres = d.get("sunset",                        [])
-
-			DIAS_ES = {
-				"Monday":_("lunes"), "Tuesday":_("martes"), "Wednesday":_("miércoles"),
-				"Thursday":_("jueves"), "Friday":_("viernes"), "Saturday":_("sábado"), "Sunday":_("domingo"),
-			}
-			MESES_ES = {
-				"January":_("enero"), "February":_("febrero"), "March":_("marzo"),
-				"April":_("abril"), "May":_("mayo"), "June":_("junio"),
-				"July":_("julio"), "August":_("agosto"), "September":_("septiembre"),
-				"October":_("octubre"), "November":_("noviembre"), "December":_("diciembre"),
-			}
-
-			def nombreDia(fecha_str, idx):
-				if idx == 0: return _("hoy")
-				if idx == 1: return _("mañana")
-				try:
-					dt  = datetime.date.fromisoformat(fecha_str)
-					dia = DIAS_ES.get(dt.strftime("%A"), dt.strftime("%A"))
-					mes = MESES_ES.get(dt.strftime("%B"), dt.strftime("%B"))
-					return _("{} {} de {}").format(dia, dt.day, mes)
-				except Exception:
-					return fecha_str
-
 			partes = [_("Pronóstico para {} para los próximos {} días.").format(city, len(fechas))]
 
 			for i, fecha in enumerate(fechas):
-				label     = nombreDia(fecha, i)
+				label     = self._nombreDeDia(fecha, i)
 				codigo    = codigos[i]     if i < len(codigos)     else None
 				tmax      = temp_max[i]    if i < len(temp_max)    else "?"
 				tmin      = temp_min[i]    if i < len(temp_min)    else "?"
@@ -879,47 +876,22 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				cond      = codigoClima(codigo) if codigo is not None else "?"
 
 				momento = momentoLluvia(fecha, horas_time, horas_prob, horas_prec)
-
-				lluvia_info = ""
-				try:
-					prob_val = int(prob_p) if prob_p is not None else 0
-				except (ValueError, TypeError):
-					prob_val = 0
-				try:
-					prec_val = float(prec_s) if prec_s is not None else 0.0
-				except (ValueError, TypeError):
-					prec_val = 0.0
-
-				if prob_val > 0 and prec_val > 0:
-					if momento:
-						lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento {} con {} milímetros.").format(prob_val, momento, prec_val)
-					else:
-						lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento con {} milímetros.").format(prob_val, prec_val)
-				elif prob_val > 0:
-					if momento:
-						lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento {}.").format(prob_val, momento)
-					else:
-						lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento.").format(prob_val)
-				elif prec_val > 0:
-					if momento:
-						lluvia_info = _(" Precipitación esperada {} de {} milímetros.").format(momento, prec_val)
-					else:
-						lluvia_info = _(" Precipitación esperada: {} milímetros.").format(prec_val)
+				lluvia_info = self._fraseDeLluvia(prob_p, prec_s, momento)
 
 				con_sol = codigo in (0, 1) if codigo is not None else False
 
 				if con_sol:
 					partes.append(
-						"{}: {}. Máxima {} grados, mínima {} grados. "
+						_("{}: {}. Máxima {} grados, mínima {} grados. "
 						"Viento máximo {} kilómetros por hora.{}"
-						" Sol visible de {} a {}.".format(
+						" Sol visible de {} a {}.").format(
 							label.capitalize(), cond, tmax, tmin, vmax, lluvia_info, amanecer, atardecer
 						)
 					)
 				else:
 					partes.append(
-						"{}: {}. Máxima {} grados, mínima {} grados. "
-						"Viento máximo {} kilómetros por hora.{}".format(
+						_("{}: {}. Máxima {} grados, mínima {} grados. "
+						"Viento máximo {} kilómetros por hora.{}").format(
 							label.capitalize(), cond, tmax, tmin, vmax, lluvia_info
 						)
 					)
@@ -950,6 +922,79 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				return
 			log.error(f"ClimaAccesible: Error inesperado en pronóstico: {e}", exc_info=True)
 			self._safeMessage(_("Error inesperado al consultar el pronóstico."))
+
+	def _urlDelPronostico(self, lat, lon, forecast_days):
+		"""Direccion a la que se le piden los datos del pronostico."""
+		url = (
+			"https://api.open-meteo.com/v1/forecast"
+			"?latitude={lat}&longitude={lon}"
+			"&daily=weather_code,temperature_2m_max,temperature_2m_min,"
+			"precipitation_sum,precipitation_probability_max,wind_speed_10m_max,sunrise,sunset"
+			"&hourly=precipitation_probability,precipitation"
+			"&wind_speed_unit=kmh&timezone=auto&forecast_days={days}"
+		).format(lat=lat, lon=lon, days=forecast_days)
+		return url
+
+	def _nombreDeDia(self, fecha_str, idx):
+		"""Como se nombra un dia del pronostico: hoy, manana, o su fecha.
+
+		Las listas de dias y meses se arman aqui dentro, y no fuera, porque sus
+		nombres se traducen y la traduccion no esta lista hasta que NVDA arranca.
+		"""
+		DIAS_ES = {
+			"Monday":_("lunes"), "Tuesday":_("martes"), "Wednesday":_("miércoles"),
+			"Thursday":_("jueves"), "Friday":_("viernes"), "Saturday":_("sábado"), "Sunday":_("domingo"),
+		}
+		MESES_ES = {
+			"January":_("enero"), "February":_("febrero"), "March":_("marzo"),
+			"April":_("abril"), "May":_("mayo"), "June":_("junio"),
+			"July":_("julio"), "August":_("agosto"), "September":_("septiembre"),
+			"October":_("octubre"), "November":_("noviembre"), "December":_("diciembre"),
+		}
+
+		if idx == 0: return _("hoy")
+		if idx == 1: return _("mañana")
+		try:
+			dt  = datetime.date.fromisoformat(fecha_str)
+			dia = DIAS_ES.get(dt.strftime("%A"), dt.strftime("%A"))
+			mes = MESES_ES.get(dt.strftime("%B"), dt.strftime("%B"))
+			return _("{} {} de {}").format(dia, dt.day, mes)
+		except Exception:
+			return fecha_str
+
+	def _fraseDeLluvia(self, prob_p, prec_s, momento):
+		"""Como se cuenta la lluvia de un dia, segun lo que se sepa de ella.
+
+		Se dice la probabilidad, los milimetros, los dos o ninguno, y se anade el
+		momento del dia cuando se conoce. Devuelve cadena vacia si no hay lluvia.
+		"""
+		lluvia_info = ""
+		try:
+			prob_val = int(prob_p) if prob_p is not None else 0
+		except (ValueError, TypeError):
+			prob_val = 0
+		try:
+			prec_val = float(prec_s) if prec_s is not None else 0.0
+		except (ValueError, TypeError):
+			prec_val = 0.0
+
+		if prob_val > 0 and prec_val > 0:
+			if momento:
+				lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento {} con {} milímetros.").format(prob_val, momento, prec_val)
+			else:
+				lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento con {} milímetros.").format(prob_val, prec_val)
+		elif prob_val > 0:
+			if momento:
+				lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento {}.").format(prob_val, momento)
+			else:
+				lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento.").format(prob_val)
+		elif prec_val > 0:
+			if momento:
+				lluvia_info = _(" Precipitación esperada {} de {} milímetros.").format(momento, prec_val)
+			else:
+				lluvia_info = _(" Precipitación esperada: {} milímetros.").format(prec_val)
+		return lluvia_info
+
 
 	def _startupBackgroundWorker(self):
 		try:
