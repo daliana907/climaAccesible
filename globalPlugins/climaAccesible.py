@@ -21,6 +21,7 @@ import addonHandler
 addonHandler.initTranslation()
 import gui
 import os
+import re
 import time  # Necesario para medir latencias y tiempos de respuesta HTTP de Open-Meteo
 import datetime
 import socket
@@ -602,6 +603,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
+		if getattr(globalVars.appArgs, "secureMode", False):
+			log.warning("ClimaAccesible: NVDA en modo seguro. Se cancela la carga del complemento por seguridad.")
+			raise globalPluginHandler.ActionCancelled()
 		self._stopping = threading.Event()
 		self._isConfigOpen = False
 		self._toolsMenu = gui.mainFrame.sysTrayIcon.toolsMenu
@@ -658,8 +662,20 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		for l in candidates:
 			p = os.path.join(doc_dir, l, "readme.html")
 			if os.path.exists(p):
-				os.startfile(p)
-				return
+				try:
+					gui.openDocumentation(p)
+					return
+				except Exception as e:
+					log.error(f"ClimaAccesible: No se pudo abrir la documentación con gui.openDocumentation: {e}", exc_info=True)
+					# Translators: Mensaje de error cuando no se puede abrir la documentación del complemento.
+					gui.messageBox(
+						_("No se pudo abrir la documentación: {error}").format(error=e),
+						# Translators: Título de la ventana de error al abrir la documentación.
+						_("Error - ClimaAccesible"),
+						wx.OK | wx.ICON_ERROR
+					)
+					return
+		# Translators: Mensaje cuando no se encuentra el archivo de ayuda de ClimaAccesible.
 		ui.message(_("No se encontró el archivo de documentación."))
 
 	# ── scripts ───────────────────────────────────────────────────────────────
@@ -1161,7 +1177,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					msg = f"Complemento de clima activo detectado: '{addon.name}' ({summary}). Motivo: {reason}."
 					warnings.append(msg)
 					log.warning(f"ClimaAccesible ADVERTENCIA DE COMPATIBILIDAD: {msg}")
-				elif "weather" in summary.lower() or "clima" in summary.lower() or "tiempo" in summary.lower():
+				elif re.search(r'\b(clima|weather|meteorol\w*)\b', summary, re.IGNORECASE):
 					msg = f"Complemento meteorológico alternativo activo: '{addon.name}' ({summary}). Podría compartir atajos como NVDA+W."
 					warnings.append(msg)
 					log.warning(f"ClimaAccesible ADVERTENCIA DE COMPATIBILIDAD: {msg}")

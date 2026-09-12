@@ -2,7 +2,7 @@
 
 Author: Daliana
 Version: 1.6
-Compatibility: NVDA 2019.3 or later
+Compatibility: NVDA 2023.1 or later
 License: GNU GPL v2
 
 Accessible Weather is an NVDA add-on providing fast, accurate current weather and forecasts without needing API keys or account registration.
