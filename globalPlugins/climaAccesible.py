@@ -78,6 +78,12 @@ PREFS_DEFECTO = {op[0]: True for op in OPCIONES}
 # ── helpers ───────────────────────────────────────────────────────────────────
 
 def loadJSON(path):
+	"""Carga un archivo JSON desde el disco de forma segura.
+
+	Si el archivo no existe o está corrupto, captura el error, deja una nota
+	en el registro de NVDA para no interrumpir al usuario y devuelve un diccionario
+	vacío para que el resto del complemento pueda seguir funcionando sin fallar.
+	"""
 	try:
 		if os.path.exists(path):
 			with open(path, "r", encoding="utf-8") as f:
@@ -87,6 +93,12 @@ def loadJSON(path):
 	return {}
 
 def saveJSON(path, data):
+	"""Guarda datos en un archivo JSON en el disco con formato legible y codificación UTF-8.
+
+	Usa sangría de dos espacios y asegura que los caracteres con tildes o caracteres
+	especiales no se escapen en secuencias raras de Unicode, para que el usuario o
+	desarrollador pueda leer el archivo directamente si lo abre.
+	"""
 	try:
 		with open(path, "w", encoding="utf-8") as f:
 			json.dump(data, f, ensure_ascii=False, indent=2)
@@ -94,6 +106,12 @@ def saveJSON(path, data):
 		log.error("ClimaAccesible: error al guardar {}: {}".format(path, e))
 
 def getGeoData():
+	"""Obtiene la base de datos geográfica local (países, regiones y ciudades).
+
+	Para que la ventana de configuración abra rápido y no lea el disco cada vez,
+	mantiene los datos en memoria una vez cargados (patrón Singleton / caché).
+	Si todavía no se han leído, abre geodata.json y los carga.
+	"""
 	global _geoData
 	if _geoData is None:
 		try:
@@ -105,12 +123,23 @@ def getGeoData():
 	return _geoData
 
 def formatHora(iso_str):
+	"""Extrae la hora y los minutos de una fecha con formato ISO 8601 (ejemplo: 2026-09-12T14:30).
+
+	Devuelve solo la parte '14:30' para que NVDA la lea de forma clara y limpia sin
+	atiborrar al usuario con fechas largas o segundos innecesarios.
+	"""
 	try:
 		return iso_str.split("T")[1][:5]
 	except Exception:
 		return str(iso_str)
 
 def formatSegundos(seg):
+	"""Convierte una cantidad de segundos en una frase natural de horas y minutos.
+
+	Por ejemplo, convierte la duración de luz solar en '11 horas y 45 minutos'.
+	Si solo son horas completas omite los minutos, y si es menos de una hora solo
+	menciona los minutos, para que el sintetizador suene natural al hablar.
+	"""
 	try:
 		seg = int(float(seg))
 		h   = seg // 3600
@@ -125,6 +154,12 @@ def formatSegundos(seg):
 		return str(seg)
 
 def cardinal(deg):
+	"""Convierte los grados de una veleta (0 a 360) en el punto cardinal correspondiente.
+
+	Divide la rosa de los vientos en 16 sectores de 22.5 grados cada uno (Norte,
+	Nor-Noreste, Noreste, etc.) para que quien use el lector de pantalla sepa de
+	dónde viene el viento de forma intuitiva sin tener que interpretar números de grados.
+	"""
 	if deg is None:
 		return _("dirección desconocida")
 	dirs = [
@@ -136,6 +171,12 @@ def cardinal(deg):
 	return dirs[round(deg / 22.5) % 16]
 
 def codigoClima(code):
+	"""Traduce el código numérico meteorológico de la OMM (WMO) a una descripción en español.
+
+	Los servicios como Open-Meteo devuelven códigos estándar internacionales
+	(por ejemplo: 0 para despejado, 61 para lluvia ligera, 95 para tormenta).
+	Esta función los mapea a textos accesibles y comprensibles al oído.
+	"""
 	m = {
 		0:_("cielo despejado"),       1:_("mayormente despejado"),   2:_("parcialmente nublado"),
 		3:_("nublado"),               45:_("niebla"),                48:_("niebla con escarcha"),
