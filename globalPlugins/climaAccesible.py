@@ -612,10 +612,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self._subMenu = wx.Menu()
 		self._itemConfig = self._subMenu.Append(wx.ID_ANY, _("Configuración del complemento"))
 		self._itemConflicts = self._subMenu.Append(wx.ID_ANY, _("Comprobar conflictos con otros complementos..."))
-		self._itemDoc = self._subMenu.Append(wx.ID_ANY, _("Documentación"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self._onMenuConfig, self._itemConfig)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self._onMenuConflicts, self._itemConflicts)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self._onMenuDoc, self._itemDoc)
 		self._subMenuItem = self._toolsMenu.AppendSubMenu(
 			self._subMenu, "ClimaAccesible", _("Opciones de ClimaAccesible")
 		)
@@ -631,8 +629,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				gui.mainFrame.sysTrayIcon.Unbind(wx.EVT_MENU, source=self._itemConfig)
 			if hasattr(self, "_itemConflicts") and self._itemConflicts:
 				gui.mainFrame.sysTrayIcon.Unbind(wx.EVT_MENU, source=self._itemConflicts)
-			if hasattr(self, "_itemDoc") and self._itemDoc:
-				gui.mainFrame.sysTrayIcon.Unbind(wx.EVT_MENU, source=self._itemDoc)
 		except (RuntimeError, Exception) as e:
 			log.debugWarning("ClimaAccesible: error al desvincular menú en terminate: {}".format(e))
 
@@ -651,32 +647,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def _onMenuConfig(self, event):
 		wx.CallAfter(self._openConfigDialog)
 
-	def _onMenuDoc(self, event):
-		doc_dir = os.path.normpath(os.path.join(_ADDON_DIR, "..", "doc"))
-		try:
-			import languageHandler
-			lang = languageHandler.getLanguage().split("_")[0]
-		except Exception:
-			lang = "es"
-		candidates = [lang, "es", "en"]
-		for l in candidates:
-			p = os.path.join(doc_dir, l, "readme.html")
-			if os.path.exists(p):
-				try:
-					gui.openDocumentation(p)
-					return
-				except Exception as e:
-					log.error(f"ClimaAccesible: No se pudo abrir la documentación con gui.openDocumentation: {e}", exc_info=True)
-					# Translators: Mensaje de error cuando no se puede abrir la documentación del complemento.
-					gui.messageBox(
-						_("No se pudo abrir la documentación: {error}").format(error=e),
-						# Translators: Título de la ventana de error al abrir la documentación.
-						_("Error - ClimaAccesible"),
-						wx.OK | wx.ICON_ERROR
-					)
-					return
-		# Translators: Mensaje cuando no se encuentra el archivo de ayuda de ClimaAccesible.
-		ui.message(_("No se encontró el archivo de documentación."))
 
 	# ── scripts ───────────────────────────────────────────────────────────────
 
