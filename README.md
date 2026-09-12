@@ -3,13 +3,13 @@
 [![Pruebas](https://github.com/daliana907/climaAccesible/actions/workflows/pruebas.yml/badge.svg)](https://github.com/daliana907/climaAccesible/actions/workflows/pruebas.yml)
 
 Autora: Daliana
-Versión: 1.6
+Versión: 1.7
 Compatibilidad: NVDA 2023.1 en adelante  
 Licencia: GNU GPL v2  
 
 [Read in English below](#english-version)
 
-[Descargar última versión / Download latest (.nvda-addon)](https://github.com/daliana907/climaAccesible/releases/latest/download/climaAccesible-1.6.nvda-addon) · [Registro de cambios](CHANGELOG.md)
+[Descargar última versión / Download latest (.nvda-addon)](https://github.com/daliana907/climaAccesible/releases/latest/download/climaAccesible-1.7.nvda-addon) · [Registro de cambios](CHANGELOG.md)
 
 ---
 
