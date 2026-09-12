@@ -1,7 +1,7 @@
 # Accessible Weather for NVDA
 
 Author: Daliana
-Version: 1.6
+Version: 1.7
 Compatibility: NVDA 2023.1 or later
 License: GNU GPL v2
 

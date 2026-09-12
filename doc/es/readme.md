@@ -1,7 +1,7 @@
 # ClimaAccesible para NVDA (Accessible Weather)
 
 Autora: Daliana
-Versión: 1.6
+Versión: 1.7
 Compatibilidad: NVDA 2023.1 en adelante
 Licencia: GNU GPL v2
 
