@@ -1,11 +1,13 @@
 # ClimaAccesible para NVDA (Accessible Weather)
 
 Autora: Daliana
-Versión: 1.5
+Versión: 1.6
 Compatibilidad: NVDA 2019.3 en adelante
 Licencia: GNU GPL v2
 
 [Read in English below](#english-version)
+
+[Registro de cambios](CHANGELOG.md) · [Changelog](CHANGELOG.md)
 
 ---
 
@@ -37,6 +39,16 @@ También puedes acceder desde el menú de NVDA > Herramientas > ClimaAccesible:
 3. Con Tabulador pasa a Región / Departamento y elige el tuyo.
 4. Con Tabulador pasa a Ciudad y elige tu localidad.
 5. Marca las casillas de los datos que te interesen y pulsa Guardar.
+
+## Novedades de la versión 1.6 (12 de septiembre de 2026)
+
+### Mejorado
+
+- Al desactivar o recargar complementos, los elementos del menú Herramientas se destruyen adecuadamente liberando recursos de la interfaz.
+- La opción de menú para abrir la documentación detecta automáticamente el idioma de NVDA y abre la versión correspondiente en español o inglés.
+- La ventana de configuración añade identificadores estándar de wxWidgets para aceptar y cancelar, permitiendo cerrar directamente con Escape o guardar con Intro, además de atajos mnemónicos en los botones.
+
+---
 
 ## Novedades de la versión 1.5 (8 de septiembre de 2026)
 

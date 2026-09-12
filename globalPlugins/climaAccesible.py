@@ -231,6 +231,14 @@ class ConfigDialog(wx.Dialog):
 		threading.Thread(target=self._load_countries, daemon=True).start()
 
 	def _build_ui(self):
+		"""Monta la ventana de configuración, de arriba abajo.
+
+		Primero el apartado Ubicación, con las tres listas encadenadas: país,
+		región y ciudad. Luego las casillas de qué datos quieres oír, la casilla
+		de cuántos días de pronóstico, y los botones Guardar y Cancelar. Al final
+		arranca el temporizador que va diciendo "cargando" mientras se leen los
+		países, que son muchos y tardan un momento.
+		"""
 		p    = wx.Panel(self)
 		main = wx.BoxSizer(wx.VERTICAL)
 
@@ -295,14 +303,17 @@ class ConfigDialog(wx.Dialog):
 
 		# ── botones ───────────────────────────────────────────────────────────
 		row = wx.BoxSizer(wx.HORIZONTAL)
-		self.btnSave = wx.Button(p, wx.ID_OK, label=_("Guardar todo"))
+		self.btnSave = wx.Button(p, wx.ID_OK, label=_("&Guardar todo"))
 		self.btnSave.Disable()
 		self.btnSave.Bind(wx.EVT_BUTTON, self.onSave)
 		row.Add(self.btnSave, 0, wx.RIGHT, 8)
-		self.btnCancel = wx.Button(p, wx.ID_CANCEL, label=_("Cancelar"))
+		self.btnCancel = wx.Button(p, wx.ID_CANCEL, label=_("&Cancelar"))
 		self.btnCancel.Bind(wx.EVT_BUTTON, self.onCancel)
 		row.Add(self.btnCancel)
 		main.Add(row, 0, wx.ALL, 10)
+
+		self.SetAffirmativeId(wx.ID_OK)
+		self.SetEscapeId(wx.ID_CANCEL)
 
 		p.SetSizer(main)
 		p.Layout()
@@ -382,6 +393,13 @@ class ConfigDialog(wx.Dialog):
 				wx.CallAfter(self._status, _("Error al cargar datos geográficos."))
 
 	def _populate_countries(self, countries):
+		"""Rellena la lista de países cuando termina de cargarse el archivo de lugares.
+
+		Deja elegido el país que se guardó la última vez; si no había ninguno,
+		Uruguay; y si tampoco está, el primero de la lista. Elegido el país, pide
+		las regiones de ese país. Si la ventana se cerró mientras se cargaba, no
+		hace nada, para no escribir en una ventana que ya no existe.
+		"""
 		if self._isClosing:
 			return
 		try:
@@ -415,6 +433,13 @@ class ConfigDialog(wx.Dialog):
 	# ── regiones ──────────────────────────────────────────────────────────────
 
 	def _do_fill_regions(self, country_idx, select_first=False):
+		"""Rellena la lista de regiones del país elegido y encadena con las ciudades.
+
+		Con select_first en False intenta dejar puesta la región guardada; con
+		True se queda con la primera. Si el país no tiene regiones, apaga las
+		listas de región y ciudad y el botón Guardar, para que no se pueda
+		guardar una ubicación a medias.
+		"""
 		if self._isClosing:
 			return
 		try:
@@ -447,6 +472,12 @@ class ConfigDialog(wx.Dialog):
 	# ── ciudades ──────────────────────────────────────────────────────────────
 
 	def _do_fill_cities(self, region_idx, select_first=False):
+		"""Rellena la lista de ciudades de la región elegida.
+
+		Es el último eslabón de las tres listas. Con select_first en False intenta
+		dejar puesta la ciudad guardada. En cuanto hay al menos una ciudad se
+		enciende el botón Guardar; si no hay ninguna, se apaga.
+		"""
 		if self._isClosing:
 			return
 		try:
@@ -476,6 +507,13 @@ class ConfigDialog(wx.Dialog):
 	# ── guardar ───────────────────────────────────────────────────────────────
 
 	def onSave(self, event):
+		"""Botón Guardar: escribe la configuración en el disco y cierra la ventana.
+
+		Comprueba que haya una ciudad elegida. Guarda la ciudad con sus
+		coordenadas, la región, el país, qué datos quieres oír y cuántos días de
+		pronóstico. Después lo confirma en pantalla y recuerda que el atajo para
+		consultar el clima es NVDA+W.
+		"""
 		ci = self.cboCity.GetSelection()
 		ri = self.cboRegion.GetSelection()
 		co = self.cboCountry.GetSelection()
@@ -537,7 +575,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self._subMenu, "ClimaAccesible", _("Opciones de ClimaAccesible")
 		)
 		threading.Thread(target=self._startupBackgroundWorker, daemon=True).start()
-		log.info("ClimaAccesible: Inicializando complemento (v1.4)...")
+		log.info("ClimaAccesible: Inicializando complemento (v1.6)...")
 		log.info("ClimaAccesible: Submenú registrado en Herramientas exitosamente.")
 
 	def terminate(self):
@@ -555,7 +593,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		try:
 			if hasattr(self, "_subMenuItem") and self._subMenuItem:
-				self._toolsMenu.Remove(self._subMenuItem)
+				try:
+					self._toolsMenu.DestroyItem(self._subMenuItem)
+				except Exception:
+					self._toolsMenu.Remove(self._subMenuItem)
 		except (RuntimeError, Exception) as e:
 			log.warning("ClimaAccesible: error al retirar submenú en terminate: {}".format(e))
 
@@ -566,11 +607,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		wx.CallAfter(self._openConfigDialog)
 
 	def _onMenuDoc(self, event):
-		doc = os.path.normpath(os.path.join(_ADDON_DIR, "..", "doc", "es", "readme.html"))
-		if os.path.exists(doc):
-			os.startfile(doc)
-		else:
-			ui.message(_("No se encontró el archivo de documentación."))
+		doc_dir = os.path.normpath(os.path.join(_ADDON_DIR, "..", "doc"))
+		try:
+			import languageHandler
+			lang = languageHandler.getLanguage().split("_")[0]
+		except Exception:
+			lang = "es"
+		candidates = [lang, "es", "en"]
+		for l in candidates:
+			p = os.path.join(doc_dir, l, "readme.html")
+			if os.path.exists(p):
+				os.startfile(p)
+				return
+		ui.message(_("No se encontró el archivo de documentación."))
 
 	# ── scripts ───────────────────────────────────────────────────────────────
 
@@ -679,6 +728,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# ── consulta clima actual ─────────────────────────────────────────────────
 
 	def _fetchWeather(self, cfg):
+		"""Consulta el clima de ahora mismo y lo dice en voz alta.
+
+		Se ejecuta en segundo plano, no en el hilo de NVDA. Arma la dirección de
+		internet según lo que tengas marcado en la configuración, pide los datos,
+		y con ellos construye dos partes: cómo está el tiempo en este momento y el
+		resumen del día de hoy. Si algo falla (sin internet, servidor caído, tarda
+		demasiado) lo dice con un mensaje que explica qué pasó, en lugar de
+		quedarse callado.
+		"""
 		try:
 			city      = cfg["city"]
 			lat       = cfg["lat"]
@@ -836,6 +894,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# ── consulta pronóstico ───────────────────────────────────────────────────
 
 	def _fetchForecast(self, cfg):
+		"""Consulta el pronóstico de los próximos días y lo dice en voz alta.
+
+		Igual que el clima actual, se ejecuta en segundo plano. Pide tantos días
+		como tengas puesto en la configuración y arma una frase por día: nombre
+		del día, cómo estará, máxima y mínima, viento, y lluvia si la hay. Cuando
+		el día se espera despejado añade además a qué hora sale y se pone el sol.
+		Los fallos de red se avisan con un mensaje que explica qué pasó.
+		"""
 		try:
 			city          = cfg["city"]
 			lat           = cfg["lat"]
@@ -1093,6 +1159,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		return conflicts, warnings
 
 	def _checkAddonConflicts(self, interactive=False):
+		"""Revisa si otro complemento choca con este.
+
+		Pide la lista a auditConflicts(). Con interactive en False solo la deja
+		anotada en el registro de NVDA; así se usa al arrancar, sin molestar. Con
+		interactive en True abre un cuadro de mensaje que explica qué atajos de
+		teclado están repetidos y qué otros complementos de clima podrían estorbar,
+		o avisa de que no hay ninguno.
+		"""
 		conflicts, warnings = self.auditConflicts()
 		if interactive:
 			total = len(conflicts) + len(warnings)

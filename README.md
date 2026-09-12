@@ -3,7 +3,7 @@
 [![Pruebas](https://github.com/daliana907/climaAccesible/actions/workflows/pruebas.yml/badge.svg)](https://github.com/daliana907/climaAccesible/actions/workflows/pruebas.yml)
 
 Autora: Daliana
-Versión: 1.5
+Versión: 1.6
 Compatibilidad: NVDA 2019.3 en adelante
 Licencia: GNU GPL v2
 

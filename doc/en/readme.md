@@ -1,7 +1,7 @@
 # Accessible Weather for NVDA
 
 Author: Daliana
-Version: 1.5
+Version: 1.6
 Compatibility: NVDA 2019.3 or later
 License: GNU GPL v2
 
@@ -28,6 +28,16 @@ You can also access the add-on from NVDA > Tools > ClimaAccesible:
 1. Press NVDA + Control + W to open settings.
 2. Choose your Country, Province/State, and City.
 3. Select your desired weather details and click Save.
+
+## What's new in 1.6 (12 September 2026)
+
+### Improved
+
+- Clean teardown of Tools menu items on addon termination or reload, preventing orphaned UI handles.
+- The documentation menu item automatically detects NVDA's active language and opens the Spanish or English guide accordingly.
+- The settings dialog now implements standard affirmative and escape IDs (`wx.ID_OK`, `wx.ID_CANCEL`) along with button mnemonics for seamless Enter/Escape keyboard navigation.
+
+---
 
 ## What's new in 1.5 (8 September 2026)
 

@@ -15,7 +15,7 @@
 </head>
 <body>
 <h1>Accessible Weather for NVDA</h1>
-<p>Author: Daliana | Version 1.5 | Compatibility: NVDA 2019.3 or later</p>
+<p>Author: Daliana | Version 1.6 | Compatibility: NVDA 2019.3 or later</p>
 
 <p>Accessible Weather provides quick and accessible weather reports and multi-day forecasts.</p>
 
@@ -33,6 +33,14 @@
   <li><strong>Add-on settings</strong>: Open configuration dialog.</li>
   <li><strong>Check add-on conflicts</strong>: Verify shortcut compatibility with other add-ons.</li>
   <li><strong>Documentation</strong>: Open this user guide.</li>
+</ul>
+
+<h2>What's new in 1.6 (12 September 2026)</h2>
+<h3>Improved</h3>
+<ul>
+  <li>Clean teardown of Tools menu items on addon termination or reload, preventing orphaned UI handles.</li>
+  <li>The documentation menu item automatically detects NVDA's active language and opens the Spanish or English guide accordingly.</li>
+  <li>The settings dialog now implements standard affirmative and escape IDs (wx.ID_OK, wx.ID_CANCEL) along with button mnemonics for seamless Enter/Escape keyboard navigation.</li>
 </ul>
 
 <h2>What's new in 1.5 (8 September 2026)</h2>
