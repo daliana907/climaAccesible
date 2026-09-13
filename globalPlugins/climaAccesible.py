@@ -1015,9 +1015,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			for i, fecha in enumerate(fechas):
 				label     = self._nombreDeDia(fecha, i)
 				codigo    = codigos[i]     if i < len(codigos)     else None
-				tmax      = temp_max[i]    if i < len(temp_max)    else "?"
-				tmin      = temp_min[i]    if i < len(temp_min)    else "?"
-				vmax      = viento_max[i]  if i < len(viento_max)  else "?"
+				tmax      = temp_max[i]    if (i < len(temp_max) and temp_max[i] is not None)       else "?"
+				tmin      = temp_min[i]    if (i < len(temp_min) and temp_min[i] is not None)       else "?"
+				vmax      = viento_max[i]  if (i < len(viento_max) and viento_max[i] is not None)   else "?"
 				prob_p    = prob_precip[i] if i < len(prob_precip) else None
 				prec_s    = precip_sum[i]  if i < len(precip_sum)  else None
 				amanecer  = formatHora(amaneceres[i])  if i < len(amaneceres)  else "?"
