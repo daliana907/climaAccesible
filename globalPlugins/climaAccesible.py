@@ -134,7 +134,10 @@ def formatHora(iso_str):
 	if not iso_str:
 		return "?"
 	try:
-		return str(iso_str).split("T")[1][:5]
+		s = str(iso_str).replace(" ", "T")
+		if "T" in s:
+			return s.split("T")[1][:5]
+		return s[:5]
 	except Exception:
 		return str(iso_str)
 
@@ -956,17 +959,23 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if prefs.get("uv_max") and dv("uv_index_max") is not None:
 			partes.append(_("Índice UV máximo del día: {}.").format(dv("uv_index_max")))
 		if prefs.get("precip_prob_max") and dv("precipitation_probability_max") is not None:
-			prob_max = int(dv("precipitation_probability_max") or 0)
+			try:
+				prob_max = int(float(dv("precipitation_probability_max") or 0))
+			except (ValueError, TypeError):
+				prob_max = 0
 			if prob_max > 0 and momento:
 				partes.append(_("Probabilidad máxima de lluvia del día: {} por ciento {}.").format(prob_max, momento))
 			else:
 				partes.append(_("Probabilidad máxima de lluvia del día: {} por ciento.").format(prob_max))
-		lluvia_total = float(dv("precipitation_sum") or 0)
+		try:
+			lluvia_total = float(dv("precipitation_sum") or 0)
+		except (ValueError, TypeError):
+			lluvia_total = 0.0
 		if prefs.get("precip_total") and lluvia_total > 0:
 			if not prefs.get("precip_prob_max") and momento:
 				partes.append(_("Precipitación total esperada del día: {} milímetros {}.").format(lluvia_total, momento))
 			else:
-				partes.append(_("Precipitación total esperada del día: {} milímetros.").format(dv("precipitation_sum")))
+				partes.append(_("Precipitación total esperada del día: {} milímetros.").format(lluvia_total))
 		if prefs.get("viento_max") and dv("wind_speed_10m_max") is not None:
 			partes.append(_("Viento máximo del día: {} kilómetros por hora.").format(dv("wind_speed_10m_max")))
 		if prefs.get("rafaga_max") and dv("wind_gusts_10m_max") is not None:
@@ -1126,7 +1135,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"""
 		lluvia_info = ""
 		try:
-			prob_val = int(prob_p) if prob_p is not None else 0
+			prob_val = int(float(prob_p)) if prob_p is not None else 0
 		except (ValueError, TypeError):
 			prob_val = 0
 		try:
