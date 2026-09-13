@@ -877,6 +877,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		current_fields = [api for k, _, api, t in OPCIONES if t == "current" and prefs.get(k, True)]
 		daily_fields   = [api for k, _, api, t in OPCIONES if t == "daily"   and prefs.get(k, True)]
 
+		try:
+			lat = float(str(lat).strip().replace(",", "."))
+			lon = float(str(lon).strip().replace(",", "."))
+		except (ValueError, TypeError):
+			pass
+
 		params = "?latitude={lat}&longitude={lon}&wind_speed_unit=kmh&timezone=auto&forecast_days=1".format(
 			lat=lat, lon=lon
 		)
@@ -1066,6 +1072,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def _urlDelPronostico(self, lat, lon, forecast_days):
 		"""Direccion a la que se le piden los datos del pronostico."""
+		try:
+			lat = float(str(lat).strip().replace(",", "."))
+			lon = float(str(lon).strip().replace(",", "."))
+		except (ValueError, TypeError):
+			pass
 		url = (
 			"https://api.open-meteo.com/v1/forecast"
 			"?latitude={lat}&longitude={lon}"
