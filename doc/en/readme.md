@@ -22,7 +22,6 @@ Accessible Weather is an NVDA add-on providing fast, accurate current weather an
 You can also access the add-on from NVDA Menu > Tools > ClimaAccesible:
 - Add-on settings: Open configuration dialog.
 - Check add-on conflicts...: Check if any other installed add-on conflicts with weather shortcuts.
-*(Add-on documentation is accessible directly from NVDA Add-on Store / Add-ons Manager by pressing the "Add-on help" button).*
 
 ### Getting Started
 1. Press NVDA + Control + W to open settings.
