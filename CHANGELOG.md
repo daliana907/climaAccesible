@@ -11,17 +11,21 @@ Lo más reciente, arriba. En español primero y en inglés después.
 
 ### Español
 
-- Se corrigió el cálculo de las horas de lluvia al consultar ciudades con diferencia horaria con respecto a tu país, garantizando que siempre se informe si lloverá por la mañana, por la tarde o por la noche.
-- Pronunciación más natural de las horas de luz solar, corrigiendo expresiones en singular como "1 hora" o "1 minuto".
-- Mayor seguridad en la ventana de opciones para evitar guardar ubicaciones incompletas si se deselecciona el país o la región.
-- La herramienta para comprobar conflictos de atajos de teclado ahora reconoce correctamente distribuciones de portátil y sobremesa.
+- Se corrigió el cálculo de las horas de lluvia al consultar ciudades con diferencia horaria con respecto a tu país, garantizando que siempre se anuncie con exactitud si lloverá por la mañana, por la tarde o por la noche.
+- Pronunciación más natural de las horas de luz solar y duraciones, empleando expresiones gramaticales correctas en singular y plural ("1 hora", "1 minuto").
+- Mayor tolerancia y recuperación ante fallos de conexión a internet, redes lentas o respuestas imprevistas de portales cautivos.
+- Mayor seguridad en la ventana de opciones para evitar guardar ubicaciones o coordenadas incompletas.
+- La herramienta de comprobación de conflictos de atajos ahora reconoce correctamente teclados de portátiles y de sobremesa.
+- Mejoras generales de estabilidad y sincronización en segundo plano.
 
 ### English
 
 - Fixed rain period detection when querying locations in time zones ahead or behind your computer, ensuring morning, afternoon, or evening rain details are announced accurately.
 - Natural singular and plural phrasing when reporting sunlight hours (e.g. "1 hour" instead of "1 hours").
-- Enhanced input safety in settings to prevent saving incomplete locations if a country or region selection is lost.
+- Enhanced network resilience and graceful error recovery when facing slow connections or captive portal responses.
+- Enhanced input safety in settings to prevent saving incomplete coordinates or location selections.
 - Add-on shortcut conflict auditor now properly matches keyboard gestures on both laptop and desktop keyboard layouts.
+- General background stability and synchronization refinements.
 
 ---
 
