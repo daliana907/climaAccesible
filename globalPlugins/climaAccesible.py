@@ -230,8 +230,12 @@ def momentoLluvia(fecha, hourly_times, hourly_probs, hourly_precs):
 		except Exception:
 			continue
 
-		prob_val = int(prob) if prob is not None else 0
-		prec_val = float(prec) if prec is not None else 0.0
+		try:
+			prob_val = int(float(prob)) if prob is not None else 0
+			prec_val = float(prec) if prec is not None else 0.0
+		except (ValueError, TypeError):
+			prob_val = 0
+			prec_val = 0.0
 
 		if prob_val >= 20 or prec_val >= 0.1:
 			if 0 <= hour < 6:
