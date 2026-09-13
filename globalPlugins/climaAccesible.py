@@ -194,11 +194,17 @@ def codigoClima(code):
 	(por ejemplo: 0 para despejado, 61 para lluvia ligera, 95 para tormenta).
 	Esta función los mapea a textos accesibles y comprensibles al oído.
 	"""
+	try:
+		code = int(code)
+	except (ValueError, TypeError):
+		pass
 	m = {
 		0:_("cielo despejado"),       1:_("mayormente despejado"),   2:_("parcialmente nublado"),
 		3:_("nublado"),               45:_("niebla"),                48:_("niebla con escarcha"),
 		51:_("llovizna ligera"),      53:_("llovizna moderada"),     55:_("llovizna densa"),
+		56:_("llovizna engelante ligera"), 57:_("llovizna engelante densa"),
 		61:_("lluvia ligera"),        63:_("lluvia moderada"),       65:_("lluvia intensa"),
+		66:_("lluvia engelante ligera"),   67:_("lluvia engelante intensa"),
 		71:_("nevada ligera"),        73:_("nevada moderada"),       75:_("nevada intensa"),
 		77:_("granizo fino"),         80:_("chubascos ligeros"),     81:_("chubascos moderados"),
 		82:_("chubascos intensos"),   85:_("chubascos de nieve ligeros"),
