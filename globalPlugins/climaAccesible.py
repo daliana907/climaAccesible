@@ -591,10 +591,16 @@ class ConfigDialog(wx.Dialog):
 		region_name, regionResto  = self._regions[ri]
 		paisResto, country_iso2  = self._countries[co]
 		prefs = {key: cb.GetValue() for key, cb in self._checks.items()}
+		try:
+			lat_val = float(str(lat).strip().replace(",", "."))
+			lon_val = float(str(lon).strip().replace(",", "."))
+		except (ValueError, TypeError):
+			lat_val = float(lat)
+			lon_val = float(lon)
 		saveJSON(_configPath(), {
 			"city":          name,
-			"lat":           float(lat),
-			"lon":           float(lon),
+			"lat":           lat_val,
+			"lon":           lon_val,
 			"region_name":   region_name,
 			"country_iso2":  country_iso2,
 			"prefs":         prefs,
