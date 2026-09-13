@@ -280,6 +280,7 @@ def momentoLluvia(fecha, hourly_times, hourly_probs, hourly_precs):
 # ── diálogo de configuración ──────────────────────────────────────────────────
 
 class ConfigDialog(wx.Dialog):
+	"""Diálogo accesible para configurar la ubicación geográfica y opciones meteorológicas."""
 
 	def __init__(self, parent):
 		super(ConfigDialog, self).__init__(
@@ -400,11 +401,13 @@ class ConfigDialog(wx.Dialog):
 		self.EndModal(wx.ID_CANCEL)
 
 	def onCancel(self, event):
+		"""Manejador del botón Cancelar para descartar cambios y detener procesos en curso."""
 		self._isClosing = True
 		self._stopProgress()
 		self.EndModal(wx.ID_CANCEL)
 
 	def EndModal(self, retCode):
+		"""Cierra el diálogo modal asegurando la liberación previa de timers y subprocesos."""
 		self._isClosing = True
 		self._stopProgress()
 		return super(ConfigDialog, self).EndModal(retCode)
@@ -433,16 +436,19 @@ class ConfigDialog(wx.Dialog):
 	# ── eventos de cambio automático ──────────────────────────────────────────
 
 	def onCountryChange(self, event):
+		"""Actualiza la lista de regiones al cambiar la selección del combo de países."""
 		idx = self.cboCountry.GetSelection()
 		if idx != wx.NOT_FOUND:
 			self._do_fill_regions(idx, select_first=True)
 
 	def onRegionChange(self, event):
+		"""Actualiza la lista de ciudades al cambiar la selección del combo de regiones."""
 		idx = self.cboRegion.GetSelection()
 		if idx != wx.NOT_FOUND:
 			self._do_fill_cities(idx, select_first=True)
 
 	def onCityChange(self, event):
+		"""Habilita el botón de guardar una vez seleccionada una ciudad válida."""
 		if self.cboCity.GetSelection() != wx.NOT_FOUND:
 			self.btnSave.Enable()
 
@@ -635,6 +641,7 @@ class ConfigDialog(wx.Dialog):
 # ── plugin principal ──────────────────────────────────────────────────────────
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
+	"""Plugin global de NVDA para consultar pronósticos meteorológicos accesibles mediante Open-Meteo."""
 
 	scriptCategory = _("ClimaAccesible")
 
@@ -702,6 +709,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		category=scriptCategory,
 	)
 	def script_getWeather(self, gesture):
+		"""Consulta y verbaliza las condiciones meteorológicas actuales de la ciudad seleccionada."""
 		log.info("ClimaAccesible: Atajo NVDA+W activado (lectura de clima actual).")
 		if getattr(self, "_fetchingWeatherActive", False):
 			log.info("ClimaAccesible: Consulta de clima en curso, ignorando atajo repetido.")
@@ -724,6 +732,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		category=scriptCategory,
 	)
 	def script_getForecast(self, gesture):
+		"""Consulta y verbaliza el pronóstico extendido de varios días para la ciudad seleccionada."""
 		log.info("ClimaAccesible: Atajo NVDA+Shift+W activado (lectura de pronóstico extendido).")
 		if getattr(self, "_fetchingForecastActive", False):
 			log.info("ClimaAccesible: Consulta de pronóstico en curso, ignorando atajo repetido.")
@@ -746,6 +755,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		category=scriptCategory,
 	)
 	def script_openConfig(self, gesture):
+		"""Abre el diálogo accesible para ajustar la ciudad y las opciones meteorológicas."""
 		wx.CallAfter(self._openConfigDialog)
 
 	def _openConfigDialog(self):
@@ -847,6 +857,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			horas_prec = h.get("precipitation",             [])
 
 			def dv(key):
+				"""Extrae el primer valor de la serie diaria o None si la clave no contiene datos."""
 				v = d.get(key, [None])
 				return v[0] if v else None
 
@@ -1366,5 +1377,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		category=scriptCategory,
 	)
 	def script_checkConflicts(self, gesture):
+		"""Ejecuta una comprobación interactiva de atajos de teclado y complementos concurrentes."""
 		self._checkAddonConflicts(interactive=True)
 
