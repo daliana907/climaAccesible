@@ -749,10 +749,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				except Exception as ex:
 					log.error(f"ClimaAccesible: _safeMessage falló: {ex}", exc_info=True)
 
+	def _getUserAgent(self):
+		try:
+			addon = addonHandler.getCodeAddon()
+			if addon and getattr(addon, "manifest", None):
+				return f"ClimaAccesible/{addon.manifest.get('version', '1.8')}"
+		except Exception:
+			pass
+		return "ClimaAccesible/1.8"
+
 	def _getJsonFromApi(self, url, label="general"):
 		"""Envía petición HTTP a Open-Meteo con reintento automático y decodifica JSON."""
 		log.info(f"ClimaAccesible: Enviando petición HTTP ({label}) a Open-Meteo: {url}")
-		req = urllib.request.Request(url, headers={"User-Agent": "ClimaAccesible/1.4"})
+		req = urllib.request.Request(url, headers={"User-Agent": self._getUserAgent()})
 		raw_bytes = None
 		for attempt in range(2):
 			try:
