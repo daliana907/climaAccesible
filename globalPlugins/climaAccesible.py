@@ -101,8 +101,10 @@ def saveJSON(path, data):
 	desarrollador pueda leer el archivo directamente si lo abre.
 	"""
 	try:
-		with open(path, "w", encoding="utf-8") as f:
+		tmp = path + ".tmp"
+		with open(tmp, "w", encoding="utf-8") as f:
 			json.dump(data, f, ensure_ascii=False, indent=2)
+		os.replace(tmp, path)
 	except Exception as e:
 		log.error("ClimaAccesible: error al guardar {}: {}".format(path, e))
 
@@ -875,31 +877,34 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		lista de frases, que puede quedar vacia si no hay nada marcado.
 		"""
 		partes = []
-		if prefs.get("temperatura")    and "temperature_2m"       in c:
+		if prefs.get("temperatura") and c.get("temperature_2m") is not None:
 			partes.append(_("Temperatura: {} grados Celsius.").format(c["temperature_2m"]))
-		if prefs.get("sensacion")      and "apparent_temperature"  in c:
+		if prefs.get("sensacion") and c.get("apparent_temperature") is not None:
 			partes.append(_("Sensación térmica: {} grados.").format(c["apparent_temperature"]))
-		if prefs.get("condicion")      and "weather_code"          in c:
+		if prefs.get("condicion") and c.get("weather_code") is not None:
 			partes.append(_("Condición: {}.").format(codigoClima(c["weather_code"])))
-		if prefs.get("es_dia")         and "is_day"                in c:
+		if prefs.get("es_dia") and c.get("is_day") is not None:
 			partes.append(_("Ahora es {}.").format(_("de día") if c["is_day"] == 1 else _("de noche")))
-		if prefs.get("humedad")        and "relative_humidity_2m"  in c:
+		if prefs.get("humedad") and c.get("relative_humidity_2m") is not None:
 			partes.append(_("Humedad: {} por ciento.").format(c["relative_humidity_2m"]))
-		if prefs.get("punto_rocio")    and "dew_point_2m"          in c:
+		if prefs.get("punto_rocio") and c.get("dew_point_2m") is not None:
 			partes.append(_("Punto de rocío: {} grados.").format(c["dew_point_2m"]))
-		if prefs.get("viento_vel")     and "wind_speed_10m"        in c:
+		if prefs.get("viento_vel") and c.get("wind_speed_10m") is not None:
 			partes.append(_("Viento a {} kilómetros por hora.").format(c["wind_speed_10m"]))
-		if prefs.get("viento_dir")     and "wind_direction_10m"    in c:
+		if prefs.get("viento_dir") and c.get("wind_direction_10m") is not None:
 			partes.append(_("Dirección del viento: {}.").format(cardinal(c["wind_direction_10m"])))
-		if prefs.get("viento_rafagas") and "wind_gusts_10m"        in c:
+		if prefs.get("viento_rafagas") and c.get("wind_gusts_10m") is not None:
 			partes.append(_("Ráfagas de hasta {} kilómetros por hora.").format(c["wind_gusts_10m"]))
-		if prefs.get("nubosidad")      and "cloud_cover"           in c:
+		if prefs.get("nubosidad") and c.get("cloud_cover") is not None:
 			partes.append(_("Nubosidad: {} por ciento.").format(c["cloud_cover"]))
-		if prefs.get("precipitacion")  and "precipitation"         in c:
-			precip_val = float(c.get("precipitation", 0))
-			if precip_val > 0:
-				partes.append(_("Precipitación actual: {} milímetros.").format(precip_val))
-		if prefs.get("presion")        and "surface_pressure"      in c:
+		if prefs.get("precipitacion"):
+			try:
+				precip_val = float(c.get("precipitation") or 0)
+				if precip_val > 0:
+					partes.append(_("Precipitación actual: {} milímetros.").format(precip_val))
+			except (ValueError, TypeError):
+				pass
+		if prefs.get("presion") and c.get("surface_pressure") is not None:
 			partes.append(_("Presión atmosférica: {} hectopascales.").format(c["surface_pressure"]))
 		return partes
 
