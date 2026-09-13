@@ -495,6 +495,8 @@ class ConfigDialog(wx.Dialog):
 			return
 		try:
 			data    = getGeoData()
+			if country_idx < 0 or country_idx >= len(data):
+				return
 			country = data[country_idx]
 			states  = sorted(country[2], key=lambda s: s[0])
 			self._regions = [(s[0], s[2]) for s in states]
@@ -532,6 +534,8 @@ class ConfigDialog(wx.Dialog):
 		if self._isClosing:
 			return
 		try:
+			if region_idx < 0 or region_idx >= len(self._regions):
+				return
 			_, raw_cities = self._regions[region_idx]
 			self._cities = sorted(
 				[(c[0], c[1], c[2]) for c in raw_cities if c[0]],
