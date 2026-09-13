@@ -172,13 +172,17 @@ def cardinal(deg):
 	"""
 	if deg is None:
 		return _("dirección desconocida")
-	dirs = [
-		_("norte"), _("nor noreste"), _("noreste"), _("este noreste"),
-		_("este"), _("este sureste"), _("sureste"), _("sur sureste"),
-		_("sur"), _("sur suroeste"), _("suroeste"), _("oeste suroeste"),
-		_("oeste"), _("oeste noroeste"), _("noroeste"), _("nor noroeste"),
-	]
-	return dirs[round(deg / 22.5) % 16]
+	try:
+		deg = float(deg)
+		dirs = [
+			_("norte"), _("nor noreste"), _("noreste"), _("este noreste"),
+			_("este"), _("este sureste"), _("sureste"), _("sur sureste"),
+			_("sur"), _("sur suroeste"), _("suroeste"), _("oeste suroeste"),
+			_("oeste"), _("oeste noroeste"), _("noroeste"), _("nor noroeste"),
+		]
+		return dirs[round(deg / 22.5) % 16]
+	except Exception:
+		return _("dirección desconocida")
 
 def codigoClima(code):
 	"""Traduce el código numérico meteorológico de la OMM (WMO) a una descripción en español.
