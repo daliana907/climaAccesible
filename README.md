@@ -33,7 +33,7 @@ ClimaAccesible es un complemento para NVDA pensado para consultar el estado del 
 También puedes acceder desde el menú de NVDA > Herramientas > ClimaAccesible:
 - Configuración del complemento: Abre la ventana de opciones.
 - Comprobar conflictos con otros complementos...: Verifica si otros complementos interfieren con los atajos.
-- Documentación: Abre este manual de ayuda.
+*(La documentación de ayuda se consulta directamente desde el Gestor o la Tienda de complementos de NVDA a través del botón «Ayuda del complemento»).*
 
 ### Cómo empezar
 1. Presiona NVDA + Control + W para abrir las opciones.
@@ -64,10 +64,10 @@ Accessible Weather is an NVDA add-on providing fast, accurate current weather an
 - NVDA + Control + W: Open settings dialog.
 
 ### NVDA Tools Menu
-You can also access the add-on from NVDA > Tools > ClimaAccesible:
+You can also access the add-on from NVDA Menu > Tools > ClimaAccesible:
 - Add-on settings: Open configuration dialog.
-- Check add-on conflicts: Check if any other installed add-on conflicts with weather shortcuts.
-- Documentation: Open this user guide.
+- Check add-on conflicts...: Check if any other installed add-on conflicts with weather shortcuts.
+*(Add-on documentation is accessible directly from NVDA Add-on Store / Add-ons Manager by pressing the "Add-on help" button).*
 
 ### Getting Started
 1. Press NVDA + Control + W to open settings.
