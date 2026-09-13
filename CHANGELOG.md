@@ -7,6 +7,24 @@ Lo más reciente, arriba. En español primero y en inglés después.
 
 ---
 
+## 1.8 — 2026-09-13
+
+### Español
+
+- Se corrigió el cálculo de las horas de lluvia al consultar ciudades con diferencia horaria con respecto a tu país, garantizando que siempre se informe si lloverá por la mañana, por la tarde o por la noche.
+- Pronunciación más natural de las horas de luz solar, corrigiendo expresiones en singular como "1 hora" o "1 minuto".
+- Mayor seguridad en la ventana de opciones para evitar guardar ubicaciones incompletas si se deselecciona el país o la región.
+- La herramienta para comprobar conflictos de atajos de teclado ahora reconoce correctamente distribuciones de portátil y sobremesa.
+
+### English
+
+- Fixed rain period detection when querying locations in time zones ahead or behind your computer, ensuring morning, afternoon, or evening rain details are announced accurately.
+- Natural singular and plural phrasing when reporting sunlight hours (e.g. "1 hour" instead of "1 hours").
+- Enhanced input safety in settings to prevent saving incomplete locations if a country or region selection is lost.
+- Add-on shortcut conflict auditor now properly matches keyboard gestures on both laptop and desktop keyboard layouts.
+
+---
+
 ## 1.6 — 2026-09-12
 
 ### Español

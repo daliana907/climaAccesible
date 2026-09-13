@@ -1,7 +1,7 @@
 # Accessible Weather for NVDA
 
 Author: Daliana
-Version: 1.7
+Version: 1.8
 Compatibility: NVDA 2023.1 or later
 License: GNU GPL v2
 
@@ -27,6 +27,15 @@ You can also access the add-on from NVDA Menu > Tools > ClimaAccesible:
 1. Press NVDA + Control + W to open settings.
 2. Choose your Country, Province/State, and City.
 3. Select your desired weather details and click Save.
+
+## What's new in 1.8 (13 September 2026)
+
+- Fixed rain period detection when querying locations in time zones ahead or behind your computer, ensuring morning, afternoon, or evening rain details are announced accurately.
+- Natural singular and plural phrasing when reporting sunlight hours (e.g. "1 hour" instead of "1 hours").
+- Enhanced input safety in settings to prevent saving incomplete locations if a country or region selection is lost.
+- Add-on shortcut conflict auditor now properly matches keyboard gestures on both laptop and desktop keyboard layouts.
+
+---
 
 ## What's new in 1.6 (12 September 2026)
 

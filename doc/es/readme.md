@@ -1,7 +1,7 @@
 # ClimaAccesible para NVDA (Accessible Weather)
 
 Autora: Daliana
-Versión: 1.7
+Versión: 1.8
 Compatibilidad: NVDA 2023.1 en adelante
 Licencia: GNU GPL v2
 
@@ -38,6 +38,15 @@ También puedes acceder desde el menú de NVDA > Herramientas > ClimaAccesible:
 3. Con Tabulador pasa a Región / Departamento y elige el tuyo.
 4. Con Tabulador pasa a Ciudad y elige tu localidad.
 5. Marca las casillas de los datos que te interesen y pulsa Guardar.
+
+## Novedades de la versión 1.8 (13 de septiembre de 2026)
+
+- Se corrigió el cálculo de las horas de lluvia al consultar ciudades con diferencia horaria con respecto a tu país, garantizando que siempre se informe si lloverá por la mañana, por la tarde o por la noche.
+- Pronunciación más natural de las horas de luz solar, corrigiendo expresiones en singular como "1 hora" o "1 minuto".
+- Mayor seguridad en la ventana de opciones para evitar guardar ubicaciones incompletas si se deselecciona el país o la región.
+- La herramienta para comprobar conflictos de atajos de teclado ahora reconoce correctamente distribuciones de teclado para portátiles y ordenadores de sobremesa.
+
+---
 
 ## Novedades de la versión 1.6 (12 de septiembre de 2026)
 

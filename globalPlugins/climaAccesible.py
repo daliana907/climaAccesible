@@ -145,12 +145,15 @@ def formatSegundos(seg):
 		seg = int(float(seg))
 		h   = seg // 3600
 		m   = (seg % 3600) // 60
+		txt_h = _("{count} hora").format(count=h) if h == 1 else _("{count} horas").format(count=h)
+		txt_m = _("{count} minuto").format(count=m) if m == 1 else _("{count} minutos").format(count=m)
 		if h > 0 and m > 0:
-			return _("{} horas y {} minutos").format(h, m)
+			# Translators: Frase que une horas y minutos de luz solar.
+			return _("{horas} y {minutos}").format(horas=txt_h, minutos=txt_m)
 		elif h > 0:
-			return _("{} horas").format(h)
+			return txt_h
 		else:
-			return _("{} minutos").format(m)
+			return txt_m
 	except Exception:
 		return str(seg)
 
@@ -559,8 +562,9 @@ class ConfigDialog(wx.Dialog):
 		ci = self.cboCity.GetSelection()
 		ri = self.cboRegion.GetSelection()
 		co = self.cboCountry.GetSelection()
-		if ci == wx.NOT_FOUND or not self._cities:
-			self._status(_("Elige una ciudad antes de guardar."))
+		if (ci == wx.NOT_FOUND or ri == wx.NOT_FOUND or co == wx.NOT_FOUND
+				or not self._cities or not self._regions or not self._countries):
+			self._status(_("Elige un país, región y ciudad antes de guardar."))
 			return
 		name, lat, lon   = self._cities[ci]
 		region_name, regionResto  = self._regions[ri]
@@ -788,8 +792,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				v = d.get(key, [None])
 				return v[0] if v else None
 
-			hoy     = datetime.date.today().isoformat()
-			momento = momentoLluvia(hoy, horas_time, horas_prob, horas_prec)
+			d_time = d.get("time", [])
+			if d_time and isinstance(d_time, list) and d_time[0]:
+				fecha_ciudad = str(d_time[0])
+			elif "time" in c and "T" in str(c["time"]):
+				fecha_ciudad = str(c["time"]).split("T")[0]
+			else:
+				fecha_ciudad = datetime.date.today().isoformat()
+			momento = momentoLluvia(fecha_ciudad, horas_time, horas_prob, horas_prec)
 
 			partes = [_("En {}, el reporte del clima es el siguiente.").format(city)]
 			partes += self._frasesDelClimaActual(c, prefs)
@@ -1105,6 +1115,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		conflicts = []
 		warnings = []
 
+		def _normalizarGesto(gesto_str):
+			s = str(gesto_str).strip().lower().replace(" ", "")
+			return re.sub(r'\(.*?\)', '', s)
+
 		default_map = {
 			"kb:nvda+w": _("Lectura del clima actual"),
 			"kb:nvda+shift+w": _("Lectura del pronóstico extendido"),
@@ -1114,11 +1128,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		g_map = getattr(self, "_gestureMap", {}) or {}
 		if g_map:
 			for g_id, script_ref in g_map.items():
-				norm_g = str(g_id).strip().lower().replace(" ", "")
+				norm_g = _normalizarGesto(g_id)
 				desc = getattr(script_ref, "description", "") or getattr(script_ref, "__doc__", "") or default_map.get(norm_g, getattr(script_ref, "__name__", str(script_ref)))
 				our_gestures_map[norm_g] = desc
 		else:
-			our_gestures_map = default_map
+			our_gestures_map = {_normalizarGesto(k): v for k, v in default_map.items()}
 
 		log.info("ClimaAccesible: Iniciando auditoría de compatibilidad y detección de conflictos...")
 
@@ -1169,7 +1183,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					g_map = getattr(plugin, "_ScriptableObject__gestures", {}) or {}
 
 				for g_id, script_ref in g_map.items():
-					norm_g = str(g_id).strip().lower().replace(" ", "")
+					norm_g = _normalizarGesto(g_id)
 					if norm_g in our_gestures_map:
 						script_name = getattr(script_ref, "__name__", str(script_ref))
 						our_feature = our_gestures_map[norm_g]
@@ -1189,7 +1203,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if cmd_obj:
 				cmd_map = getattr(cmd_obj, "_gestureMap", {}) or {}
 				for cmd_g, cmd_script in cmd_map.items():
-					norm_cmd = str(cmd_g).strip().lower().replace(" ", "")
+					norm_cmd = _normalizarGesto(cmd_g)
 					if norm_cmd in our_gestures_map:
 						our_feature = our_gestures_map[norm_cmd]
 						cmd_desc = getattr(cmd_script, "description", "") or getattr(cmd_script, "__name__", str(cmd_script))

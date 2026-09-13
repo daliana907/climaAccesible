@@ -57,7 +57,8 @@ class CondicionDelCielo(unittest.TestCase):
 
 class Duraciones(unittest.TestCase):
     def test_horas_y_minutos(self):
-        self.assertEqual(clima.formatSegundos(3660), "1 horas y 1 minutos")
+        self.assertEqual(clima.formatSegundos(3660), "1 hora y 1 minuto")
+        self.assertEqual(clima.formatSegundos(7320), "2 horas y 2 minutos")
 
     def test_solo_horas(self):
         self.assertEqual(clima.formatSegundos(7200), "2 horas")
