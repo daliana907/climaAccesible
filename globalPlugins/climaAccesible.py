@@ -131,8 +131,10 @@ def formatHora(iso_str):
 	Devuelve solo la parte '14:30' para que NVDA la lea de forma clara y limpia sin
 	atiborrar al usuario con fechas largas o segundos innecesarios.
 	"""
+	if not iso_str:
+		return "?"
 	try:
-		return iso_str.split("T")[1][:5]
+		return str(iso_str).split("T")[1][:5]
 	except Exception:
 		return str(iso_str)
 
@@ -998,7 +1000,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				momento = momentoLluvia(fecha, horas_time, horas_prob, horas_prec)
 				lluvia_info = self._fraseDeLluvia(prob_p, prec_s, momento)
 
-				con_sol = codigo in (0, 1) if codigo is not None else False
+				con_sol = (codigo in (0, 1) and amanecer != "?" and atardecer != "?") if codigo is not None else False
 
 				if con_sol:
 					partes.append(
