@@ -145,6 +145,8 @@ def formatSegundos(seg):
 		seg = int(float(seg))
 		h   = seg // 3600
 		m   = (seg % 3600) // 60
+		if h <= 0 and m <= 0:
+			return _("{count} horas").format(count=0)
 		txt_h = _("{count} hora").format(count=h) if h == 1 else _("{count} horas").format(count=h)
 		txt_m = _("{count} minuto").format(count=m) if m == 1 else _("{count} minutos").format(count=m)
 		if h > 0 and m > 0:
@@ -662,6 +664,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_getWeather(self, gesture):
 		log.info("ClimaAccesible: Atajo NVDA+W activado (lectura de clima actual).")
+		if getattr(self, "_fetchingWeatherActive", False):
+			log.info("ClimaAccesible: Consulta de clima en curso, ignorando atajo repetido.")
+			return
 		cfg = loadJSON(_configPath())
 		if not cfg.get("lat") or not cfg.get("lon"):
 			log.warning("ClimaAccesible: Intento de consulta de clima sin ciudad configurada.")
@@ -669,6 +674,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return
 		log.info(f"ClimaAccesible: Consultando reporte para ciudad='{cfg.get('city')}' ({cfg.get('lat')}, {cfg.get('lon')})...")
 		ui.message(_("Por favor espera, consultando el clima..."))
+		self._fetchingWeatherActive = True
 		t = threading.Thread(target=self._fetchWeather, args=(cfg,), daemon=True)
 		t.start()
 
@@ -680,6 +686,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_getForecast(self, gesture):
 		log.info("ClimaAccesible: Atajo NVDA+Shift+W activado (lectura de pronóstico extendido).")
+		if getattr(self, "_fetchingForecastActive", False):
+			log.info("ClimaAccesible: Consulta de pronóstico en curso, ignorando atajo repetido.")
+			return
 		cfg = loadJSON(_configPath())
 		if not cfg.get("lat") or not cfg.get("lon"):
 			log.warning("ClimaAccesible: Intento de consulta de pronóstico sin ciudad configurada.")
@@ -688,6 +697,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		dias = cfg.get("forecast_days", 6)
 		log.info(f"ClimaAccesible: Consultando pronóstico de {dias} días para ciudad='{cfg.get('city')}'...")
 		ui.message(_("Por favor espera, consultando el pronóstico de {} días...").format(dias))
+		self._fetchingForecastActive = True
 		t = threading.Thread(target=self._fetchForecast, args=(cfg,), daemon=True)
 		t.start()
 
@@ -834,6 +844,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				return
 			log.error(f"ClimaAccesible: Error inesperado al consultar clima: {e}", exc_info=True)
 			self._safeMessage(_("Error inesperado al consultar el clima."))
+		finally:
+			self._fetchingWeatherActive = False
 
 	def _urlDelClimaActual(self, lat, lon, prefs):
 		"""Direccion a la que se le piden los datos del clima de ahora mismo.
@@ -1025,6 +1037,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				return
 			log.error(f"ClimaAccesible: Error inesperado en pronóstico: {e}", exc_info=True)
 			self._safeMessage(_("Error inesperado al consultar el pronóstico."))
+		finally:
+			self._fetchingForecastActive = False
 
 	def _urlDelPronostico(self, lat, lon, forecast_days):
 		"""Direccion a la que se le piden los datos del pronostico."""
