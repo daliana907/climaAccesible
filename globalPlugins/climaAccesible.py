@@ -873,6 +873,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				return
 			log.error(f"ClimaAccesible: Error de conexión de red (URLError) al consultar clima: {e.reason}", exc_info=True)
 			self._safeMessage(_("No se pudo conectar al servidor. Verifica tu conexión a Internet."))
+		except json.JSONDecodeError:
+			if self._stopping.is_set():
+				return
+			log.error("ClimaAccesible: Respuesta no válida recibida de la API meteorológica (posible portal cautivo o HTML).", exc_info=True)
+			self._safeMessage(_("Respuesta no válida del servidor meteorológico. Comprueba tu conexión a Internet."))
 		except Exception as e:
 			if self._stopping.is_set():
 				return
@@ -1081,6 +1086,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				return
 			log.error(f"ClimaAccesible: Error de conexión de red (URLError) en pronóstico: {e.reason}", exc_info=True)
 			self._safeMessage(_("No se pudo conectar. Verifica tu conexión a Internet."))
+		except json.JSONDecodeError:
+			if self._stopping.is_set():
+				return
+			log.error("ClimaAccesible: Respuesta no válida recibida en pronóstico (posible portal cautivo o HTML).", exc_info=True)
+			self._safeMessage(_("Respuesta no válida del servidor meteorológico. Comprueba tu conexión a Internet."))
 		except Exception as e:
 			if self._stopping.is_set():
 				return
