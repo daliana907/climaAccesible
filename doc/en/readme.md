@@ -1,71 +1,68 @@
 # Accessible Weather for NVDA
 
-Author: Daliana
-Version: 1.8
-Compatibility: NVDA 2023.1 or later
-License: GNU GPL v2
+- Author: Daliana
+- Version: 1.8
+- Compatibility: NVDA 2023.1 and later
+- License: GNU GPL v2
 
-Accessible Weather is an NVDA add-on providing fast, accurate current weather and forecasts without needing API keys or account registration.
+[Leer en español](../es/readme.md)
+
+---
+
+## English Version
+
+Accessible Weather is an NVDA add-on designed to announce current weather and future forecasts quickly, comfortably, and without complications.
 
 ### Key Highlights
-- Works out of the box: Powered by Open-Meteo open weather API. No signup or private API keys required.
-- Natural multi-day forecasts: Plain-language summaries for today, tomorrow, and upcoming days with temperature trends and precipitation periods.
-- Offline city database: Over 50,000 cities organized by Country, Province/State, and City.
-- Customizable speech output: Toggle feels-like temperature, humidity, wind, pressure, UV index, and sunrise/sunset times.
+
+- Works out of the box: Powered by Open-Meteo open weather API. No account sign-ups or private API keys needed. Install it, pick your city, and you are ready.
+- Easy-to-understand forecast: Clearly speaks today, tomorrow, and subsequent days with natural dates without repeating days or mixing up timestamps.
+- Rain periods by time of day: If rain is expected, it announces whether it will fall in the morning, afternoon, evening, or all day long.
+- Offline city database: Includes an offline directory of over 50,000 localities organized by country, region/state, and city, eliminating the need for GPS or special permissions.
+- Customizable weather details: Choose which parameters you want to hear via simple checkboxes, including feels-like temperature, humidity, wind, pressure, UV index, and sunrise/sunset times.
 
 ### Keyboard Shortcuts
-- NVDA + W: Announce current weather conditions.
-- NVDA + Shift + W: Announce forecast for upcoming days.
-- NVDA + Control + W: Open settings dialog.
 
-### NVDA Tools Menu
-You can also access the add-on from NVDA Menu > Tools > ClimaAccesible:
+- NVDA + W: Announce current weather conditions.
+- NVDA + Shift + W: Announce upcoming forecast.
+- NVDA + Control + W: Open configuration dialog to select your city or change options.
+
+### Tools Menu
+
+You can also access the add-on from NVDA Menu > Tools > Accessible Weather:
+
 - Add-on settings: Open configuration dialog.
-- Check add-on conflicts...: Check if any other installed add-on conflicts with weather shortcuts.
+- Check shortcut conflicts with other add-ons...: Scan for overlapping shortcuts with other installed add-ons.
 
 ### Getting Started
-1. Press NVDA + Control + W to open settings.
-2. Choose your Country, Province/State, and City.
-3. Select your desired weather details and click Save.
+
+1. Press NVDA + Control + W to open the settings dialog.
+2. Select your country from the Country dropdown.
+3. Tab to Region / State and choose yours.
+4. Tab to City and choose your locality.
+5. Check the weather items you want announced and click Save.
+
+---
+
+## What's new in 1.8.1 (13 September 2026)
+
+- More reliable weather queries: strengthened and unified the way the add-on communicates with the weather data service, so both current weather and multi-day forecast queries handle connection errors more robustly and consistently.
+- Internal cleanup and complete technical documentation of all add-on functions.
 
 ## What's new in 1.8 (13 September 2026)
 
-- Fixed rain period detection when querying locations in time zones ahead or behind your computer, ensuring morning, afternoon, or evening rain details are announced accurately.
-- Natural singular and plural phrasing when reporting sunlight hours (e.g. "1 hour" instead of "1 hours").
-- Enhanced input safety in settings to prevent saving incomplete locations if a country or region selection is lost.
-- Add-on shortcut conflict auditor now properly matches keyboard gestures on both laptop and desktop keyboard layouts.
-
----
-
-## What's new in 1.6 (12 September 2026)
-
-### Improved
-
-- Clean teardown of Tools menu items on addon termination or reload, preventing orphaned UI handles.
-- The documentation menu item automatically detects NVDA's active language and opens the Spanish or English guide accordingly.
-- The settings dialog now implements standard affirmative and escape IDs (`wx.ID_OK`, `wx.ID_CANCEL`) along with button mnemonics for seamless Enter/Escape keyboard navigation.
-
----
-
-## What's new in 1.5 (8 September 2026)
-
-### Fixed
-
-- Settings could not be saved: the code used a value that did not exist and the operation failed.
-- The multi-day forecast was always read in Spanish, even with NVDA in another language. It is now translated like everything else.
-- About 45 weather vocabulary phrases (wind directions, sky conditions, times of day) were not translatable. They now are, and were translated into English.
-- Several technical names from the weather service were wrongly exposed as translatable text.
-
-### Internal changes
-
-- The current weather and forecast queries were split into named pieces: build the request, read the answer, write each sentence.
-- The part that decides how each day's rain is described is now separate and has its own tests.
-- Added texts were reworded into the neutral Spanish used across the add-on.
-- Added 43 automatic checks that run on their own on GitHub with every change.
-
-The full history of every version is in the CHANGELOG.md file of the
-add-on repository.
+- Smart remaining hours detection: when checking current weather or today's forecast, the add-on automatically filters out elapsed hours, preventing past rain periods (such as early morning or dawn rain) from being announced when querying in the afternoon or evening, and aligning today's weather condition with the remainder of the day so past drizzle is not carried over when only a residual probability remains.
+- Accurate rain forecast across all time zones: when querying a city in a different time zone than your computer, the add-on now properly aligns that city's local hours, accurately announcing whether rain will fall in the morning, afternoon, or evening.
+- Natural sunlight duration phrasing: daylight duration is announced naturally with proper singular and plural phrasing (such as "1 hour and 1 minute").
+- Flexible coordinate inputs: you can now type coordinates in settings using either commas or dots and with extra spaces, and they will be normalized automatically so queries never fail.
+- Captive portal detection on public Wi-Fi: if you connect to a public Wi-Fi network (such as hotels or airports) that requires a browser login, the add-on gives you a clear announcement instead of a raw data error.
+- Protection against repeated key presses: pressing the weather shortcuts repeatedly while a request is already in progress will ignore extra presses to avoid clogging your connection or repeating speech.
+- Safe settings saving: your city and preference settings are saved reliably so your configuration is never lost if the computer shuts down unexpectedly.
+- Clean settings dialog dismissal: saving or canceling settings stops background timers immediately, allowing the window to close smoothly without freezing NVDA.
+- Expanded translated weather codes: added clear descriptions in Spanish and English for freezing drizzle, snow showers, and hail.
+- Layout-aware shortcut conflict auditing: the shortcut conflict checker now correctly matches gestures whether you are using a desktop or laptop keyboard layout.
 
 ### Credits
+
 - Inspired by Weather Plus by Adriano Barbieri and contributors.
 - Weather data provided by Open-Meteo under CC BY 4.0.

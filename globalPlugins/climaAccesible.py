@@ -214,11 +214,12 @@ def codigoClima(code):
 	}
 	return m.get(code, _("condición desconocida"))
 
-def momentoLluvia(fecha, hourly_times, hourly_probs, hourly_precs):
+def momentoLluvia(fecha, hourly_times, hourly_probs, hourly_precs, hora_minima=None):
 	"""
 	Analiza los datos horarios del día y devuelve una frase natural
 	indicando el momento en que se espera lluvia ('por la mañana', 'por la tarde',
 	'por la noche', 'por la tarde y por la noche', 'durante todo el día', etc.).
+	Si se especifica hora_minima, descarta las horas previas que ya han transcurrido.
 	"""
 	if not hourly_times:
 		return ""
@@ -237,6 +238,9 @@ def momentoLluvia(fecha, hourly_times, hourly_probs, hourly_precs):
 		try:
 			hour = int(t.split("T")[1].split(":")[0])
 		except Exception:
+			continue
+
+		if hora_minima is not None and hour < hora_minima:
 			continue
 
 		try:
@@ -279,10 +283,19 @@ def momentoLluvia(fecha, hourly_times, hourly_probs, hourly_precs):
 
 # ── diálogo de configuración ──────────────────────────────────────────────────
 
+def _normalizarCoord(coord):
+	"""Normaliza una coordenada decimal (reemplaza comas por puntos y elimina espacios)."""
+	try:
+		return float(str(coord).strip().replace(",", "."))
+	except (ValueError, TypeError):
+		return coord
+
+
 class ConfigDialog(wx.Dialog):
 	"""Diálogo accesible para configurar la ubicación geográfica y opciones meteorológicas."""
 
 	def __init__(self, parent):
+		"""Inicializa el diálogo accesible de configuración, cargando las opciones guardadas."""
 		super(ConfigDialog, self).__init__(
 			parent,
 			title=_("ClimaAccesible - Configuración"),
@@ -413,6 +426,7 @@ class ConfigDialog(wx.Dialog):
 		return super(ConfigDialog, self).EndModal(retCode)
 
 	def _onProgressTick(self, event):
+		"""Actualiza el indicador visual de progreso mientras se cargan los datos geográficos."""
 		if self._isClosing:
 			return
 		try:
@@ -422,6 +436,7 @@ class ConfigDialog(wx.Dialog):
 			pass
 
 	def _stopProgress(self):
+		"""Detiene el temporizador de carga y oculta la barra de progreso."""
 		try:
 			if hasattr(self, "_progressTimer") and self._progressTimer and self._progressTimer.IsRunning():
 				self._progressTimer.Stop()
@@ -455,6 +470,7 @@ class ConfigDialog(wx.Dialog):
 	# ── países ────────────────────────────────────────────────────────────────
 
 	def _load_countries(self):
+		"""Carga en un hilo secundario la base de datos geográfica para no congelar la interfaz."""
 		try:
 			data      = getGeoData()
 			countries = [(c[0], c[1]) for c in data]
@@ -628,6 +644,7 @@ class ConfigDialog(wx.Dialog):
 		self.EndModal(wx.ID_OK)
 
 	def _status(self, text):
+		"""Actualiza la etiqueta de estado visual y anuncia el mensaje a través de NVDA."""
 		if self._isClosing:
 			return
 		try:
@@ -646,6 +663,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	scriptCategory = _("ClimaAccesible")
 
 	def __init__(self):
+		"""Inicializa el plugin global de clima, registrando el submenú en Herramientas y tareas en segundo plano."""
 		super(GlobalPlugin, self).__init__()
 		if getattr(globalVars.appArgs, "secureMode", False):
 			log.warning("ClimaAccesible: NVDA en modo seguro. Se cancela la carga del complemento por seguridad.")
@@ -697,6 +715,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		log.info("ClimaAccesible: complemento cerrado correctamente.")
 
 	def _onMenuConfig(self, event):
+		"""Manejador de evento del menú para abrir el diálogo de configuración."""
 		wx.CallAfter(self._openConfigDialog)
 
 
@@ -759,6 +778,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		wx.CallAfter(self._openConfigDialog)
 
 	def _openConfigDialog(self):
+		"""Abre la ventana accesible de configuración garantizando una única instancia activa."""
 		if self._isConfigOpen:
 			log.info("ClimaAccesible: Diálogo de configuración ya abierto, omitiendo.")
 			return
@@ -791,6 +811,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					log.error(f"ClimaAccesible: _safeMessage falló: {ex}", exc_info=True)
 
 	def _getUserAgent(self):
+		"""Construye la cabecera User-Agent con la versión activa del complemento para la API."""
 		try:
 			addon = addonHandler.getCodeAddon()
 			if addon and getattr(addon, "manifest", None):
@@ -798,6 +819,30 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		except Exception:
 			pass
 		return "ClimaAccesible/1.8"
+
+	def _manejarErrorPeticion(self, error, operacion="el clima"):
+		"""Gestiona y verbaliza de forma unificada y segura los fallos de red o de la API meteorológica."""
+		if self._stopping.is_set():
+			return
+		if isinstance(error, (TimeoutError, socket.timeout)):
+			log.error(f"ClimaAccesible: Tiempo de espera agotado en {operacion}.", exc_info=True)
+			self._safeMessage(_("Tiempo de espera agotado al consultar {}. Comprueba tu conexión o inténtalo nuevamente.").format(operacion))
+		elif isinstance(error, urllib.error.HTTPError):
+			try:
+				motivo = json.loads(error.read().decode("utf-8")).get("reason", "sin detalle")
+			except Exception:
+				motivo = "sin detalle"
+			log.error(f"ClimaAccesible: Error HTTP {error.code} en {operacion}: {motivo}", exc_info=True)
+			self._safeMessage(_("Error del servidor: código {}. Motivo: {}").format(error.code, motivo))
+		elif isinstance(error, urllib.error.URLError):
+			log.error(f"ClimaAccesible: Error de conexión de red (URLError) en {operacion}: {error.reason}", exc_info=True)
+			self._safeMessage(_("No se pudo conectar al servidor. Verifica tu conexión a Internet."))
+		elif isinstance(error, json.JSONDecodeError):
+			log.error(f"ClimaAccesible: Respuesta no válida recibida en {operacion} (posible portal cautivo o HTML).", exc_info=True)
+			self._safeMessage(_("Respuesta no válida del servidor meteorológico. Comprueba tu conexión a Internet."))
+		else:
+			log.error(f"ClimaAccesible: Error inesperado en {operacion}: {error}", exc_info=True)
+			self._safeMessage(_("Error inesperado al consultar {}.").format(operacion))
 
 	def _getJsonFromApi(self, url, label="general"):
 		"""Envía petición HTTP a Open-Meteo con reintento automático y decodifica JSON."""
@@ -868,46 +913,49 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				fecha_ciudad = str(c["time"]).split("T")[0]
 			else:
 				fecha_ciudad = datetime.date.today().isoformat()
-			momento = momentoLluvia(fecha_ciudad, horas_time, horas_prob, horas_prec)
+
+			# Detectar la hora actual de la ciudad para evaluar solo las horas restantes de hoy
+			hora_actual = None
+			if "time" in c and "T" in str(c["time"]):
+				try:
+					hora_actual = int(str(c["time"]).split("T")[1].split(":")[0])
+				except Exception:
+					hora_actual = datetime.datetime.now().hour
+			else:
+				hora_actual = datetime.datetime.now().hour
+
+			momento = momentoLluvia(fecha_ciudad, horas_time, horas_prob, horas_prec, hora_minima=hora_actual)
+
+			# Calcular la probabilidad y precipitacion maxima en lo que resta del dia
+			probs_rest = []
+			precs_rest = []
+			if horas_time:
+				for idx_h, t in enumerate(horas_time):
+					if t.startswith(fecha_ciudad):
+						try:
+							h_val = int(t.split("T")[1].split(":")[0])
+							if h_val >= hora_actual:
+								if idx_h < len(horas_prob) and horas_prob[idx_h] is not None:
+									probs_rest.append(int(float(horas_prob[idx_h])))
+								if idx_h < len(horas_prec) and horas_prec[idx_h] is not None:
+									precs_rest.append(float(horas_prec[idx_h]))
+						except Exception:
+							pass
+
+			prob_max_rest = max(probs_rest) if probs_rest else None
+			prec_total_rest = round(sum(precs_rest), 1) if precs_rest else None
 
 			partes = [_("En {}, el reporte del clima es el siguiente.").format(city)]
 			partes += self._frasesDelClimaActual(c, prefs)
-			partes += self._frasesDelResumenDeHoy(c, dv, prefs, momento)
+			partes += self._frasesDelResumenDeHoy(c, dv, prefs, momento, prob_max=prob_max_rest, lluvia_total=prec_total_rest)
 
 			if len(partes) == 1:
 				partes.append(_("No hay datos seleccionados. Abre la configuración con NVDA+Control+W."))
 
 			self._safeMessage(" ".join(partes))
 
-		except (TimeoutError, socket.timeout):
-			if self._stopping.is_set():
-				return
-			log.error("ClimaAccesible: Tiempo de espera agotado al consultar clima.", exc_info=True)
-			self._safeMessage(_("Tiempo de espera agotado al consultar el clima. Comprueba tu conexión o inténtalo nuevamente."))
-		except urllib.error.HTTPError as e:
-			if self._stopping.is_set():
-				return
-			try:
-				motivo = json.loads(e.read().decode("utf-8")).get("reason", "sin detalle")
-			except Exception:
-				motivo = "sin detalle"
-			log.error(f"ClimaAccesible: Error HTTP {e.code} al consultar clima: {motivo}", exc_info=True)
-			self._safeMessage(_("Error del servidor: código {}. Motivo: {}").format(e.code, motivo))
-		except urllib.error.URLError as e:
-			if self._stopping.is_set():
-				return
-			log.error(f"ClimaAccesible: Error de conexión de red (URLError) al consultar clima: {e.reason}", exc_info=True)
-			self._safeMessage(_("No se pudo conectar al servidor. Verifica tu conexión a Internet."))
-		except json.JSONDecodeError:
-			if self._stopping.is_set():
-				return
-			log.error("ClimaAccesible: Respuesta no válida recibida de la API meteorológica (posible portal cautivo o HTML).", exc_info=True)
-			self._safeMessage(_("Respuesta no válida del servidor meteorológico. Comprueba tu conexión a Internet."))
 		except Exception as e:
-			if self._stopping.is_set():
-				return
-			log.error(f"ClimaAccesible: Error inesperado al consultar clima: {e}", exc_info=True)
-			self._safeMessage(_("Error inesperado al consultar el clima."))
+			self._manejarErrorPeticion(e, operacion=_("el clima"))
 		finally:
 			self._fetchingWeatherActive = False
 
@@ -920,11 +968,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		current_fields = [api for k, _, api, t in OPCIONES if t == "current" and prefs.get(k, True)]
 		daily_fields   = [api for k, _, api, t in OPCIONES if t == "daily"   and prefs.get(k, True)]
 
-		try:
-			lat = float(str(lat).strip().replace(",", "."))
-			lon = float(str(lon).strip().replace(",", "."))
-		except (ValueError, TypeError):
-			pass
+		lat = _normalizarCoord(lat)
+		lon = _normalizarCoord(lon)
 
 		params = "?latitude={lat}&longitude={lon}&wind_speed_unit=kmh&timezone=auto&forecast_days=1".format(
 			lat=lat, lon=lon
@@ -976,7 +1021,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			partes.append(_("Presión atmosférica: {} hectopascales.").format(c["surface_pressure"]))
 		return partes
 
-	def _frasesDelResumenDeHoy(self, c, dv, prefs, momento):
+	def _frasesDelResumenDeHoy(self, c, dv, prefs, momento, prob_max=None, lluvia_total=None):
 		"""Frases sobre como sera el resto del dia.
 
 		Lo del amanecer y las horas de luz solo se dice con el cielo despejado: con
@@ -994,19 +1039,21 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				partes.append(_("Horas de luz hoy: {}.").format(formatSegundos(dv("daylight_duration"))))
 		if prefs.get("uv_max") and dv("uv_index_max") is not None:
 			partes.append(_("Índice UV máximo del día: {}.").format(dv("uv_index_max")))
-		if prefs.get("precip_prob_max") and dv("precipitation_probability_max") is not None:
-			try:
-				prob_max = int(float(dv("precipitation_probability_max") or 0))
-			except (ValueError, TypeError):
-				prob_max = 0
+		if prefs.get("precip_prob_max"):
+			if prob_max is None:
+				try:
+					prob_max = int(float(dv("precipitation_probability_max") or 0))
+				except (ValueError, TypeError):
+					prob_max = 0
 			if prob_max > 0 and momento:
 				partes.append(_("Probabilidad máxima de lluvia del día: {} por ciento {}.").format(prob_max, momento))
 			else:
 				partes.append(_("Probabilidad máxima de lluvia del día: {} por ciento.").format(prob_max))
-		try:
-			lluvia_total = float(dv("precipitation_sum") or 0)
-		except (ValueError, TypeError):
-			lluvia_total = 0.0
+		if lluvia_total is None:
+			try:
+				lluvia_total = float(dv("precipitation_sum") or 0)
+			except (ValueError, TypeError):
+				lluvia_total = 0.0
 		if prefs.get("precip_total") and lluvia_total > 0:
 			if not prefs.get("precip_prob_max") and momento:
 				partes.append(_("Precipitación total esperada del día: {} milímetros {}.").format(lluvia_total, momento))
@@ -1043,7 +1090,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 			d           = data.get("daily", {})
 			h           = data.get("hourly", {})
+			c_now       = data.get("current", {})
+			codigo_now  = c_now.get("weather_code")
 			horas_time  = h.get("time",                          [])
+			horas_code  = h.get("weather_code",                  [])
 			horas_prob  = h.get("precipitation_probability",     [])
 			horas_prec  = h.get("precipitation",                 [])
 			fechas      = d.get("time",                          [])
@@ -1057,6 +1107,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			atardeceres = d.get("sunset",                        [])
 			partes = [_("Pronóstico para {} para los próximos {} días.").format(city, len(fechas))]
 
+			# Detectar la hora actual para el pronostico de hoy (usando hora local reportada por la API si existe)
+			if c_now and "time" in c_now:
+				try:
+					hora_actual_hoy = int(str(c_now["time"]).split("T")[1].split(":")[0])
+				except Exception:
+					hora_actual_hoy = datetime.datetime.now().hour
+			else:
+				hora_actual_hoy = datetime.datetime.now().hour
+
 			for i, fecha in enumerate(fechas):
 				label     = self._nombreDeDia(fecha, i)
 				codigo    = codigos[i]     if i < len(codigos)     else None
@@ -1067,9 +1126,49 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				prec_s    = precip_sum[i]  if i < len(precip_sum)  else None
 				amanecer  = formatHora(amaneceres[i])  if i < len(amaneceres)  else "?"
 				atardecer = formatHora(atardeceres[i]) if i < len(atardeceres) else "?"
-				cond      = codigoClima(codigo) if codigo is not None else "?"
 
-				momento = momentoLluvia(fecha, horas_time, horas_prob, horas_prec)
+				# Para el dia de hoy (i == 0), evaluar unicamente las horas que quedan
+				hora_filtro = hora_actual_hoy if i == 0 else None
+				momento = momentoLluvia(fecha, horas_time, horas_prob, horas_prec, hora_minima=hora_filtro)
+
+				if i == 0 and hora_filtro is not None and horas_time:
+					probs_rest = [
+						int(float(horas_prob[idx_h])) for idx_h, t in enumerate(horas_time)
+						if t.startswith(fecha) and int(t.split("T")[1].split(":")[0]) >= hora_filtro
+						and idx_h < len(horas_prob) and horas_prob[idx_h] is not None
+					]
+					if probs_rest:
+						prob_p = max(probs_rest)
+					precs_rest = [
+						float(horas_prec[idx_h]) for idx_h, t in enumerate(horas_time)
+						if t.startswith(fecha) and int(t.split("T")[1].split(":")[0]) >= hora_filtro
+						and idx_h < len(horas_prec) and horas_prec[idx_h] is not None
+					]
+					if precs_rest:
+						prec_s = round(sum(precs_rest), 1)
+
+					# Actualizar el codigo meteorologico de hoy considerando las horas restantes y el clima actual,
+					# evitando arrastrar codigos de lluvia o llovizna que ocurrieron en horas pasadas de la madrugada.
+					codigos_rest = [
+						int(horas_code[idx_h]) for idx_h, t in enumerate(horas_time)
+						if t.startswith(fecha) and int(t.split("T")[1].split(":")[0]) >= hora_filtro
+						and idx_h < len(horas_code) and horas_code[idx_h] is not None
+					]
+					if codigos_rest:
+						candidatos = codigos_rest.copy()
+						if codigo_now is not None:
+							try:
+								candidatos.append(int(codigo_now))
+							except (ValueError, TypeError):
+								pass
+						codigo = max(candidatos)
+					elif codigo_now is not None:
+						try:
+							codigo = int(codigo_now)
+						except (ValueError, TypeError):
+							pass
+
+				cond = codigoClima(codigo) if codigo is not None else "?"
 				lluvia_info = self._fraseDeLluvia(prob_p, prec_s, momento)
 
 				con_sol = (codigo in (0, 1) and amanecer != "?" and atardecer != "?") if codigo is not None else False
@@ -1092,51 +1191,22 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 			self._safeMessage(" ".join(partes))
 
-		except (TimeoutError, socket.timeout):
-			if self._stopping.is_set():
-				return
-			log.error("ClimaAccesible: Tiempo de espera agotado en pronóstico.", exc_info=True)
-			self._safeMessage(_("Tiempo de espera agotado al consultar el pronóstico. Comprueba tu conexión o inténtalo nuevamente."))
-		except urllib.error.HTTPError as e:
-			if self._stopping.is_set():
-				return
-			try:
-				motivo = json.loads(e.read().decode("utf-8")).get("reason", "sin detalle")
-			except Exception:
-				motivo = "sin detalle"
-			log.error(f"ClimaAccesible: Error HTTP {e.code} en pronóstico: {motivo}", exc_info=True)
-			self._safeMessage(_("Error del servidor: código {}. Motivo: {}").format(e.code, motivo))
-		except urllib.error.URLError as e:
-			if self._stopping.is_set():
-				return
-			log.error(f"ClimaAccesible: Error de conexión de red (URLError) en pronóstico: {e.reason}", exc_info=True)
-			self._safeMessage(_("No se pudo conectar. Verifica tu conexión a Internet."))
-		except json.JSONDecodeError:
-			if self._stopping.is_set():
-				return
-			log.error("ClimaAccesible: Respuesta no válida recibida en pronóstico (posible portal cautivo o HTML).", exc_info=True)
-			self._safeMessage(_("Respuesta no válida del servidor meteorológico. Comprueba tu conexión a Internet."))
 		except Exception as e:
-			if self._stopping.is_set():
-				return
-			log.error(f"ClimaAccesible: Error inesperado en pronóstico: {e}", exc_info=True)
-			self._safeMessage(_("Error inesperado al consultar el pronóstico."))
+			self._manejarErrorPeticion(e, operacion=_("el pronóstico"))
 		finally:
 			self._fetchingForecastActive = False
 
 	def _urlDelPronostico(self, lat, lon, forecast_days):
 		"""Direccion a la que se le piden los datos del pronostico."""
-		try:
-			lat = float(str(lat).strip().replace(",", "."))
-			lon = float(str(lon).strip().replace(",", "."))
-		except (ValueError, TypeError):
-			pass
+		lat = _normalizarCoord(lat)
+		lon = _normalizarCoord(lon)
 		url = (
 			"https://api.open-meteo.com/v1/forecast"
 			"?latitude={lat}&longitude={lon}"
 			"&daily=weather_code,temperature_2m_max,temperature_2m_min,"
 			"precipitation_sum,precipitation_probability_max,wind_speed_10m_max,sunrise,sunset"
-			"&hourly=precipitation_probability,precipitation"
+			"&hourly=weather_code,precipitation_probability,precipitation"
+			"&current=weather_code"
 			"&wind_speed_unit=kmh&timezone=auto&forecast_days={days}"
 		).format(lat=lat, lon=lon, days=forecast_days)
 		return url
@@ -1184,17 +1254,23 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		except (ValueError, TypeError):
 			prec_val = 0.0
 
-		if prob_val > 0 and prec_val > 0:
+		# Una probabilidad inferior al 15% sin acumulación medible (< 0.1 mm) se considera
+		# meteorológicamente ausencia de precipitaciones, evitando falsos anuncios de lluvia
+		# residuales (como 1% o 2%).
+		if prob_val < 15 and prec_val < 0.1:
+			return ""
+
+		if prob_val >= 15 and prec_val >= 0.1:
 			if momento:
 				lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento {} con {} milímetros.").format(prob_val, momento, prec_val)
 			else:
 				lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento con {} milímetros.").format(prob_val, prec_val)
-		elif prob_val > 0:
+		elif prob_val >= 15:
 			if momento:
 				lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento {}.").format(prob_val, momento)
 			else:
 				lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento.").format(prob_val)
-		elif prec_val > 0:
+		elif prec_val >= 0.1:
 			if momento:
 				lluvia_info = _(" Precipitación esperada {} de {} milímetros.").format(momento, prec_val)
 			else:
@@ -1203,6 +1279,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 
 	def _startupBackgroundWorker(self):
+		"""Comprueba en segundo plano tras iniciar NVDA si existen conflictos con otros complementos."""
 		try:
 			time.sleep(3.0)
 			self._checkAddonConflicts(interactive=False)
@@ -1219,6 +1296,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		warnings = []
 
 		def _normalizarGesto(gesto_str):
+			"""Normaliza un gesto de teclado eliminando espacios y modificadores redundantes."""
 			s = str(gesto_str).strip().lower().replace(" ", "")
 			return re.sub(r'\(.*?\)', '', s)
 
@@ -1370,6 +1448,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				)
 
 	def _onMenuConflicts(self, event):
+		"""Manejador de evento del menú para ejecutar la comprobación interactiva de conflictos."""
 		wx.CallAfter(self._checkAddonConflicts, interactive=True)
 
 	@scriptHandler.script(
