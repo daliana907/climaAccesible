@@ -93,6 +93,12 @@ hr {
 <li>Check the weather items you want announced and click Save.</li>
 </ol>
 <hr />
+<h2>What's new in 1.8.2 (18 September 2026)</h2>
+<ul>
+<li>Accurate snow descriptions: corrected a condition description that reported "fine hail" when conditions actually called for snow grains, preserving hail announcements strictly for actual storms.</li>
+<li>Resilient daily forecast: if hourly data from the weather service contains an unexpected timestamp format, the add-on skips that specific entry and presents the rest of the daily forecast without interruption.</li>
+<li>Quicker server error reporting: when the weather API reports an internal server error, the add-on notifies you immediately without waiting through ineffective retry cycles.</li>
+</ul>
 <h2>What's new in 1.8.1 (13 September 2026)</h2>
 <ul>
 <li>More reliable weather queries: strengthened and unified the way the add-on communicates with the weather data service, so both current weather and multi-day forecast queries handle connection errors more robustly and consistently.</li>

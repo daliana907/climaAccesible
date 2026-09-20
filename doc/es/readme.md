@@ -1,68 +1,39 @@
-# ClimaAccesible para NVDA (Accessible Weather)
+# ClimaAccesible
 
-- Autora: Daliana
-- Versión: 1.8
-- Compatibilidad: NVDA 2023.1 en adelante
-- Licencia: GNU GPL v2
+* Autor: Daliana (Inspirado en Weather Plus de Adriano Barbieri)
+* Compatibilidad con NVDA: 2023.1 en adelante
+* Descarga de la versión estable: https://github.com/daliana907/climaAccesible
 
-[Read in English](../en/readme.md)
+Este complemento es la forma más rápida y directa de conocer el estado del clima y el pronóstico extendido, interactuando directamente desde tu lector de pantalla de manera natural.
 
----
+Una vez instalado, al elegir tu ciudad de la lista, el sistema se conecta de inmediato al servicio meteorológico. No hace falta crear cuentas ni conseguir claves privadas; está listo para usarse desde el primer momento.
 
-## Versión en Español
+ClimaAccesible interpreta los datos meteorológicos de forma inteligente. En lugar de leerte una lista fría de números, te relata el clima en formato conversacional y omite información redundante de la siguiente manera:
 
-ClimaAccesible es un complemento para NVDA pensado para consultar el estado del tiempo y el pronóstico de los próximos días de forma rápida, cómoda y sin complicaciones.
+*   Omite probabilidades de lluvia falsas o residuales: si la probabilidad es menor al 15% y no hay acumulación en milímetros, el sistema directamente no menciona la lluvia para evitar alertas falsas por lloviznas invisibles.
+*   Resume temperaturas calcadas: si la máxima y la mínima del día son casi iguales, en lugar de leerte dos veces el mismo número te lo resume diciendo "temperatura constante rondando los...".
+*   Filtra la información del sol: solo te informa a qué hora sale y se pone el sol si el día va a estar despejado. Si el cielo va a estar completamente nublado o lloviendo, omite la salida del sol para no alargar el mensaje con datos que no vas a poder ver ni aprovechar.
 
-### Ventajas de este complemento
+Para ofrecer reportes de precipitaciones exactos, el complemento se nutre de los datos del radar satelital. Si consultas el clima y el servicio detecta que se aproxima un chaparrón a tu zona dentro de las próximas horas, NVDA te dará un aviso explícito diciéndote en cuántos minutos comenzará a llover o en qué momento parará según la proyección.
 
-- Funciona de inmediato: Utiliza la API abierta de Open-Meteo. No tienes que entrar a ninguna página web rara a crearte cuentas ni conseguir claves privadas. Lo instalas, eliges tu ciudad y ya funciona.
-- Pronóstico fácil de entender: Dice claramente hoy, mañana y los días que siguen (por ejemplo: lunes 7 de septiembre), sin repetir fechas ni mezclar días.
-- Avisos de lluvia por momento del día: Si va a llover, te dice si será por la mañana, por la tarde, por la noche o durante todo el día.
-- Ciudades sin conexión: Contiene una lista de más de 50.000 localidades organizadas por País, Provincia o Departamento y Ciudad, para que elijas la tuya sin necesidad de GPS ni permisos especiales.
-- Elige qué quieres escuchar: Desde las opciones puedes marcar o desmarcar con casillas si quieres saber la sensación térmica, humedad, viento, presión, índice UV o la hora en que sale y se pone el sol.
+El diseño del reporte procesa la descarga de datos en paralelo para cargar mucho más rápido y calcula con precisión las fases de la luna.
 
-### Atajos de teclado
+## Cómo usarlo
 
-- NVDA + W: Escuchar el clima actual en tu ciudad.
-- NVDA + Shift + W: Escuchar el pronóstico para los próximos días.
-- NVDA + Control + W: Abrir la ventana de configuración para elegir tu ciudad o cambiar las opciones.
+El uso es muy sencillo, manejado por tres atajos de teclado clave:
 
-### Menú en Herramientas de NVDA
+*   Pulsando NVDA + W, escucharás el reporte del clima actual en tu ciudad, incluyendo la alerta de lluvia a corto plazo.
+*   Pulsando NVDA + Shift + W, el complemento te leerá el pronóstico extendido de los próximos días de forma natural.
+*   Y pulsando NVDA + Control + W, se abrirá la ventana de configuración.
 
-También puedes acceder desde el menú de NVDA > Herramientas > ClimaAccesible:
+En la configuración puedes buscar tu ciudad eligiendo primero tu país, después tu región o departamento y finalmente tu localidad. También tienes diversas opciones para activar o desactivar información complementaria: puedes hacer que te lea u oculte la sensación térmica, la humedad, el índice UV, la visibilidad reducida, la nubosidad, el punto de rocío y las fases de la luna.
 
-- Configuración del complemento: Abre la ventana de opciones.
-- Comprobar conflictos con otros complementos...: Verifica si otros complementos interfieren con los atajos.
+## Créditos
 
-### Cómo empezar
+La idea original estuvo inspirada en el gran complemento Weather Plus creado por Adriano Barbieri. Esta versión fue creada desde cero con tecnología moderna para evitar el uso de claves de API y lograr descripciones mucho más orgánicas. Todos los datos meteorológicos provienen de la plataforma de acceso público y gratuito Open-Meteo (https://open-meteo.com).
 
-1. Presiona NVDA + Control + W para abrir las opciones.
-2. En la lista País, selecciona tu país.
-3. Con Tabulador pasa a Región / Departamento y elige el tuyo.
-4. Con Tabulador pasa a Ciudad y elige tu localidad.
-5. Marca las casillas de los datos que te interesen y pulsa Guardar.
+## Licencia y derechos de autor
 
----
+Este complemento está protegido por derechos de autor y se distribuye bajo los términos de la Licencia Pública General de GNU (GPL), versión 2 o posterior. Eres libre de usar, modificar y distribuir este software bajo dichas condiciones. Puedes consultar el texto completo de la licencia en: https://www.gnu.org/licenses/gpl-2.0.html
 
-## Novedades de la versión 1.8.1 (13 de septiembre de 2026)
-
-- Consultas meteorológicas más fiables: se reforzó y unificó la forma en que el complemento se comunica con el servicio de datos del clima, haciendo que tanto la consulta del tiempo actual como la del pronóstico extendido gestionen los errores de conexión de manera más robusta y consistente.
-- Limpieza interna y documentación técnica completa de todas las funciones del complemento.
-
-## Novedades de la versión 1.8 (13 de septiembre de 2026)
-
-- Detección inteligente de horas restantes: al consultar el clima actual o el pronóstico para el día de hoy, el complemento descarta automáticamente las horas que ya han transcurrido, asegurando que no se anuncien lluvias o periodos de la madrugada o de la mañana si la consulta se hace por la tarde o por la noche, y adaptando el estado del cielo a las horas restantes del día para no arrastrar lloviznas pasadas cuando solo queda una probabilidad residual.
-- Pronóstico de lluvia exacto en cualquier país: al consultar el clima de una ciudad con un huso horario distinto al de tu ordenador, el complemento ahora sincroniza correctamente las horas locales de esa ciudad, diciéndote con exactitud si lloverá por la mañana, por la tarde o por la noche sin desfasarse.
-- Anuncio de horas de sol en lenguaje natural: la duración de la luz solar ahora se escucha de forma natural y gramaticalmente correcta en singular y plural (por ejemplo: "1 hora y 1 minuto").
-- Escritura de coordenadas más flexible: en la ventana de configuración ahora puedes escribir las coordenadas tanto con coma como con punto y con espacios, corrigiéndose automáticamente para que la consulta nunca falle.
-- Detección de redes Wi-Fi con inicio de sesión: si te conectas a una red pública (como en hoteles o cafeterías) que requiere iniciar sesión en el navegador, el complemento te avisa con claridad en lugar de dar un error extraño de datos.
-- Protección contra pulsaciones repetidas: si pulsas varias veces seguidas el atajo del clima mientras está consultando en internet, el complemento ignora las pulsaciones repetidas para no saturar la conexión ni repetir la voz.
-- Guardado seguro de tu ciudad y preferencias: tus opciones se graban de manera protegida para que nunca se pierda tu ciudad seleccionada si el ordenador se apaga de golpe.
-- Cierre limpio de la ventana de opciones: al guardar o pulsar cancelar, las comprobaciones en segundo plano se detienen al instante, permitiendo que la ventana se cierre de inmediato sin trabar NVDA.
-- Más tipos de clima traducidos: se añadieron descripciones en español e inglés para condiciones como llovizna helada, chubascos de nieve y granizo.
-- Detección de conflictos de teclado adaptada a tu equipo: el comprobador de conflictos de teclas ahora reconoce correctamente si usas la distribución de teclado de sobremesa o de ordenador portátil.
-
-### Créditos y Agradecimientos
-
-- Idea original: Inspirado en el concepto pionero de Weather Plus creado por Adriano Barbieri y colaboradores. ClimaAccesible fue reescrito desde cero para funcionar con Open-Meteo sin claves API, con fechas naturales en español y base de ciudades local.
-- Datos del clima: Provistos por Open-Meteo bajo licencia Creative Commons Atribución 4.0 (CC BY 4.0).
+Aclaración sobre el uso de Inteligencia Artificial: Para programar partes de la lógica interna de este complemento y para redactar estos manuales me apoyé en herramientas de Inteligencia Artificial, tal como sugieren declarar las reglas de publicación de NVDA. De todos modos, cada línea de código y cada función fueron dirigidas, revisadas y probadas a fondo por mí.

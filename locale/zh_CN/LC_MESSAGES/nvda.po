@@ -893,3 +893,243 @@ msgstr "检查是否存在键盘快捷键冲突或与 ClimaAccesible 不兼容�
 #~ msgstr ""
 #~ "{}：{}。最大 {} 度，最小 {} 度。最大风速为每小时 {} 公里。 {} 从 {} 到 {} "
 #~ "可见太阳。"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Fase lunar: {}."
+msgstr "月相: {}。"
+
+msgid "Se esperan lluvias intermitentes a lo largo del día, comenzando a las {} horas."
+msgstr "Intermittent rain is expected throughout the day, starting at {} hours."
+
+msgid " (desde las {} horas hasta la medianoche)"
+msgstr " (from {} hours until midnight)"
+
+msgid "{count} minutos"
+msgstr "{count} minutos"
+
+msgid "Luna empezando a menguar"
+msgstr "亏凸月"
+
+msgid "Precipitación actual (lluvia general)"
+msgstr "Current precipitation (general rain)"
+
+msgid "Índice UV en tiempo real"
+msgstr "Real-time UV index"
+
+msgid "Elevación sobre el nivel del mar"
+msgstr "Elevation above sea level"
+
+msgid " Probabilidad máxima de lluvia: {} por ciento{}."
+msgstr " Maximum rain probability: {} percent{}."
+
+msgid "{horas} y {minutos}"
+msgstr "{horas} y {minutos}"
+
+msgid "Punto de rocío crítico: {} grados (riesgo de niebla/humedad extrema)."
+msgstr "临界露点: {} 度 (起雾/极度潮湿风险)。"
+
+msgid " Precipitación esperada{} de {} milímetros."
+msgstr " Expected precipitation{} of {} millimeters."
+
+msgid "Extremo"
+msgstr "Extreme"
+
+msgid "Nevada actual y espesor de nieve"
+msgstr "Current snowfall and snow depth"
+
+msgid "Luna creciente"
+msgstr "蛾眉月"
+
+msgid "el pronóstico"
+msgstr "the forecast"
+
+msgid "Cuarto creciente"
+msgstr "上弦月"
+
+msgid "Alto"
+msgstr "High"
+
+msgid "Luna casi llena (creciente)"
+msgstr "盈凸月"
+
+msgid "Condición: {} (cayendo {} milímetros)."
+msgstr "状况: {} (降下 {} 毫米)。"
+
+msgid "Moderado"
+msgstr "Moderate"
+
+msgid "Horas de lluvia estimadas"
+msgstr "Estimated hours of rain"
+
+msgid "Se esperan precipitaciones desde las {} hasta las {} horas."
+msgstr "Precipitation is expected from {} to {} hours."
+
+msgid " (desde las {} hasta las {} horas)"
+msgstr " (from {} to {} hours)"
+
+msgid "Muy malo"
+msgstr "Very poor"
+
+msgid " Probabilidad máxima de lluvia: {} por ciento{} con {} milímetros."
+msgstr " Maximum rain probability: {} percent{} with {} millimeters."
+
+msgid "Nieve total esperada del día"
+msgstr "Total expected snow for the day"
+
+msgid "{count} horas"
+msgstr "{count} horas"
+
+msgid "Visibilidad reducida: {} kilómetros."
+msgstr "能见度降低: {} 公里。"
+
+msgid "Tiempo de espera agotado al consultar {}. Comprueba tu conexión o inténtalo nuevamente."
+msgstr "Timeout querying {}. Check your connection or try again."
+
+msgid "Error al guardar la configuración."
+msgstr "Error saving configuration."
+
+msgid "Viento en calma."
+msgstr "风平浪静。"
+
+msgid "Visibilidad reducida: {} metros."
+msgstr "能见度降低: {} 米。"
+
+msgid "Se esperan precipitaciones desde las {} horas hasta la medianoche."
+msgstr "Precipitation is expected from {} hours until midnight."
+
+msgid "granos de nieve"
+msgstr "snow grains"
+
+msgid "lluvia engelante intensa"
+msgstr "heavy freezing rain"
+
+msgid "el clima"
+msgstr "the weather"
+
+msgid "Luna menguante"
+msgstr "残月"
+
+msgid "Luna llena"
+msgstr "满月"
+
+msgid "llovizna engelante densa"
+msgstr "dense freezing drizzle"
+
+msgid " (comenzando a las {} horas)"
+msgstr " (starting at {} hours)"
+
+msgid "{count} hora"
+msgstr "{count} hora"
+
+msgid "Visibilidad actual"
+msgstr "Current visibility"
+
+msgid "Índice UV actual: {}."
+msgstr "Current UV index: {}."
+
+msgid "Nivel de contaminación del aire"
+msgstr "Air pollution level"
+
+msgid "{count} minuto"
+msgstr "{count} minuto"
+
+msgid "&Guardar todo"
+msgstr "&Save all"
+
+msgid "Peligroso"
+msgstr "Hazardous"
+
+msgid "Se esperan precipitaciones alrededor de las {} horas."
+msgstr "Precipitation is expected around {} hours."
+
+msgid "Máxima {} grados, mínima {} grados"
+msgstr "Maximum {} degrees, minimum {} degrees"
+
+msgid " (lluvias intermitentes desde las {} horas)"
+msgstr " (intermittent rain starting at {} hours)"
+
+msgid "Nieve acumulada en el suelo: {} metros"
+msgstr "Snow accumulated on the ground: {} meters"
+
+msgid "llovizna engelante ligera"
+msgstr "light freezing drizzle"
+
+msgid "Atención: La lluvia podría comenzar en unos {} minutos."
+msgstr "注意: 雨可能会在约{}分钟后开始。"
+
+msgid "Cuarto menguante"
+msgstr "下弦月"
+
+msgid "La lluvia se detendría en unos {} minutos."
+msgstr "Rain should stop in about {} minutes."
+
+msgid "Temperatura constante rondando los {} grados"
+msgstr "恒温约{}度"
+
+msgid "La lluvia o nevada podría comenzar a las {} horas."
+msgstr "Rain or snow could start at {} hours."
+
+msgid "Error inesperado al consultar {}."
+msgstr "Unexpected error querying {}."
+
+msgid "Nevada actual: {} centímetros"
+msgstr "Current snowfall: {} centimeters"
+
+msgid "No se pudo guardar la configuración. Revisa los permisos de la carpeta."
+msgstr "Could not save configuration. Check folder permissions."
+
+msgid "Luna nueva"
+msgstr "新月"
+
+msgid "Muy alto"
+msgstr "Very high"
+
+msgid "Aceptable"
+msgstr "Acceptable"
+
+msgid "Nivel de contaminación del aire: {} ({})."
+msgstr "Air pollution level: {} ({})."
+
+msgid "Nivel de contaminación del aire: {}."
+msgstr "Air pollution level: {}."
+
+msgid "Malo"
+msgstr "Poor"
+
+msgid "Elevación: {} metros sobre el nivel del mar."
+msgstr "Elevation: {} meters above sea level."
+
+msgid "Alerta inminente de lluvia (radar 15 min)"
+msgstr "即将来临的降雨警报 (15分钟雷达)"
+
+msgid "&Cancelar"
+msgstr "&Cancel"
+
+msgid "lluvia engelante ligera"
+msgstr "light freezing rain"
+
+msgid "Bajo"
+msgstr "Low"
+
+msgid "Aviso de hora exacta de lluvia"
+msgstr "Exact rain hour warning"
+
+msgid " Fase lunar: {}."
+msgstr " 月相: {}。"
+
+msgid "Elige un país, región y ciudad antes de guardar."
+msgstr "Choose a country, region, and city before saving."
+
+msgid "Bueno"
+msgstr "Good"
+
+msgid "Respuesta no válida del servidor meteorológico. Comprueba tu conexión a Internet."
+msgstr "Invalid response from weather server. Check your Internet connection."
+
+msgid "Fases de la luna"
+msgstr "月相"
+
+msgid " (alrededor de las {} horas)"
+msgstr " (around {} hours)"

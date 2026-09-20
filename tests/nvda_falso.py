@@ -55,7 +55,7 @@ def instalar():
             getCodeAddon=lambda: _Cualquiera(),
             getLanguage=lambda: "es")
     _modulo("logHandler", log=_Cualquiera())
-    _modulo("globalPluginHandler", GlobalPlugin=type("GlobalPlugin", (), {}))
+    _modulo("globalPluginHandler", GlobalPlugin=type("GlobalPlugin", (), {}), ActionCancelled=type("ActionCancelled", (Exception,), {}))
     _modulo("scriptHandler",
             script=lambda **k: (lambda f: f),
             getLastScriptRepeatCount=lambda: 0)
@@ -72,16 +72,16 @@ def instalar():
     _modulo("versionInfo", version_year=2026, version_major=2026, version_minor=3)
 
     wx = _modulo("wx", NOT_FOUND=-1, OK=1, CANCEL=2, ICON_INFORMATION=4,
-                 ICON_WARNING=8, ICON_ERROR=16)
+                 ICON_WARNING=8, ICON_ERROR=16, ID_ANY=-1)
     for nombre in ("Dialog", "Panel", "Button", "CheckBox", "StaticText", "TextCtrl",
                    "ListCtrl", "ListBox", "Choice", "SpinCtrl", "BoxSizer", "Colour",
                    "StaticBox", "StaticBoxSizer", "ScrolledWindow", "StdDialogButtonSizer",
-                   "CommandEvent", "MessageBox", "CallAfter"):
+                   "CommandEvent", "MessageBox", "CallAfter", "Menu", "MenuItem"):
         setattr(wx, nombre, _Cualquiera)
     for constante in ("VERTICAL", "HORIZONTAL", "EXPAND", "ALL", "LEFT", "RIGHT", "TOP",
                       "BOTTOM", "LB_SINGLE", "LC_REPORT", "LC_SINGLE_SEL", "BORDER_SUNKEN",
                       "TE_PROCESS_ENTER", "VSCROLL", "ALIGN_RIGHT", "ID_OK", "ID_CANCEL",
-                      "WXK_UP", "WXK_DOWN", "EVT_BUTTON", "EVT_TEXT", "EVT_KEY_DOWN",
+                      "WXK_UP", "WXK_DOWN", "EVT_BUTTON", "EVT_TEXT", "EVT_KEY_DOWN", "EVT_MENU",
                       "EVT_LIST_ITEM_SELECTED", "DEFAULT_DIALOG_STYLE", "RESIZE_BORDER"):
         setattr(wx, constante, _Cualquiera())
 
@@ -93,7 +93,7 @@ def instalar():
                 QueryValueEx=lambda *a, **k: ("", 0), CloseKey=lambda *a: None,
                 HKEY_LOCAL_MACHINE=0, KEY_READ=0)
 
-    _modulo("globalVars", appArgs=_Cualquiera(), appDir="", startTime=0)
+    _modulo("globalVars", appArgs=types.SimpleNamespace(secureMode=False, configPath=""), appDir="", startTime=0)
     _modulo("core", callLater=lambda ms, f, *a, **k: None,
             triggerAsleep=lambda: None, isMainThread=lambda: True)
     _modulo("winVersion", getWinVer=lambda: _Cualquiera())

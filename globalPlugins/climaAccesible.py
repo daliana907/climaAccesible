@@ -50,6 +50,16 @@ def N_(texto):
 	return texto
 
 
+def _safe_float(val, default=None):
+	"""Convierte un valor a float de manera segura sin lanzar excepciones."""
+	if val is None:
+		return default
+	try:
+		return float(val)
+	except (ValueError, TypeError):
+		return default
+
+
 OPCIONES = [
 	# (clave, etiqueta, campo_api, tipo)
 	("temperatura",     N_("Temperatura actual"),                       "temperature_2m",                "current"),
@@ -62,14 +72,23 @@ OPCIONES = [
 	("viento_dir",      N_("Dirección del viento"),                     "wind_direction_10m",             "current"),
 	("viento_rafagas",  N_("Ráfagas de viento"),                        "wind_gusts_10m",                 "current"),
 	("nubosidad",       N_("Nubosidad"),                                "cloud_cover",                    "current"),
-	("precipitacion",   N_("Precipitación actual"),                     "precipitation",                  "current"),
+	("precipitacion",   N_("Precipitación actual (lluvia general)"),    "precipitation",                  "current"),
+	("nieve",           N_("Nevada actual y espesor de nieve"),         "snowfall",                       "current"),  # Usa snowfall y pide snow_depth
+	("visibilidad",     N_("Visibilidad actual"),                       "visibility",                     "current"),
+	("uv_actual",       N_("Índice UV en tiempo real"),                 "uv_index",                       "current"),
 	("presion",         N_("Presión atmosférica"),                      "surface_pressure",               "current"),
+	("luna",            N_("Fases de la luna"),                         "moon_phase",                     "special"),
+	("elevacion",       N_("Elevación sobre el nivel del mar"),         "elevation",                      "special"),
+	("calidad_aire",    N_("Nivel de contaminación del aire"),           "european_aqi",                   "air_quality"),
 	("amanecer",        N_("Hora de salida del sol"),                   "sunrise",                        "daily"),
 	("atardecer",       N_("Hora de puesta del sol"),                   "sunset",                         "daily"),
-	("horas_luz",       N_("Horas de luz solar del día"),               "daylight_duration",              "daily"),
 	("uv_max",          N_("Índice UV máximo del día"),                 "uv_index_max",                   "daily"),
 	("precip_prob_max", N_("Probabilidad máxima de lluvia del día"),    "precipitation_probability_max", "daily"),
 	("precip_total",    N_("Precipitación total esperada del día"),     "precipitation_sum",              "daily"),
+	("nieve_total",     N_("Nieve total esperada del día"),             "snowfall_sum",                   "daily"),
+	("horas_lluvia",    N_("Horas de lluvia estimadas"),                "precipitation_hours",            "daily"),
+	("hora_lluvia",     N_("Aviso de hora exacta de lluvia"),           "rain_hour",                      "special_daily"),
+	("minutos_lluvia",  N_("Alerta inminente de lluvia (radar 15 min)"),"rain_minutely",                  "special_current"),
 	("viento_max",      N_("Viento máximo del día"),                    "wind_speed_10m_max",             "daily"),
 	("rafaga_max",      N_("Ráfaga máxima del día"),                    "wind_gusts_10m_max",             "daily"),
 ]
@@ -99,14 +118,17 @@ def saveJSON(path, data):
 	Usa sangría de dos espacios y asegura que los caracteres con tildes o caracteres
 	especiales no se escapen en secuencias raras de Unicode, para que el usuario o
 	desarrollador pueda leer el archivo directamente si lo abre.
+	Devuelve True si tuvo éxito, False en caso contrario.
 	"""
 	try:
 		tmp = path + ".tmp"
 		with open(tmp, "w", encoding="utf-8") as f:
 			json.dump(data, f, ensure_ascii=False, indent=2)
 		os.replace(tmp, path)
+		return True
 	except Exception as e:
 		log.error("ClimaAccesible: error al guardar {}: {}".format(path, e))
+		return False
 
 def getGeoData():
 	"""Obtiene la base de datos geográfica local (países, regiones y ciudades).
@@ -134,10 +156,13 @@ def formatHora(iso_str):
 	if not iso_str:
 		return "?"
 	try:
-		s = str(iso_str).replace(" ", "T")
+		s = str(iso_str).replace(" ", "T").strip()
 		if "T" in s:
-			return s.split("T")[1][:5]
-		return s[:5]
+			parts = s.split("T")
+			res = parts[1][:5] if len(parts) > 1 else parts[0][:5]
+		else:
+			res = s[:5]
+		return res if res.strip() else "?"
 	except Exception:
 		return str(iso_str)
 
@@ -149,7 +174,11 @@ def formatSegundos(seg):
 	menciona los minutos, para que el sintetizador suene natural al hablar.
 	"""
 	try:
-		seg = int(float(seg))
+		seg_num = float(seg)
+		import math
+		if math.isnan(seg_num) or math.isinf(seg_num):
+			return ""
+		seg = max(0, int(seg_num))
 		h   = seg // 3600
 		m   = (seg % 3600) // 60
 		if h <= 0 and m <= 0:
@@ -165,6 +194,37 @@ def formatSegundos(seg):
 			return txt_m
 	except Exception:
 		return str(seg)
+
+def faseLunar(date):
+	import datetime
+	if not date:
+		return _("desconocida")
+	try:
+		if isinstance(date, str):
+			try:
+				date = datetime.datetime.fromisoformat(date)
+			except Exception:
+				date = datetime.datetime.strptime(date[:10], "%Y-%m-%d")
+		elif isinstance(date, datetime.date) and not isinstance(date, datetime.datetime):
+			date = datetime.datetime.combine(date, datetime.time(12, 0))
+		elif isinstance(date, datetime.datetime) and date.tzinfo is not None:
+			date = date.replace(tzinfo=None)
+
+		known_new_moon = datetime.datetime(2000, 1, 6, 18, 14)
+		days_since = (date - known_new_moon).total_seconds() / 86400.0
+		lunar_days = 29.53058770576
+		phase = (days_since % lunar_days) / lunar_days
+
+		if phase < 0.03 or phase > 0.97: return _("Luna nueva")
+		elif phase < 0.22: return _("Luna creciente")
+		elif phase < 0.28: return _("Cuarto creciente")
+		elif phase < 0.47: return _("Luna casi llena (creciente)")
+		elif phase < 0.53: return _("Luna llena")
+		elif phase < 0.72: return _("Luna empezando a menguar")
+		elif phase < 0.78: return _("Cuarto menguante")
+		else: return _("Luna menguante")
+	except Exception:
+		return _("desconocida")
 
 def cardinal(deg):
 	"""Convierte los grados de una veleta (0 a 360) en el punto cardinal correspondiente.
@@ -206,7 +266,7 @@ def codigoClima(code):
 		61:_("lluvia ligera"),        63:_("lluvia moderada"),       65:_("lluvia intensa"),
 		66:_("lluvia engelante ligera"),   67:_("lluvia engelante intensa"),
 		71:_("nevada ligera"),        73:_("nevada moderada"),       75:_("nevada intensa"),
-		77:_("granizo fino"),         80:_("chubascos ligeros"),     81:_("chubascos moderados"),
+		77:_("granos de nieve"),  80:_("chubascos ligeros"),     81:_("chubascos moderados"),
 		82:_("chubascos intensos"),   85:_("chubascos de nieve ligeros"),
 		86:_("chubascos de nieve intensos"),
 		95:_("tormenta eléctrica"),   96:_("tormenta con granizo ligero"),
@@ -214,71 +274,36 @@ def codigoClima(code):
 	}
 	return m.get(code, _("condición desconocida"))
 
-def momentoLluvia(fecha, hourly_times, hourly_probs, hourly_precs, hora_minima=None):
-	"""
-	Analiza los datos horarios del día y devuelve una frase natural
-	indicando el momento en que se espera lluvia ('por la mañana', 'por la tarde',
-	'por la noche', 'por la tarde y por la noche', 'durante todo el día', etc.).
-	Si se especifica hora_minima, descarta las horas previas que ya han transcurrido.
-	"""
-	if not hourly_times:
+
+
+def uvFrase(uv):
+	try:
+		u = float(uv)
+		import math
+		if math.isnan(u) or math.isinf(u) or u < 0:
+			return ""
+		if u <= 2.9: return _("Bajo")
+		elif u <= 5.9: return _("Moderado")
+		elif u <= 7.9: return _("Alto")
+		elif u <= 10.9: return _("Muy alto")
+		else: return _("Extremo")
+	except Exception:
 		return ""
 
-	madrugada = False
-	manana    = False
-	tarde     = False
-	noche     = False
-
-	probs = hourly_probs if hourly_probs else [0] * len(hourly_times)
-	precs = hourly_precs if hourly_precs else [0.0] * len(hourly_times)
-
-	for t, prob, prec in zip(hourly_times, probs, precs):
-		if not t.startswith(fecha):
-			continue
-		try:
-			hour = int(t.split("T")[1].split(":")[0])
-		except Exception:
-			continue
-
-		if hora_minima is not None and hour < hora_minima:
-			continue
-
-		try:
-			prob_val = int(float(prob)) if prob is not None else 0
-			prec_val = float(prec) if prec is not None else 0.0
-		except (ValueError, TypeError):
-			prob_val = 0
-			prec_val = 0.0
-
-		if prob_val >= 20 or prec_val >= 0.1:
-			if 0 <= hour < 6:
-				madrugada = True
-			elif 6 <= hour < 12:
-				manana = True
-			elif 12 <= hour < 20:
-				tarde = True
-			else:
-				noche = True
-
-	periodos = []
-	if madrugada:
-		periodos.append(_("la madrugada"))
-	if manana:
-		periodos.append(_("la mañana"))
-	if tarde:
-		periodos.append(_("la tarde"))
-	if noche:
-		periodos.append(_("la noche"))
-
-	if not periodos:
+def calidadAireFrase(aqi):
+	try:
+		a = float(aqi)
+		import math
+		if math.isnan(a) or math.isinf(a) or a < 0:
+			return ""
+		if a <= 20: return _("Bueno")
+		elif a <= 40: return _("Aceptable")
+		elif a <= 60: return _("Moderado")
+		elif a <= 80: return _("Malo")
+		elif a <= 100: return _("Muy malo")
+		else: return _("Peligroso")
+	except Exception:
 		return ""
-	if len(periodos) >= 3 or (manana and tarde and (noche or madrugada)):
-		return _("durante todo el día")
-	if len(periodos) == 1:
-		return _("por {}").format(periodos[0])
-	if len(periodos) == 2:
-		return _("por {} y por {}").format(periodos[0], periodos[1])
-	return _("por {} y por {}").format(", ".join(periodos[:-1]), periodos[-1])
 
 
 # ── diálogo de configuración ──────────────────────────────────────────────────
@@ -357,7 +382,7 @@ class ConfigDialog(wx.Dialog):
 		box_c  = wx.StaticBox(p, label=_("Datos actuales que quiero escuchar"))
 		sizer_c = wx.StaticBoxSizer(box_c, wx.VERTICAL)
 		for key, label, campoApi, tipo in OPCIONES:
-			if tipo == "current":
+			if tipo in ("current", "special", "special_current", "air_quality"):
 				cb = wx.CheckBox(p, label=label)
 				cb.SetValue(prefs.get(key, True))
 				self._checks[key] = cb
@@ -368,7 +393,7 @@ class ConfigDialog(wx.Dialog):
 		box_d  = wx.StaticBox(p, label=_("Datos del día que quiero escuchar"))
 		sizer_d = wx.StaticBoxSizer(box_d, wx.VERTICAL)
 		for key, label, campoApi, tipo in OPCIONES:
-			if tipo == "daily":
+			if tipo in ("daily", "special_daily"):
 				cb = wx.CheckBox(p, label=label)
 				cb.SetValue(prefs.get(key, True))
 				self._checks[key] = cb
@@ -432,7 +457,7 @@ class ConfigDialog(wx.Dialog):
 		try:
 			if hasattr(self, "progressBar") and self.progressBar:
 				self.progressBar.SetValue((self.progressBar.GetValue() + 3) % 101)
-		except (RuntimeError, Exception):
+		except Exception:
 			pass
 
 	def _stopProgress(self):
@@ -440,12 +465,12 @@ class ConfigDialog(wx.Dialog):
 		try:
 			if hasattr(self, "_progressTimer") and self._progressTimer and self._progressTimer.IsRunning():
 				self._progressTimer.Stop()
-		except (RuntimeError, Exception):
+		except Exception:
 			pass
 		try:
 			if hasattr(self, "progressBar") and self.progressBar:
 				self.progressBar.Hide()
-		except (RuntimeError, Exception):
+		except Exception:
 			pass
 
 	# ── eventos de cambio automático ──────────────────────────────────────────
@@ -517,7 +542,7 @@ class ConfigDialog(wx.Dialog):
 			if self.cboCity.GetSelection() != wx.NOT_FOUND:
 				self.btnSave.Enable()
 			self._status(_("Listo. Elige tu ubicación."))
-		except (RuntimeError, Exception) as e:
+		except Exception as e:
 			log.debugWarning("ClimaAccesible: _populate_countries ignorado: {}".format(e))
 
 	# ── regiones ──────────────────────────────────────────────────────────────
@@ -558,7 +583,7 @@ class ConfigDialog(wx.Dialog):
 				self.cboCity.Clear()
 				self.cboCity.Disable()
 				self.btnSave.Disable()
-		except (RuntimeError, Exception) as e:
+		except Exception as e:
 			log.debugWarning("ClimaAccesible: _do_fill_regions error: {}".format(e))
 
 	# ── ciudades ──────────────────────────────────────────────────────────────
@@ -595,7 +620,7 @@ class ConfigDialog(wx.Dialog):
 			else:
 				self.cboCity.Disable()
 				self.btnSave.Disable()
-		except (RuntimeError, Exception) as e:
+		except Exception as e:
 			log.debugWarning("ClimaAccesible: _do_fill_cities error: {}".format(e))
 
 	# ── guardar ───────────────────────────────────────────────────────────────
@@ -623,25 +648,39 @@ class ConfigDialog(wx.Dialog):
 			lat_val = float(str(lat).strip().replace(",", "."))
 			lon_val = float(str(lon).strip().replace(",", "."))
 		except (ValueError, TypeError):
-			lat_val = float(lat)
-			lon_val = float(lon)
-		saveJSON(_configPath(), {
+			self._status(_("Coordenadas geográficas no válidas."))
+			return
+		if not (-90.0 <= lat_val <= 90.0 and -180.0 <= lon_val <= 180.0):
+			self._status(_("Las coordenadas están fuera de los límites del planeta."))
+			return
+		try:
+			dias_val = max(1, min(16, int(self.spinDays.GetValue())))
+		except (ValueError, TypeError):
+			dias_val = 6
+		success = saveJSON(_configPath(), {
 			"city":          name,
 			"lat":           lat_val,
 			"lon":           lon_val,
 			"region_name":   region_name,
 			"country_iso2":  country_iso2,
 			"prefs":         prefs,
-			"forecast_days": self.spinDays.GetValue(),
+			"forecast_days": dias_val,
 		})
-		log.info(f"ClimaAccesible: Guardando configuración - Ciudad: {name}, Coordenadas: ({lat}, {lon}), Días pronóstico: {self.spinDays.GetValue()}")
-		self._status("Configuración guardada para: " + name)
-		gui.messageBox(
-			_("Configuración guardada.\nCiudad: {c}\nUsa NVDA+W para consultar el clima.").format(c=name),
-			_("ClimaAccesible"), wx.OK | wx.ICON_INFORMATION, parent=self
-		)
-		self._stopProgress()
-		self.EndModal(wx.ID_OK)
+		if success:
+			log.info(f"ClimaAccesible: Guardando configuración - Ciudad: {name}, Coordenadas: ({lat}, {lon}), Días pronóstico: {self.spinDays.GetValue()}")
+			self._status("Configuración guardada para: " + name)
+			gui.messageBox(
+				_("Configuración guardada.\nCiudad: {c}\nUsa NVDA+W para consultar el clima.").format(c=name),
+				_("ClimaAccesible"), wx.OK | wx.ICON_INFORMATION, parent=self
+			)
+			self._stopProgress()
+			self.EndModal(wx.ID_OK)
+		else:
+			self._status(_("Error al guardar la configuración."))
+			gui.messageBox(
+				_("No se pudo guardar la configuración. Revisa los permisos de la carpeta."),
+				_("Error"), wx.OK | wx.ICON_ERROR, parent=self
+			)
 
 	def _status(self, text):
 		"""Actualiza la etiqueta de estado visual y anuncia el mensaje a través de NVDA."""
@@ -651,7 +690,7 @@ class ConfigDialog(wx.Dialog):
 			if hasattr(self, "lblStatus") and self.lblStatus:
 				self.lblStatus.SetLabel(text)
 			ui.message(text)
-		except (RuntimeError, Exception):
+		except Exception:
 			pass
 
 
@@ -699,7 +738,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				gui.mainFrame.sysTrayIcon.Unbind(wx.EVT_MENU, source=self._itemConfig)
 			if hasattr(self, "_itemConflicts") and self._itemConflicts:
 				gui.mainFrame.sysTrayIcon.Unbind(wx.EVT_MENU, source=self._itemConflicts)
-		except (RuntimeError, Exception) as e:
+		except Exception as e:
 			log.debugWarning("ClimaAccesible: error al desvincular menú en terminate: {}".format(e))
 
 		try:
@@ -708,7 +747,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					self._toolsMenu.DestroyItem(self._subMenuItem)
 				except Exception:
 					self._toolsMenu.Remove(self._subMenuItem)
-		except (RuntimeError, Exception) as e:
+		except Exception as e:
 			log.warning("ClimaAccesible: error al retirar submenú en terminate: {}".format(e))
 
 		super(GlobalPlugin, self).terminate()
@@ -785,13 +824,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		log.info("ClimaAccesible: Abriendo diálogo accesible de configuración...")
 		self._isConfigOpen = True
 		gui.mainFrame.prePopup()
+		dlg = None
 		try:
 			dlg = ConfigDialog(gui.mainFrame)
 			dlg.ShowModal()
-			dlg.Destroy()
 		except Exception as e:
 			log.error(f"ClimaAccesible: error en diálogo de configuración: {e}", exc_info=True)
 		finally:
+			if dlg:
+				dlg.Destroy()
 			gui.mainFrame.postPopup()
 			self._isConfigOpen = False
 			log.info("ClimaAccesible: Diálogo de configuración cerrado.")
@@ -858,6 +899,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					status_code = getattr(r, 'status', 200)
 					log.info(f"ClimaAccesible: Respuesta ({label}) recibida en {elapsed:.2f}s (HTTP {status_code}, {len(raw_bytes)} bytes, intento {attempt+1}).")
 					break
+			except urllib.error.HTTPError as http_err:
+				# Si el servidor responde con 5xx (error temporal) o 429 (rate limit), vale la pena reintentar.
+				# Si es 4xx (como 400 Bad Request), reintentar no sirve, abortamos de inmediato.
+				if (http_err.code >= 500 or http_err.code == 429) and attempt == 0 and not self._stopping.is_set():
+					log.warning(f"ClimaAccesible: Reintentando petición ({label}) tras error HTTP {http_err.code}")
+					time.sleep(1.0)
+					continue
+				raise
 			except (TimeoutError, socket.timeout, urllib.error.URLError) as net_err:
 				if attempt == 0 and not self._stopping.is_set():
 					log.warning(f"ClimaAccesible: Reintentando petición ({label}) tras error de red: {net_err}")
@@ -890,11 +939,38 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			prefs = {k: prefs_raw.get(k, True) for k in claves_validas}
 
 			url = self._urlDelClimaActual(lat, lon, prefs)
-			data = self._getJsonFromApi(url, "clima actual")
+			aq_url = self._urlCalidadAire(lat, lon, prefs)
+			
+			data = None
+			aq_resp = None
+			
+			import threading
+			def fetch_main():
+				nonlocal data
+				data = self._getJsonFromApi(url, "clima actual")
+				
+			def fetch_aq():
+				nonlocal aq_resp
+				if aq_url:
+					aq_resp = self._getJsonFromApi(aq_url, "calidad del aire")
+					
+			t1 = threading.Thread(target=fetch_main, daemon=True)
+			t2 = threading.Thread(target=fetch_aq, daemon=True)
+			t1.start()
+			t2.start()
+			t1.join()
+			t2.join()
+
 			if not data or self._stopping.is_set():
 				return
 
+			aq_data = {}
+			if aq_resp:
+				aq_data = aq_resp.get("current", {})
+
 			c = data.get("current", {})
+			c.update(aq_data)
+			c["elevation"] = data.get("elevation")
 			d = data.get("daily",   {})
 			h = data.get("hourly",  {})
 			horas_time = h.get("time",                      [])
@@ -924,8 +1000,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			else:
 				hora_actual = datetime.datetime.now().hour
 
-			momento = momentoLluvia(fecha_ciudad, horas_time, horas_prob, horas_prec, hora_minima=hora_actual)
-
 			# Calcular la probabilidad y precipitacion maxima en lo que resta del dia
 			probs_rest = []
 			precs_rest = []
@@ -945,9 +1019,86 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			prob_max_rest = max(probs_rest) if probs_rest else None
 			prec_total_rest = round(sum(precs_rest), 1) if precs_rest else None
 
+			hora_exacta_lluvia = None
+			hora_fin_lluvia = None
+			rain_blocks = 0
+			currently_raining = False
+			if prefs.get("hora_lluvia") and horas_time:
+				for idx_h, t in enumerate(horas_time):
+					if t.startswith(fecha_ciudad):
+						try:
+							h_val = int(t.split("T")[1].split(":")[0])
+							if h_val >= hora_actual:
+								prob_h = 0
+								prec_h = 0.0
+								if idx_h < len(horas_prob) and horas_prob[idx_h] is not None:
+									p_val = _safe_float(horas_prob[idx_h], 0.0)
+									import math
+									if not math.isnan(p_val) and not math.isinf(p_val):
+										prob_h = max(0, min(100, int(p_val)))
+								if idx_h < len(horas_prec) and horas_prec[idx_h] is not None:
+									pr_val = _safe_float(horas_prec[idx_h], 0.0)
+									import math
+									if not math.isnan(pr_val) and not math.isinf(pr_val) and pr_val >= 0:
+										prec_h = pr_val
+								is_rain = (prob_h >= 15 or prec_h >= 0.1)
+								
+								if is_rain:
+									if not currently_raining:
+										rain_blocks += 1
+										currently_raining = True
+										if hora_exacta_lluvia is None:
+											hora_exacta_lluvia = h_val
+									if rain_blocks == 1:
+										hora_fin_lluvia = h_val + 1
+								else:
+									currently_raining = False
+						except Exception:
+							pass
+
 			partes = [_("En {}, el reporte del clima es el siguiente.").format(city)]
 			partes += self._frasesDelClimaActual(c, prefs)
-			partes += self._frasesDelResumenDeHoy(c, dv, prefs, momento, prob_max=prob_max_rest, lluvia_total=prec_total_rest)
+
+			if prefs.get("minutos_lluvia"):
+				m15 = data.get("minutely_15", {})
+				m_times = m15.get("time", [])
+				m_precs = m15.get("precipitation", [])
+				m_probs = m15.get("precipitation_probability", [])
+				if m_times:
+					import datetime
+					try:
+						now_m = datetime.datetime.now()
+						prec_c = _safe_float(c.get("precipitation"), 0.0)
+						import math
+						if math.isnan(prec_c) or math.isinf(prec_c) or prec_c < 0:
+							prec_c = 0.0
+						is_raining_now = prec_c > 0
+						# Buscar un cambio en los próximos 120 minutos
+						for i, t in enumerate(m_times):
+							if i < len(m_precs):
+								t_obj = datetime.datetime.strptime(t, "%Y-%m-%dT%H:%M")
+								diff_mins = (t_obj - now_m).total_seconds() / 60.0
+								if 0 < diff_mins <= 120:
+									prec_val = _safe_float(m_precs[i], 0.0)
+									if math.isnan(prec_val) or math.isinf(prec_val) or prec_val < 0:
+										prec_val = 0.0
+									prob_val = _safe_float(m_probs[i] if i < len(m_probs) else 0, 0.0)
+									if math.isnan(prob_val) or math.isinf(prob_val) or prob_val < 0:
+										prob_val = 0.0
+									
+									if not is_raining_now and (prec_val >= 0.1 or prob_val >= 20):
+										mins = int(round(diff_mins / 15.0) * 15)
+										if mins == 0: mins = 15
+										partes.append(_("Atención: La lluvia podría comenzar en unos {} minutos.").format(mins))
+										break
+									elif is_raining_now and prec_val == 0 and prob_val < 15:
+										mins = int(round(diff_mins / 15.0) * 15)
+										if mins == 0: mins = 15
+										partes.append(_("La lluvia se detendría en unos {} minutos.").format(mins))
+										break
+					except Exception: pass
+
+			partes += self._frasesDelResumenDeHoy(c, dv, prefs, prob_max=prob_max_rest, lluvia_total=prec_total_rest, hora_exacta=hora_exacta_lluvia, hora_fin=hora_fin_lluvia, rain_blocks=rain_blocks)
 
 			if len(partes) == 1:
 				partes.append(_("No hay datos seleccionados. Abre la configuración con NVDA+Control+W."))
@@ -966,6 +1117,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		servicio lo que no se va a leer.
 		"""
 		current_fields = [api for k, _, api, t in OPCIONES if t == "current" and prefs.get(k, True)]
+		if "weather_code" not in current_fields:
+			current_fields.append("weather_code")
+		if prefs.get("nieve", True) and "snow_depth" not in current_fields:
+			current_fields.append("snow_depth")
 		daily_fields   = [api for k, _, api, t in OPCIONES if t == "daily"   and prefs.get(k, True)]
 
 		lat = _normalizarCoord(lat)
@@ -976,12 +1131,25 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		)
 		if current_fields:
 			params += "&current=" + ",".join(current_fields)
+		if prefs.get("minutos_lluvia", True):
+			params += "&minutely_15=precipitation,precipitation_probability"
 		if daily_fields:
 			params += "&daily=" + ",".join(daily_fields)
 		params += "&hourly=precipitation_probability,precipitation"
 
 		url = "https://api.open-meteo.com/v1/forecast" + params
 		return url
+
+	def _urlCalidadAire(self, lat, lon, prefs):
+		lat = _normalizarCoord(lat)
+		lon = _normalizarCoord(lon)
+		aq_fields = []
+		for k, _, api, t in OPCIONES:
+			if t == "air_quality" and prefs.get(k, True):
+				aq_fields.append(api)
+		if not aq_fields:
+			return None
+		return f"https://air-quality-api.open-meteo.com/v1/air-quality?latitude={lat}&longitude={lon}&current={','.join(aq_fields)}&timezone=auto"
 
 	def _frasesDelClimaActual(self, c, prefs):
 		"""Frases sobre como esta el tiempo en este momento.
@@ -993,35 +1161,116 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if prefs.get("temperatura") and c.get("temperature_2m") is not None:
 			partes.append(_("Temperatura: {} grados Celsius.").format(c["temperature_2m"]))
 		if prefs.get("sensacion") and c.get("apparent_temperature") is not None:
-			partes.append(_("Sensación térmica: {} grados.").format(c["apparent_temperature"]))
+			temp_real = _safe_float(c.get("temperature_2m"))
+			sens = c["apparent_temperature"]
+			sens_f = _safe_float(sens)
+			if temp_real is not None and sens_f is not None:
+				# Solo decir la sensación térmica si difiere en más de 1.5 grados de la real (no obvio)
+				if abs(temp_real - sens_f) > 1.5:
+					partes.append(_("Sensación térmica: {} grados.").format(sens))
+			else:
+				partes.append(_("Sensación térmica: {} grados.").format(sens))
+		cond_str = ""
 		if prefs.get("condicion") and c.get("weather_code") is not None:
-			partes.append(_("Condición: {}.").format(codigoClima(c["weather_code"])))
-		if prefs.get("es_dia") and c.get("is_day") is not None:
-			partes.append(_("Ahora es {}.").format(_("de día") if c["is_day"] == 1 else _("de noche")))
-		if prefs.get("humedad") and c.get("relative_humidity_2m") is not None:
-			partes.append(_("Humedad: {} por ciento.").format(c["relative_humidity_2m"]))
-		if prefs.get("punto_rocio") and c.get("dew_point_2m") is not None:
-			partes.append(_("Punto de rocío: {} grados.").format(c["dew_point_2m"]))
-		if prefs.get("viento_vel") and c.get("wind_speed_10m") is not None:
-			partes.append(_("Viento a {} kilómetros por hora.").format(c["wind_speed_10m"]))
-		if prefs.get("viento_dir") and c.get("wind_direction_10m") is not None:
-			partes.append(_("Dirección del viento: {}.").format(cardinal(c["wind_direction_10m"])))
-		if prefs.get("viento_rafagas") and c.get("wind_gusts_10m") is not None:
-			partes.append(_("Ráfagas de hasta {} kilómetros por hora.").format(c["wind_gusts_10m"]))
-		if prefs.get("nubosidad") and c.get("cloud_cover") is not None:
-			partes.append(_("Nubosidad: {} por ciento.").format(c["cloud_cover"]))
+			cond_str = codigoClima(c["weather_code"])
+			
+		precip_val = 0.0
 		if prefs.get("precipitacion"):
 			try:
 				precip_val = float(c.get("precipitation") or 0)
-				if precip_val > 0:
-					partes.append(_("Precipitación actual: {} milímetros.").format(precip_val))
 			except (ValueError, TypeError):
 				pass
+
+		if cond_str and precip_val > 0:
+			partes.append(_("Condición: {} (cayendo {} milímetros).").format(cond_str, precip_val))
+		else:
+			if cond_str:
+				partes.append(_("Condición: {}.").format(cond_str))
+			if precip_val > 0:
+				partes.append(_("Precipitación actual: {} milímetros.").format(precip_val))
+
+		if prefs.get("es_dia") and c.get("is_day") is not None:
+			partes.append(_("Ahora es {}.").format(_("de día") if c["is_day"] == 1 else _("de noche")))
+		
+		if prefs.get("luna"):
+			# Solo leer la luna si es de noche (is_day == 0) o si no hay datos de luz
+			is_day = c.get("is_day")
+			if is_day == 0 or is_day is None:
+				import datetime
+				fase = faseLunar(datetime.datetime.now())
+				partes.append(_("Fase lunar: {}.").format(fase))
+		if prefs.get("humedad") and c.get("relative_humidity_2m") is not None:
+			partes.append(_("Humedad: {} por ciento.").format(c["relative_humidity_2m"]))
+		if prefs.get("punto_rocio") and c.get("dew_point_2m") is not None:
+			dew = c["dew_point_2m"]
+			dew_f = _safe_float(dew)
+			temp_f = _safe_float(c.get("temperature_2m"))
+			if temp_f is not None and dew_f is not None:
+				if abs(temp_f - dew_f) <= 2.0:
+					partes.append(_("Punto de rocío crítico: {} grados (riesgo de niebla/humedad extrema).").format(dew))
+			else:
+				partes.append(_("Punto de rocío: {} grados.").format(dew))
+		viento_vel = c.get("wind_speed_10m")
+		if viento_vel is not None:
+			v = _safe_float(viento_vel)
+			if v is not None and v < 3.0:
+				if prefs.get("viento_vel"):
+					partes.append(_("Viento en calma."))
+			elif v is not None:
+				if prefs.get("viento_vel"):
+					partes.append(_("Viento a {} kilómetros por hora.").format(viento_vel))
+				if prefs.get("viento_dir") and c.get("wind_direction_10m") is not None:
+					partes.append(_("Dirección del viento: {}.").format(cardinal(c["wind_direction_10m"])))
+				if prefs.get("viento_rafagas") and c.get("wind_gusts_10m") is not None:
+					rafagas = _safe_float(c["wind_gusts_10m"])
+					if rafagas is not None and rafagas > v + 10:
+						partes.append(_("Ráfagas de hasta {} kilómetros por hora.").format(c["wind_gusts_10m"]))
+		if prefs.get("nubosidad") and c.get("cloud_cover") is not None:
+			nube = _safe_float(c["cloud_cover"])
+			if nube is not None:
+				wc = c.get("weather_code", 99)
+				try:
+					wc = int(wc)
+				except (ValueError, TypeError):
+					wc = 99
+				if not ((nube < 10 and wc in (0, 1)) or (nube > 90 and wc >= 3)):
+					partes.append(_("Nubosidad: {} por ciento.").format(c["cloud_cover"]))
+		if prefs.get("nieve"):
+			try:
+				snowfall = float(c.get("snowfall") or 0)
+				snow_depth = float(c.get("snow_depth") or 0)
+				if snowfall > 0 or snow_depth > 0:
+					sn_parts = []
+					if snowfall > 0: sn_parts.append(_("Nevada actual: {} centímetros").format(snowfall))
+					if snow_depth > 0: sn_parts.append(_("Nieve acumulada en el suelo: {} metros").format(snow_depth))
+					partes.append(". ".join(sn_parts) + ".")
+			except (ValueError, TypeError):
+				pass
+		if prefs.get("visibilidad") and c.get("visibility") is not None:
+			try:
+				vis_m = float(c["visibility"])
+				if vis_m < 10000:
+					if vis_m < 1000:
+						partes.append(_("Visibilidad reducida: {} metros.").format(int(vis_m)))
+					else:
+						partes.append(_("Visibilidad reducida: {} kilómetros.").format(round(vis_m / 1000.0, 1)))
+			except Exception: pass
+		if prefs.get("uv_actual") and c.get("uv_index") is not None:
+			partes.append(_("Índice UV actual: {}.").format(c["uv_index"]))
+		if prefs.get("calidad_aire") and c.get("european_aqi") is not None:
+			val_aqi = c["european_aqi"]
+			frase_aqi = calidadAireFrase(val_aqi)
+			if frase_aqi:
+				partes.append(_("Nivel de contaminación del aire: {} ({}).").format(val_aqi, frase_aqi))
+			else:
+				partes.append(_("Nivel de contaminación del aire: {}.").format(val_aqi))
+		if prefs.get("elevacion") and c.get("elevation") is not None:
+			partes.append(_("Elevación: {} metros sobre el nivel del mar.").format(c["elevation"]))
 		if prefs.get("presion") and c.get("surface_pressure") is not None:
 			partes.append(_("Presión atmosférica: {} hectopascales.").format(c["surface_pressure"]))
 		return partes
 
-	def _frasesDelResumenDeHoy(self, c, dv, prefs, momento, prob_max=None, lluvia_total=None):
+	def _frasesDelResumenDeHoy(self, c, dv, prefs, prob_max=None, lluvia_total=None, hora_exacta=None, hora_fin=None, rain_blocks=0):
 		"""Frases sobre como sera el resto del dia.
 
 		Lo del amanecer y las horas de luz solo se dice con el cielo despejado: con
@@ -1035,30 +1284,35 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				partes.append(_("Salida del sol: {}.").format(formatHora(dv("sunrise"))))
 			if prefs.get("atardecer") and dv("sunset")            is not None:
 				partes.append(_("Puesta del sol: {}.").format(formatHora(dv("sunset"))))
-			if prefs.get("horas_luz") and dv("daylight_duration") is not None:
-				partes.append(_("Horas de luz hoy: {}.").format(formatSegundos(dv("daylight_duration"))))
 		if prefs.get("uv_max") and dv("uv_index_max") is not None:
 			partes.append(_("Índice UV máximo del día: {}.").format(dv("uv_index_max")))
+		if hora_exacta is not None:
+			if rain_blocks > 1:
+				partes.append(_("Se esperan lluvias intermitentes a lo largo del día, comenzando a las {} horas.").format(hora_exacta))
+			elif hora_fin is not None and hora_fin > hora_exacta:
+				if hora_fin == hora_exacta + 1:
+					partes.append(_("Se esperan precipitaciones alrededor de las {} horas.").format(hora_exacta))
+				else:
+					if hora_fin == 24:
+						partes.append(_("Se esperan precipitaciones desde las {} horas hasta la medianoche.").format(hora_exacta))
+					else:
+						partes.append(_("Se esperan precipitaciones desde las {} hasta las {} horas.").format(hora_exacta, hora_fin))
+			else:
+				partes.append(_("La lluvia o nevada podría comenzar a las {} horas.").format(hora_exacta))
 		if prefs.get("precip_prob_max"):
 			if prob_max is None:
 				try:
 					prob_max = int(float(dv("precipitation_probability_max") or 0))
 				except (ValueError, TypeError):
 					prob_max = 0
-			if prob_max > 0 and momento:
-				partes.append(_("Probabilidad máxima de lluvia del día: {} por ciento {}.").format(prob_max, momento))
-			else:
-				partes.append(_("Probabilidad máxima de lluvia del día: {} por ciento.").format(prob_max))
+			partes.append(_("Probabilidad máxima de lluvia del día: {} por ciento.").format(prob_max))
 		if lluvia_total is None:
 			try:
 				lluvia_total = float(dv("precipitation_sum") or 0)
 			except (ValueError, TypeError):
 				lluvia_total = 0.0
 		if prefs.get("precip_total") and lluvia_total > 0:
-			if not prefs.get("precip_prob_max") and momento:
-				partes.append(_("Precipitación total esperada del día: {} milímetros {}.").format(lluvia_total, momento))
-			else:
-				partes.append(_("Precipitación total esperada del día: {} milímetros.").format(lluvia_total))
+			partes.append(_("Precipitación total esperada del día: {} milímetros.").format(lluvia_total))
 		if prefs.get("viento_max") and dv("wind_speed_10m_max") is not None:
 			partes.append(_("Viento máximo del día: {} kilómetros por hora.").format(dv("wind_speed_10m_max")))
 		if prefs.get("rafaga_max") and dv("wind_gusts_10m_max") is not None:
@@ -1081,7 +1335,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			city          = cfg["city"]
 			lat           = cfg["lat"]
 			lon           = cfg["lon"]
-			forecast_days = cfg.get("forecast_days", 6)
+			try:
+				forecast_days = max(1, min(16, int(cfg.get("forecast_days", 6))))
+			except (ValueError, TypeError):
+				forecast_days = 6
+			prefs_raw = cfg.get("prefs", {})
+			claves_validas = {op[0] for op in OPCIONES}
+			prefs = {k: prefs_raw.get(k, True) for k in claves_validas}
 
 			url = self._urlDelPronostico(lat, lon, forecast_days)
 			data = self._getJsonFromApi(url, "pronóstico")
@@ -1097,6 +1357,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			horas_prob  = h.get("precipitation_probability",     [])
 			horas_prec  = h.get("precipitation",                 [])
 			fechas      = d.get("time",                          [])
+			if not fechas:
+				self._safeMessage(_("No se recibieron datos del pronóstico para {}.").format(city))
+				return
 			codigos     = d.get("weather_code",                  [])
 			temp_max    = d.get("temperature_2m_max",            [])
 			temp_min    = d.get("temperature_2m_min",            [])
@@ -1129,31 +1392,68 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 				# Para el dia de hoy (i == 0), evaluar unicamente las horas que quedan
 				hora_filtro = hora_actual_hoy if i == 0 else None
-				momento = momentoLluvia(fecha, horas_time, horas_prob, horas_prec, hora_minima=hora_filtro)
 
-				if i == 0 and hora_filtro is not None and horas_time:
-					probs_rest = [
-						int(float(horas_prob[idx_h])) for idx_h, t in enumerate(horas_time)
-						if t.startswith(fecha) and int(t.split("T")[1].split(":")[0]) >= hora_filtro
-						and idx_h < len(horas_prob) and horas_prob[idx_h] is not None
-					]
+				hora_exacta = None
+				hora_fin = None
+				rain_blocks = 0
+				currently_raining = False
+				if horas_time:
+					probs_rest = []
+					precs_rest = []
+					codigos_rest = []
+					for idx_h, t in enumerate(horas_time):
+						if not t.startswith(fecha):
+							continue
+						try:
+							hora_h = int(t.split("T")[1].split(":")[0])
+						except Exception:
+							continue
+						if hora_filtro is not None and hora_h < hora_filtro:
+							continue
+						prob_h = 0
+						prec_h = 0.0
+						if idx_h < len(horas_prob) and horas_prob[idx_h] is not None:
+							try:
+								p_num = float(horas_prob[idx_h])
+								import math
+								if not math.isnan(p_num) and not math.isinf(p_num):
+									prob_h = max(0, min(100, int(p_num)))
+									probs_rest.append(prob_h)
+							except (ValueError, TypeError):
+								pass
+						if idx_h < len(horas_prec) and horas_prec[idx_h] is not None:
+							try:
+								pr_num = float(horas_prec[idx_h])
+								import math
+								if not math.isnan(pr_num) and not math.isinf(pr_num) and pr_num >= 0:
+									prec_h = pr_num
+									precs_rest.append(prec_h)
+							except (ValueError, TypeError):
+								pass
+						if prefs.get("hora_lluvia"):
+							is_rain = (prob_h >= 15 or prec_h >= 0.1)
+							if is_rain:
+								if not currently_raining:
+									rain_blocks += 1
+									currently_raining = True
+									if hora_exacta is None:
+										hora_exacta = hora_h
+								if rain_blocks == 1:
+									hora_fin = hora_h + 1
+							else:
+								currently_raining = False
+
+						# Actualizar el codigo meteorologico de hoy considerando las horas restantes y el clima
+						# actual, evitando arrastrar codigos de lluvia o llovizna de horas pasadas de la madrugada.
+						if idx_h < len(horas_code) and horas_code[idx_h] is not None:
+							try:
+								codigos_rest.append(int(horas_code[idx_h]))
+							except (ValueError, TypeError):
+								pass
 					if probs_rest:
 						prob_p = max(probs_rest)
-					precs_rest = [
-						float(horas_prec[idx_h]) for idx_h, t in enumerate(horas_time)
-						if t.startswith(fecha) and int(t.split("T")[1].split(":")[0]) >= hora_filtro
-						and idx_h < len(horas_prec) and horas_prec[idx_h] is not None
-					]
 					if precs_rest:
 						prec_s = round(sum(precs_rest), 1)
-
-					# Actualizar el codigo meteorologico de hoy considerando las horas restantes y el clima actual,
-					# evitando arrastrar codigos de lluvia o llovizna que ocurrieron en horas pasadas de la madrugada.
-					codigos_rest = [
-						int(horas_code[idx_h]) for idx_h, t in enumerate(horas_time)
-						if t.startswith(fecha) and int(t.split("T")[1].split(":")[0]) >= hora_filtro
-						and idx_h < len(horas_code) and horas_code[idx_h] is not None
-					]
 					if codigos_rest:
 						candidatos = codigos_rest.copy()
 						if codigo_now is not None:
@@ -1169,23 +1469,52 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 							pass
 
 				cond = codigoClima(codigo) if codigo is not None else "?"
-				lluvia_info = self._fraseDeLluvia(prob_p, prec_s, momento)
+				lluvia_info = self._fraseDeLluvia(prob_p, prec_s, hora_exacta, hora_fin, rain_blocks)
 
 				con_sol = (codigo in (0, 1) and amanecer != "?" and atardecer != "?") if codigo is not None else False
 
+				calcadas = False
+				if tmax != "?" and tmin != "?":
+					try:
+						tmax_f = _safe_float(tmax)
+						tmin_f = _safe_float(tmin)
+						import math
+						if (
+							tmax_f is not None and tmin_f is not None
+							and not math.isnan(tmax_f) and not math.isinf(tmax_f)
+							and not math.isnan(tmin_f) and not math.isinf(tmin_f)
+							and abs(tmax_f - tmin_f) <= 1.5
+						):
+							calcadas = True
+							t_avg = int(round((tmax_f + tmin_f) / 2.0))
+					except Exception: pass
+				
+				if calcadas:
+					temp_str = _("Temperatura constante rondando los {} grados").format(t_avg)
+				else:
+					temp_str = _("Máxima {} grados, mínima {} grados").format(tmax, tmin)
+
+				fase_str = ""
+				if prefs.get("luna"):
+					import datetime
+					try:
+						t_obj = datetime.datetime.strptime(fecha, "%Y-%m-%d")
+						fase_str = _(" Fase lunar: {}.").format(faseLunar(t_obj))
+					except Exception: pass
+
 				if con_sol:
 					partes.append(
-						_("{}: {}. Máxima {} grados, mínima {} grados. "
+						_("{}: {}. {}. "
 						"Viento máximo {} kilómetros por hora.{}"
-						" Sol visible de {} a {}.").format(
-							label.capitalize(), cond, tmax, tmin, vmax, lluvia_info, amanecer, atardecer
+						" Sol visible de {} a {}.{}").format(
+							label.capitalize(), cond, temp_str, vmax, lluvia_info, amanecer, atardecer, fase_str
 						)
 					)
 				else:
 					partes.append(
-						_("{}: {}. Máxima {} grados, mínima {} grados. "
-						"Viento máximo {} kilómetros por hora.{}").format(
-							label.capitalize(), cond, tmax, tmin, vmax, lluvia_info
+						_("{}: {}. {}. "
+						"Viento máximo {} kilómetros por hora.{}{}").format(
+							label.capitalize(), cond, temp_str, vmax, lluvia_info, fase_str
 						)
 					)
 
@@ -1200,15 +1529,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"""Direccion a la que se le piden los datos del pronostico."""
 		lat = _normalizarCoord(lat)
 		lon = _normalizarCoord(lon)
+		try:
+			days = max(1, min(16, int(forecast_days)))
+		except (ValueError, TypeError):
+			days = 6
 		url = (
 			"https://api.open-meteo.com/v1/forecast"
 			"?latitude={lat}&longitude={lon}"
 			"&daily=weather_code,temperature_2m_max,temperature_2m_min,"
-			"precipitation_sum,precipitation_probability_max,wind_speed_10m_max,sunrise,sunset"
+			"precipitation_sum,precipitation_probability_max,wind_speed_10m_max,sunrise,sunset,snowfall_sum,precipitation_hours"
 			"&hourly=weather_code,precipitation_probability,precipitation"
 			"&current=weather_code"
 			"&wind_speed_unit=kmh&timezone=auto&forecast_days={days}"
-		).format(lat=lat, lon=lon, days=forecast_days)
+		).format(lat=lat, lon=lon, days=days)
 		return url
 
 	def _nombreDeDia(self, fecha_str, idx):
@@ -1216,29 +1549,31 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		Las listas de dias y meses se arman aqui dentro, y no fuera, porque sus
 		nombres se traducen y la traduccion no esta lista hasta que NVDA arranca.
+		Se indexan numericamente para no depender de la configuracion regional (locale)
+		del sistema operativo anfitrion.
 		"""
-		DIAS_ES = {
-			"Monday":_("lunes"), "Tuesday":_("martes"), "Wednesday":_("miércoles"),
-			"Thursday":_("jueves"), "Friday":_("viernes"), "Saturday":_("sábado"), "Sunday":_("domingo"),
-		}
-		MESES_ES = {
-			"January":_("enero"), "February":_("febrero"), "March":_("marzo"),
-			"April":_("abril"), "May":_("mayo"), "June":_("junio"),
-			"July":_("julio"), "August":_("agosto"), "September":_("septiembre"),
-			"October":_("octubre"), "November":_("noviembre"), "December":_("diciembre"),
-		}
+		DIAS_ES = [
+			_("lunes"), _("martes"), _("miércoles"),
+			_("jueves"), _("viernes"), _("sábado"), _("domingo"),
+		]
+		MESES_ES = [
+			"", _("enero"), _("febrero"), _("marzo"),
+			_("abril"), _("mayo"), _("junio"),
+			_("julio"), _("agosto"), _("septiembre"),
+			_("octubre"), _("noviembre"), _("diciembre"),
+		]
 
 		if idx == 0: return _("hoy")
 		if idx == 1: return _("mañana")
 		try:
 			dt  = datetime.date.fromisoformat(fecha_str)
-			dia = DIAS_ES.get(dt.strftime("%A"), dt.strftime("%A"))
-			mes = MESES_ES.get(dt.strftime("%B"), dt.strftime("%B"))
+			dia = DIAS_ES[dt.weekday()]
+			mes = MESES_ES[dt.month]
 			return _("{} {} de {}").format(dia, dt.day, mes)
 		except Exception:
 			return fecha_str
 
-	def _fraseDeLluvia(self, prob_p, prec_s, momento):
+	def _fraseDeLluvia(self, prob_p, prec_s, hora_exacta=None, hora_fin=None, rain_blocks=0):
 		"""Como se cuenta la lluvia de un dia, segun lo que se sepa de ella.
 
 		Se dice la probabilidad, los milimetros, los dos o ninguno, y se anade el
@@ -1247,10 +1582,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		lluvia_info = ""
 		try:
 			prob_val = int(float(prob_p)) if prob_p is not None else 0
+			prob_val = max(0, min(100, prob_val))
 		except (ValueError, TypeError):
 			prob_val = 0
 		try:
 			prec_val = float(prec_s) if prec_s is not None else 0.0
+			import math
+			if math.isnan(prec_val) or math.isinf(prec_val) or prec_val < 0:
+				prec_val = 0.0
 		except (ValueError, TypeError):
 			prec_val = 0.0
 
@@ -1260,21 +1599,42 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if prob_val < 15 and prec_val < 0.1:
 			return ""
 
+		if hora_exacta is not None:
+			try:
+				hora_exacta = int(hora_exacta)
+				if not (0 <= hora_exacta <= 23):
+					hora_exacta = None
+			except (ValueError, TypeError):
+				hora_exacta = None
+
+		if hora_fin is not None:
+			try:
+				hora_fin = int(hora_fin)
+				if not (1 <= hora_fin <= 24):
+					hora_fin = None
+			except (ValueError, TypeError):
+				hora_fin = None
+
+		momento_str = ""
+		if hora_exacta is not None:
+			if rain_blocks > 1:
+				momento_str = _(" (lluvias intermitentes desde las {} horas)").format(hora_exacta)
+			elif hora_fin is not None and hora_fin > hora_exacta:
+				if hora_fin == hora_exacta + 1:
+					momento_str = _(" (alrededor de las {} horas)").format(hora_exacta)
+				elif hora_fin == 24:
+					momento_str = _(" (desde las {} horas hasta la medianoche)").format(hora_exacta)
+				else:
+					momento_str = _(" (desde las {} hasta las {} horas)").format(hora_exacta, hora_fin)
+			else:
+				momento_str = _(" (comenzando a las {} horas)").format(hora_exacta)
+
 		if prob_val >= 15 and prec_val >= 0.1:
-			if momento:
-				lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento {} con {} milímetros.").format(prob_val, momento, prec_val)
-			else:
-				lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento con {} milímetros.").format(prob_val, prec_val)
+			lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento{} con {} milímetros.").format(prob_val, momento_str, prec_val)
 		elif prob_val >= 15:
-			if momento:
-				lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento {}.").format(prob_val, momento)
-			else:
-				lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento.").format(prob_val)
+			lluvia_info = _(" Probabilidad máxima de lluvia: {} por ciento{}.").format(prob_val, momento_str)
 		elif prec_val >= 0.1:
-			if momento:
-				lluvia_info = _(" Precipitación esperada {} de {} milímetros.").format(momento, prec_val)
-			else:
-				lluvia_info = _(" Precipitación esperada: {} milímetros.").format(prec_val)
+			lluvia_info = _(" Precipitación esperada{} de {} milímetros.").format(momento_str, prec_val)
 		return lluvia_info
 
 
@@ -1350,6 +1710,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			log.debug(f"ClimaAccesible: No se pudo verificar la lista de complementos instalados: {e}")
 
 		# 2. Comprobar colisiones directas de atajos con otros plugins globales
+		# Nota: "_gestureMap" y "_ScriptableObject__gestures" son detalles internos de NVDA,
+		# no una forma oficial y garantizada de leer los atajos de otro complemento. Si una
+		# futura versión de NVDA les cambia el nombre, esta detección de conflictos dejaría
+		# de encontrar cosas (sin afectar al resto del complemento), y habría que revisarla.
 		try:
 			running = getattr(globalPluginHandler, "runningPlugins", set())
 			for plugin in running:
@@ -1457,5 +1821,5 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_checkConflicts(self, gesture):
 		"""Ejecuta una comprobación interactiva de atajos de teclado y complementos concurrentes."""
-		self._checkAddonConflicts(interactive=True)
+		wx.CallAfter(self._checkAddonConflicts, interactive=True)
 

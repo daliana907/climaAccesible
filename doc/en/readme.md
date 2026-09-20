@@ -44,6 +44,12 @@ You can also access the add-on from NVDA Menu > Tools > Accessible Weather:
 
 ---
 
+## What's new in 1.8.2 (18 September 2026)
+
+- Accurate snow descriptions: corrected a condition description that reported "fine hail" when conditions actually called for snow grains, preserving hail announcements strictly for actual storms.
+- Resilient daily forecast: if hourly data from the weather service contains an unexpected timestamp format, the add-on skips that specific entry and presents the rest of the daily forecast without interruption.
+- Quicker server error reporting: when the weather API reports an internal server error, the add-on notifies you immediately without waiting through ineffective retry cycles.
+
 ## What's new in 1.8.1 (13 September 2026)
 
 - More reliable weather queries: strengthened and unified the way the add-on communicates with the weather data service, so both current weather and multi-day forecast queries handle connection errors more robustly and consistently.

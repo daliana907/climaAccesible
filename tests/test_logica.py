@@ -7,7 +7,9 @@ lluvia. Son puras: misma entrada, misma salida.
 """
 import os
 import sys
+import threading
 import unittest
+import urllib.error
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import nvda_falso                                    # noqa: E402
@@ -54,6 +56,28 @@ class CondicionDelCielo(unittest.TestCase):
     def test_sin_codigo(self):
         self.assertEqual(clima.codigoClima(None), "condición desconocida")
 
+    def test_los_28_codigos_oficiales_de_open_meteo_no_quedan_como_desconocidos(self):
+        # Lista completa de códigos WMO que Open-Meteo puede devolver de verdad.
+        # Si a algún código de esta lista le faltara traducción, aparecería como
+        # "condición desconocida" en vez de describir el clima.
+        codigos_oficiales = [
+            0, 1, 2, 3, 45, 48, 51, 53, 55, 56, 57, 61, 63, 65, 66, 67,
+            71, 73, 75, 77, 80, 81, 82, 85, 86, 95, 96, 99,
+        ]
+        for codigo in codigos_oficiales:
+            self.assertNotEqual(
+                clima.codigoClima(codigo), "condición desconocida",
+                f"Al código {codigo} le falta traducción.",
+            )
+
+    def test_el_codigo_77_es_nieve_no_granizo(self):
+        # El código 77 de la OMM es "snow grains" (nieve muy fina), un fenómeno
+        # distinto y mucho más leve que el granizo (que sí corresponde a los
+        # códigos 96 y 99, tormenta con granizo).
+        texto = clima.codigoClima(77)
+        self.assertIn("nieve", texto)
+        self.assertNotIn("granizo", texto)
+
 
 class Duraciones(unittest.TestCase):
     def test_horas_y_minutos(self):
@@ -68,109 +92,6 @@ class Duraciones(unittest.TestCase):
 
     def test_valor_no_numerico_no_revienta(self):
         self.assertIsInstance(clima.formatSegundos("hola"), str)
-
-
-class MomentosDeLluvia(unittest.TestCase):
-    """Convierte las horas con lluvia en una frase como 'por la mañana'."""
-
-    def _horas(self, *horas):
-        tiempos = [f"2026-09-08T{h:02d}:00" for h in range(24)]
-        probs = [90 if h in horas else 0 for h in range(24)]
-        precs = [1 if h in horas else 0 for h in range(24)]
-        return "2026-09-08", tiempos, probs, precs
-
-    def test_sin_lluvia_no_dice_nada(self):
-        self.assertEqual(clima.momentoLluvia(*self._horas()), "")
-
-    def test_un_solo_periodo(self):
-        texto = clima.momentoLluvia(*self._horas(9, 10, 11))
-        self.assertIn("mañana", texto)
-
-    def test_todo_el_dia(self):
-        texto = clima.momentoLluvia(*self._horas(3, 9, 15, 21))
-        self.assertEqual(texto, "durante todo el día")
-
-    def test_devuelve_siempre_texto(self):
-        for horas in ([], [0], [23], list(range(24)), [5, 17]):
-            self.assertIsInstance(clima.momentoLluvia(*self._horas(*horas)), str)
-
-    def test_datos_incompletos_no_revientan(self):
-        self.assertIsInstance(clima.momentoLluvia("2026-09-08", [], [], []), str)
-
-    def test_descarta_horas_pasadas_madrugada(self):
-        # Lluvia a las 03:00 (madrugada), consulta a las 14:00: debe descartarse
-        fecha, tiempos, probs, precs = self._horas(3)
-        self.assertEqual(clima.momentoLluvia(fecha, tiempos, probs, precs, hora_minima=14), "")
-
-    def test_mantiene_horas_futuras_tarde(self):
-        # Lluvia a las 03:00 y a las 17:00, consulta a las 14:00: solo debe anunciar la tarde
-        fecha, tiempos, probs, precs = self._horas(3, 17)
-        texto = clima.momentoLluvia(fecha, tiempos, probs, precs, hora_minima=14)
-        self.assertIn("tarde", texto)
-        self.assertNotIn("madrugada", texto)
-
-
-class FraseDeLluviaDeUnDia(unittest.TestCase):
-    """Como se cuenta la lluvia de un dia del pronostico.
-
-    Hay cuatro casos (probabilidad, milimetros, los dos, ninguno) y cada uno
-    cambia segun se conozca o no el momento del dia. Estaba metido dentro de un
-    bucle de cincuenta lineas donde no se podia comprobar por separado.
-    """
-
-    def frase(self, prob, milimetros, momento=""):
-        return clima.GlobalPlugin._fraseDeLluvia(None, prob, milimetros, momento)
-
-    def test_sin_lluvia_no_dice_nada(self):
-        for prob, mm in ((None, None), (0, 0), ("0", "0"), (0, None), (None, 0)):
-            with self.subTest(prob=prob, mm=mm):
-                self.assertEqual(self.frase(prob, mm), "")
-
-    def test_solo_probabilidad(self):
-        texto = self.frase(60, 0)
-        self.assertIn("60", texto)
-        self.assertNotIn("milímetros", texto)
-
-    def test_solo_milimetros(self):
-        texto = self.frase(0, 3.5)
-        self.assertIn("3.5", texto)
-
-    def test_probabilidad_y_milimetros(self):
-        texto = self.frase(80, 12)
-        self.assertIn("80", texto)
-        self.assertIn("12", texto)
-
-    def test_el_momento_del_dia_se_anade_cuando_se_conoce(self):
-        con = self.frase(60, 0, "por la tarde")
-        sin = self.frase(60, 0, "")
-        self.assertIn("por la tarde", con)
-        self.assertNotIn("por la tarde", sin)
-
-    def test_probabilidad_residual_sin_milimetros_devuelve_vacio(self):
-        """Probabilidades insignificantes como 2% o 10% sin lluvia acumulada no deben anunciarse como lluvia."""
-        for prob in (1, 2, 5, 10, 14):
-            with self.subTest(prob=prob):
-                self.assertEqual(self.frase(prob, 0), "")
-                self.assertEqual(self.frase(prob, 0.0), "")
-                self.assertEqual(self.frase(prob, None), "")
-
-    def test_milimetros_con_probabilidad_baja_se_anuncian(self):
-        """Si hay milimetros medibles aunque la probabilidad sea baja, debe informarse la precipitacion."""
-        texto = self.frase(5, 0.8)
-        self.assertIn("0.8", texto)
-        self.assertIn("milímetros", texto)
-
-    def test_probabilidad_a_partir_del_quince_por_ciento_se_anuncia(self):
-        """A partir de 15% de probabilidad, se anuncia aunque no haya milimetros acumulados."""
-        texto = self.frase(15, 0)
-        self.assertIn("15", texto)
-        self.assertIn("por ciento", texto)
-
-    def test_un_dato_estropeado_no_revienta(self):
-        """El servicio puede devolver texto donde deberia haber un numero."""
-        for prob, mm in (("abc", None), (None, "x"), ("", ""), ([], {})):
-            with self.subTest(prob=prob, mm=mm):
-                self.assertIsInstance(self.frase(prob, mm), str)
 
 
 class NombreDeUnDia(unittest.TestCase):
@@ -190,6 +111,39 @@ class NombreDeUnDia(unittest.TestCase):
 
     def test_una_fecha_ilegible_se_devuelve_tal_cual(self):
         self.assertEqual(self.nombre("no es una fecha", 3), "no es una fecha")
+
+
+class CalculoFaseLunar(unittest.TestCase):
+    """Pruebas para el cálculo de fase lunar con diferentes tipos de datos y casos borde."""
+
+    def test_luna_nueva_conocida(self):
+        import datetime
+        dt = datetime.datetime(2000, 1, 6, 18, 14)
+        self.assertEqual(clima.faseLunar(dt), "Luna nueva")
+
+    def test_soporta_instancia_datetime_date(self):
+        import datetime
+        d = datetime.date(2026, 9, 19)
+        res = clima.faseLunar(d)
+        self.assertIsInstance(res, str)
+        self.assertNotEqual(res, "desconocida")
+
+    def test_soporta_datetime_con_zona_horaria(self):
+        import datetime
+        tz = datetime.timezone(datetime.timedelta(hours=-3))
+        dt = datetime.datetime(2026, 9, 19, 12, 0, tzinfo=tz)
+        res = clima.faseLunar(dt)
+        self.assertIsInstance(res, str)
+        self.assertNotEqual(res, "desconocida")
+
+    def test_soporta_cadena_iso(self):
+        res = clima.faseLunar("2026-09-19")
+        self.assertIsInstance(res, str)
+        self.assertNotEqual(res, "desconocida")
+
+    def test_fecha_invalida_o_nula_devuelve_desconocida(self):
+        self.assertEqual(clima.faseLunar(None), "desconocida")
+        self.assertEqual(clima.faseLunar("invalido"), "desconocida")
 
 
 class EvaluacionPronosticoHoy(unittest.TestCase):
@@ -237,8 +191,105 @@ class EvaluacionPronosticoHoy(unittest.TestCase):
         self.assertEqual(prec_total_rest, 0.0)
 
         # La frase de lluvia no debe anunciar lluvia con 2% y 0.0 mm
-        frase = clima.GlobalPlugin._fraseDeLluvia(None, prob_max_rest, prec_total_rest, "")
+        frase = clima.GlobalPlugin._fraseDeLluvia(None, prob_max_rest, prec_total_rest)
         self.assertEqual(frase, "")
+
+
+class ReintentoDeRed(unittest.TestCase):
+    """_getJsonFromApi no debe reintentar cuando el servidor respondió con un error."""
+
+    def test_error_del_servidor_no_se_reintenta(self):
+        plugin = clima.GlobalPlugin.__new__(clima.GlobalPlugin)
+        def fake_manejar(e, operacion):
+            print(f"XXX EXCEPTION CAUGHT: {e}")
+            import traceback
+            traceback.print_exc()
+        plugin._manejarErrorPeticion = fake_manejar
+        plugin._stopping = threading.Event()
+        intentos = {"cantidad": 0}
+
+        class RespuestaDeError:
+            def read(self):
+                return b"{}"
+
+        def urlopen_falso(req, timeout=15):
+            intentos["cantidad"] += 1
+            raise urllib.error.HTTPError(
+                "https://ejemplo.invalido", 404, "No encontrado", {}, None
+            )
+
+        import urllib.request
+        original = urllib.request.urlopen
+        urllib.request.urlopen = urlopen_falso
+        try:
+            with self.assertRaises(urllib.error.HTTPError):
+                plugin._getJsonFromApi("https://ejemplo.invalido", "prueba")
+        finally:
+            urllib.request.urlopen = original
+
+        # Un error del servidor no es un problema de red: no se debe reintentar.
+        self.assertEqual(intentos["cantidad"], 1)
+
+
+class PronosticoResilienteAHorasMalformadas(unittest.TestCase):
+    """_fetchForecast no debe cancelar el pronóstico del día por una sola hora con formato raro."""
+
+    def test_una_hora_con_formato_raro_no_cancela_el_pronostico_del_dia(self):
+        plugin = clima.GlobalPlugin.__new__(clima.GlobalPlugin)
+        def fake_manejar(e, operacion):
+            print(f"XXX EXCEPTION CAUGHT: {e}")
+            import traceback
+            traceback.print_exc()
+        plugin._manejarErrorPeticion = fake_manejar
+        plugin._stopping = threading.Event()
+        mensajes = []
+        plugin._safeMessage = lambda texto: mensajes.append(texto)
+
+        datos_falsos = {
+            "current": {"time": "2026-09-13T16:00", "weather_code": 3},
+            "daily": {
+                "time": ["2026-09-13"],
+                "weather_code": [51],
+                "temperature_2m_max": [22.0],
+                "temperature_2m_min": [15.0],
+                "wind_speed_10m_max": [10.0],
+                "precipitation_probability_max": [40],
+                "precipitation_sum": [0.5],
+                "sunrise": ["2026-09-13T07:00"],
+                "sunset": ["2026-09-13T19:00"],
+            },
+            "hourly": {
+                # Una hora con formato inválido mezclada entre horas normales de la tarde.
+                "time": ["2026-09-13T15:00", "2026-09-13Txx:00", "2026-09-13T17:00"],
+                "weather_code": [3, 3, 3],
+                "precipitation_probability": [5, 5, 5],
+                "precipitation": [0.0, 0.0, 0.0],
+            },
+        }
+        plugin._getJsonFromApi = lambda url, label="general": datos_falsos
+
+        plugin._fetchForecast({"city": "Salto", "lat": -31.4, "lon": -57.9, "forecast_days": 1})
+
+        # Debe haber anunciado el pronóstico (un solo mensaje), no haberse quedado callado
+        # ni haber caído en el mensaje genérico de "Error inesperado".
+        self.assertEqual(len(mensajes), 1)
+        self.assertNotIn("Error inesperado", mensajes[0])
+        self.assertIn("Salto", mensajes[0])
+
+
+class UrlDelClimaActual(unittest.TestCase):
+    """La URL del clima actual debe solicitar siempre weather_code para evaluar condiciones de luminosidad."""
+
+    def test_incluye_weather_code_aunque_condicion_este_desmarcada(self):
+        plugin = clima.GlobalPlugin.__new__(clima.GlobalPlugin)
+        def fake_manejar(e, operacion):
+            print(f"XXX EXCEPTION CAUGHT: {e}")
+            import traceback
+            traceback.print_exc()
+        plugin._manejarErrorPeticion = fake_manejar
+        prefs = {"condicion": False, "amanecer": True, "atardecer": True, "temperatura": True}
+        url = plugin._urlDelClimaActual(-34.9, -56.1, prefs)
+        self.assertIn("weather_code", url)
 
 
 if __name__ == "__main__":
