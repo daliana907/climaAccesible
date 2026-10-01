@@ -94,6 +94,8 @@ OPCIONES = [
 ]
 
 PREFS_DEFECTO = {op[0]: True for op in OPCIONES}
+PREFS_DEFECTO["network_retries"] = 1
+PREFS_DEFECTO["network_retry_delay"] = 1.0
 
 # ── helpers ───────────────────────────────────────────────────────────────────
 
@@ -408,6 +410,19 @@ class ConfigDialog(wx.Dialog):
 		sizer_f.Add(self.spinDays, 0, wx.LEFT|wx.RIGHT, 8)
 		main.Add(sizer_f, 0, wx.EXPAND|wx.LEFT|wx.RIGHT|wx.BOTTOM, 8)
 
+		# Red y reintentos
+		box_red = wx.StaticBox(p, label=_("Red y reintentos"))
+		sizer_red = wx.StaticBoxSizer(box_red, wx.VERTICAL)
+		sizer_red.Add(wx.StaticText(p, label=_("Número máximo de reintentos (0 para desactivar):")), 0, wx.LEFT|wx.TOP, 4)
+		retries = self._cfg.get("network_retries", PREFS_DEFECTO["network_retries"])
+		self.spinRetries = wx.SpinCtrl(p, min=0, max=10, initial=retries)
+		sizer_red.Add(self.spinRetries, 0, wx.LEFT|wx.RIGHT, 4)
+		sizer_red.Add(wx.StaticText(p, label=_("Segundos de espera entre reintentos:")), 0, wx.LEFT|wx.TOP, 4)
+		retry_delay = int(self._cfg.get("network_retry_delay", PREFS_DEFECTO["network_retry_delay"]))
+		self.spinRetryDelay = wx.SpinCtrl(p, min=1, max=60, initial=retry_delay)
+		sizer_red.Add(self.spinRetryDelay, 0, wx.LEFT|wx.RIGHT|wx.BOTTOM, 4)
+		main.Add(sizer_red, 0, wx.EXPAND|wx.LEFT|wx.RIGHT|wx.BOTTOM, 8)
+
 		# ── botones ───────────────────────────────────────────────────────────
 		row = wx.BoxSizer(wx.HORIZONTAL)
 		self.btnSave = wx.Button(p, wx.ID_OK, label=_("&Guardar todo"))
@@ -657,6 +672,13 @@ class ConfigDialog(wx.Dialog):
 			dias_val = max(1, min(16, int(self.spinDays.GetValue())))
 		except (ValueError, TypeError):
 			dias_val = 6
+		try:
+			net_retries = int(self.spinRetries.GetValue())
+			net_delay = float(self.spinRetryDelay.GetValue())
+		except Exception:
+			net_retries = 1
+			net_delay = 1.0
+
 		success = saveJSON(_configPath(), {
 			"city":          name,
 			"lat":           lat_val,
@@ -665,6 +687,8 @@ class ConfigDialog(wx.Dialog):
 			"country_iso2":  country_iso2,
 			"prefs":         prefs,
 			"forecast_days": dias_val,
+			"network_retries": net_retries,
+			"network_retry_delay": net_delay,
 		})
 		if success:
 			log.info(f"ClimaAccesible: Guardando configuración - Ciudad: {name}, Coordenadas: ({lat}, {lon}), Días pronóstico: {self.spinDays.GetValue()}")
@@ -890,7 +914,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		log.info(f"ClimaAccesible: Enviando petición HTTP ({label}) a Open-Meteo: {url}")
 		req = urllib.request.Request(url, headers={"User-Agent": self._getUserAgent()})
 		raw_bytes = None
-		for attempt in range(2):
+		cfg = loadJSON(_configPath())
+		max_retries = cfg.get("network_retries", PREFS_DEFECTO["network_retries"])
+		retry_delay = cfg.get("network_retry_delay", PREFS_DEFECTO["network_retry_delay"])
+		for attempt in range(max_retries + 1):
 			try:
 				t0 = time.time()
 				with urllib.request.urlopen(req, timeout=15) as r:
@@ -902,15 +929,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			except urllib.error.HTTPError as http_err:
 				# Si el servidor responde con 5xx (error temporal) o 429 (rate limit), vale la pena reintentar.
 				# Si es 4xx (como 400 Bad Request), reintentar no sirve, abortamos de inmediato.
-				if (http_err.code >= 500 or http_err.code == 429) and attempt == 0 and not self._stopping.is_set():
+				if (http_err.code >= 500 or http_err.code == 429) and attempt < max_retries and not self._stopping.is_set():
 					log.warning(f"ClimaAccesible: Reintentando petición ({label}) tras error HTTP {http_err.code}")
-					time.sleep(1.0)
+					time.sleep(retry_delay)
 					continue
 				raise
 			except (TimeoutError, socket.timeout, urllib.error.URLError) as net_err:
-				if attempt == 0 and not self._stopping.is_set():
+				if attempt < max_retries and not self._stopping.is_set():
 					log.warning(f"ClimaAccesible: Reintentando petición ({label}) tras error de red: {net_err}")
-					time.sleep(1.0)
+					time.sleep(retry_delay)
 					continue
 				raise
 
@@ -945,14 +972,21 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			aq_resp = None
 			
 			import threading
+			error_ocurrido = None
 			def fetch_main():
-				nonlocal data
-				data = self._getJsonFromApi(url, "clima actual")
+				nonlocal data, error_ocurrido
+				try:
+					data = self._getJsonFromApi(url, "clima actual")
+				except Exception as e:
+					error_ocurrido = e
 				
 			def fetch_aq():
 				nonlocal aq_resp
 				if aq_url:
-					aq_resp = self._getJsonFromApi(aq_url, "calidad del aire")
+					try:
+						aq_resp = self._getJsonFromApi(aq_url, "calidad del aire")
+					except Exception:
+						pass
 					
 			t1 = threading.Thread(target=fetch_main, daemon=True)
 			t2 = threading.Thread(target=fetch_aq, daemon=True)
@@ -960,6 +994,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			t2.start()
 			t1.join()
 			t2.join()
+
+			if error_ocurrido:
+				raise error_ocurrido
 
 			if not data or self._stopping.is_set():
 				return
@@ -1299,18 +1336,23 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 						partes.append(_("Se esperan precipitaciones desde las {} hasta las {} horas.").format(hora_exacta, hora_fin))
 			else:
 				partes.append(_("La lluvia o nevada podría comenzar a las {} horas.").format(hora_exacta))
+		if lluvia_total is None:
+			try:
+				lluvia_total = float(dv("precipitation_sum") or 0)
+			except (ValueError, TypeError):
+				lluvia_total = 0.0
+
 		if prefs.get("precip_prob_max"):
 			if prob_max is None:
 				try:
 					prob_max = int(float(dv("precipitation_probability_max") or 0))
 				except (ValueError, TypeError):
 					prob_max = 0
-			partes.append(_("Probabilidad máxima de lluvia del día: {} por ciento.").format(prob_max))
-		if lluvia_total is None:
-			try:
-				lluvia_total = float(dv("precipitation_sum") or 0)
-			except (ValueError, TypeError):
-				lluvia_total = 0.0
+			if prob_max < 15 and lluvia_total < 0.1:
+				partes.append(_("Sin lluvias."))
+			else:
+				partes.append(_("Probabilidad máxima de lluvia: {} por ciento.").format(prob_max))
+
 		if prefs.get("precip_total") and lluvia_total > 0:
 			partes.append(_("Precipitación total esperada del día: {} milímetros.").format(lluvia_total))
 		if prefs.get("viento_max") and dv("wind_speed_10m_max") is not None:

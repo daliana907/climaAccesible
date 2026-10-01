@@ -10,7 +10,7 @@ Una vez instalado, al elegir tu ciudad de la lista, el sistema se conecta de inm
 
 ClimaAccesible interpreta los datos meteorológicos de forma inteligente. En lugar de leerte una lista fría de números, te relata el clima en formato conversacional y omite información redundante de la siguiente manera:
 
-*   Omite probabilidades de lluvia falsas o residuales: si la probabilidad es menor al 15% y no hay acumulación en milímetros, el sistema directamente no menciona la lluvia para evitar alertas falsas por lloviznas invisibles.
+*   Omite probabilidades de lluvia falsas o residuales: si la probabilidad es menor al 15% y no hay acumulación en milímetros, el sistema directamente te dirá "Sin lluvias." en lugar de hacerte perder tiempo leyendo probabilidades nulas.
 *   Resume temperaturas calcadas: si la máxima y la mínima del día son casi iguales, en lugar de leerte dos veces el mismo número te lo resume diciendo "temperatura constante rondando los...".
 *   Filtra la información del sol: solo te informa a qué hora sale y se pone el sol si el día va a estar despejado. Si el cielo va a estar completamente nublado o lloviendo, omite la salida del sol para no alargar el mensaje con datos que no vas a poder ver ni aprovechar.
 
@@ -27,6 +27,8 @@ El uso es muy sencillo, manejado por tres atajos de teclado clave:
 *   Y pulsando NVDA + Control + W, se abrirá la ventana de configuración.
 
 En la configuración puedes buscar tu ciudad eligiendo primero tu país, después tu región o departamento y finalmente tu localidad. También tienes diversas opciones para activar o desactivar información complementaria: puedes hacer que te lea u oculte la sensación térmica, la humedad, el índice UV, la visibilidad reducida, la nubosidad, el punto de rocío y las fases de la luna.
+
+Además, si tu conexión a internet es inestable, en la sección "Red y reintentos" puedes configurar cuántas veces el complemento intentará volver a conectarse automáticamente al servidor meteorológico en caso de fallo, y cuántos segundos esperar entre cada intento.
 
 ## Créditos
 
