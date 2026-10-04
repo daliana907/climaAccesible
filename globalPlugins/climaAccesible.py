@@ -735,8 +735,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self._isConfigOpen = False
 		self._toolsMenu = gui.mainFrame.sysTrayIcon.toolsMenu
 		self._subMenu = wx.Menu()
-		self._itemConfig = self._subMenu.Append(wx.ID_ANY, _("Configuración del complemento"))
-		self._itemConflicts = self._subMenu.Append(wx.ID_ANY, _("Comprobar conflictos con otros complementos..."))
+		self._itemConfig = self._subMenu.Append(wx.Window.NewControlId(), _("Configuración del complemento"))
+		self._itemConflicts = self._subMenu.Append(wx.Window.NewControlId(), _("Comprobar conflictos con otros complementos..."))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self._onMenuConfig, self._itemConfig)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self._onMenuConflicts, self._itemConflicts)
 		self._subMenuItem = self._toolsMenu.AppendSubMenu(
