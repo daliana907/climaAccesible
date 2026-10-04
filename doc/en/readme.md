@@ -44,6 +44,12 @@ You can also access the add-on from NVDA Menu > Tools > Accessible Weather:
 
 ---
 
+## What's new in 1.9.1
+
+- Fast 'No rain' announcements: If precipitation probability is under 15% with zero accumulation, the add-on immediately announces 'No rain' instead of reading zero percentages.
+- Configurable network retries: New options in settings allow you to define maximum connection retries and wait time to handle unstable networks.
+- Bulletproof error handling: The add-on safely catches networking thread crashes to prevent silent hangups.
+
 ## What's new in 1.8.2 (18 September 2026)
 
 - Accurate snow descriptions: corrected a condition description that reported "fine hail" when conditions actually called for snow grains, preserving hail announcements strictly for actual storms.
