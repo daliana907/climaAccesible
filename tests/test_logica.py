@@ -292,5 +292,123 @@ class UrlDelClimaActual(unittest.TestCase):
         self.assertIn("weather_code", url)
 
 
+class CoordenadasCeroValidas(unittest.TestCase):
+    """Las ciudades con latitud 0.0 (en el ecuador) o longitud 0.0 (meridiano de Greenwich) son válidas."""
+
+    def test_latitud_y_longitud_cero_no_se_consideran_sin_configurar(self):
+        plugin = clima.GlobalPlugin.__new__(clima.GlobalPlugin)
+        plugin._fetchingWeatherActive = False
+        plugin._fetchingForecastActive = False
+        plugin._stopping = threading.Event()
+
+        cfg_cero = {"city": "Punto Cero", "lat": 0.0, "lon": 0.0, "forecast_days": 3}
+        original_load = clima.loadJSON
+        clima.loadJSON = lambda path: cfg_cero
+        try:
+            nvda_falso.dichos.clear()
+            import threading as real_threading
+            orig_start = real_threading.Thread.start
+            hilos_iniciados = []
+            real_threading.Thread.start = lambda self: hilos_iniciados.append(self)
+            try:
+                plugin.script_getWeather(None)
+                self.assertNotIn("No hay ciudad configurada", "".join(nvda_falso.dichos))
+                self.assertEqual(len(hilos_iniciados), 1)
+
+                nvda_falso.dichos.clear()
+                hilos_iniciados.clear()
+                plugin.script_getForecast(None)
+                self.assertNotIn("No hay ciudad configurada", "".join(nvda_falso.dichos))
+                self.assertEqual(len(hilos_iniciados), 1)
+            finally:
+                real_threading.Thread.start = orig_start
+        finally:
+            clima.loadJSON = original_load
+
+    def test_coordenadas_none_si_avisan_que_falta_ciudad(self):
+        plugin = clima.GlobalPlugin.__new__(clima.GlobalPlugin)
+        plugin._fetchingWeatherActive = False
+        plugin._fetchingForecastActive = False
+
+        cfg_vacio = {"city": "", "lat": None, "lon": None}
+        original_load = clima.loadJSON
+        clima.loadJSON = lambda path: cfg_vacio
+        try:
+            nvda_falso.dichos.clear()
+            plugin.script_getWeather(None)
+            self.assertTrue(any("No hay ciudad configurada" in d for d in nvda_falso.dichos))
+        finally:
+            clima.loadJSON = original_load
+
+
+class FiltroUVNocturno(unittest.TestCase):
+    """El índice UV debe omitirse de noche cuando es 0.0 para no añadir ruido innecesario."""
+
+    def test_uv_cero_de_noche_se_omite(self):
+        plugin = clima.GlobalPlugin.__new__(clima.GlobalPlugin)
+        prefs = {"uv_actual": True}
+        c = {"is_day": 0, "uv_index": 0.0}
+        frases = plugin._frasesDelClimaActual(c, prefs)
+        self.assertFalse(any("UV" in f for f in frases))
+
+    def test_uv_de_dia_se_anuncia(self):
+        plugin = clima.GlobalPlugin.__new__(clima.GlobalPlugin)
+        prefs = {"uv_actual": True}
+        c = {"is_day": 1, "uv_index": 0.0}
+        frases = plugin._frasesDelClimaActual(c, prefs)
+        self.assertTrue(any("UV" in f for f in frases))
+
+    def test_uv_mayor_que_cero_de_noche_se_anuncia(self):
+        plugin = clima.GlobalPlugin.__new__(clima.GlobalPlugin)
+        prefs = {"uv_actual": True}
+        c = {"is_day": 0, "uv_index": 1.2}
+        frases = plugin._frasesDelClimaActual(c, prefs)
+        self.assertTrue(any("UV" in f for f in frases))
+
+
+class SincronizacionMinutosLluviaZonaHoraria(unittest.TestCase):
+    """El radar de lluvia a 15 minutos debe sincronizarse con la hora local de la ciudad consultada."""
+
+    def test_radar_lluvia_usa_hora_local_de_la_ciudad(self):
+        plugin = clima.GlobalPlugin.__new__(clima.GlobalPlugin)
+        plugin._stopping = threading.Event()
+        mensajes = []
+        plugin._safeMessage = lambda texto: mensajes.append(texto)
+
+        datos_falsos = {
+            "current": {
+                "time": "2026-09-13T16:00",
+                "temperature_2m": 20.0,
+                "precipitation": 0.0,
+            },
+            "daily": {},
+            "hourly": {},
+            "minutely_15": {
+                "time": [
+                    "2026-09-13T16:00",
+                    "2026-09-13T16:15",
+                    "2026-09-13T16:30",
+                    "2026-09-13T16:45",
+                ],
+                "precipitation": [0.0, 0.0, 0.8, 1.2],
+                "precipitation_probability": [0, 10, 80, 90],
+            },
+        }
+        plugin._getJsonFromApi = lambda url, label="general": datos_falsos
+
+        cfg = {
+            "city": "Tokio",
+            "lat": 35.68,
+            "lon": 139.76,
+            "prefs": {"minutos_lluvia": True, "temperatura": True},
+        }
+        plugin._fetchWeather(cfg)
+
+        self.assertEqual(len(mensajes), 1)
+        texto = mensajes[0]
+        self.assertIn("30 minutos", texto)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+

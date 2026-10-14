@@ -39,6 +39,7 @@ def _configPath():
 
 # ── caché de datos geográficos ────────────────────────────────────────────────
 _geoData = None
+_geoDataLock = threading.Lock()
 
 # ── opciones de datos del clima ───────────────────────────────────────────────
 def N_(texto):
@@ -141,12 +142,14 @@ def getGeoData():
 	"""
 	global _geoData
 	if _geoData is None:
-		try:
-			with open(GEODATA_FILE, "r", encoding="utf-8") as f:
-				_geoData = json.load(f)
-		except Exception as e:
-			log.error("ClimaAccesible: no se pudo cargar geodata.json: {}".format(e))
-			raise
+		with _geoDataLock:
+			if _geoData is None:
+				try:
+					with open(GEODATA_FILE, "r", encoding="utf-8") as f:
+						_geoData = json.load(f)
+				except Exception as e:
+					log.error("ClimaAccesible: no se pudo cargar geodata.json: {}".format(e))
+					raise
 	return _geoData
 
 def formatHora(iso_str):
@@ -385,7 +388,7 @@ class ConfigDialog(wx.Dialog):
 		sizer_c = wx.StaticBoxSizer(box_c, wx.VERTICAL)
 		for key, label, campoApi, tipo in OPCIONES:
 			if tipo in ("current", "special", "special_current", "air_quality"):
-				cb = wx.CheckBox(p, label=label)
+				cb = wx.CheckBox(p, label=_(label))
 				cb.SetValue(prefs.get(key, True))
 				self._checks[key] = cb
 				sizer_c.Add(cb, 0, wx.LEFT|wx.TOP, 3)
@@ -396,7 +399,7 @@ class ConfigDialog(wx.Dialog):
 		sizer_d = wx.StaticBoxSizer(box_d, wx.VERTICAL)
 		for key, label, campoApi, tipo in OPCIONES:
 			if tipo in ("daily", "special_daily"):
-				cb = wx.CheckBox(p, label=label)
+				cb = wx.CheckBox(p, label=_(label))
 				cb.SetValue(prefs.get(key, True))
 				self._checks[key] = cb
 				sizer_d.Add(cb, 0, wx.LEFT|wx.TOP, 3)
@@ -513,7 +516,7 @@ class ConfigDialog(wx.Dialog):
 		"""Carga en un hilo secundario la base de datos geográfica para no congelar la interfaz."""
 		try:
 			data      = getGeoData()
-			countries = [(c[0], c[1]) for c in data]
+			countries = [(c[0], c[1]) for c in data if len(c) >= 2 and c[0]]
 			if not self._isClosing:
 				wx.CallAfter(self._populate_countries, countries)
 		except Exception as e:
@@ -577,8 +580,9 @@ class ConfigDialog(wx.Dialog):
 			if country_idx < 0 or country_idx >= len(data):
 				return
 			country = data[country_idx]
-			states  = sorted(country[2], key=lambda s: s[0])
-			self._regions = [(s[0], s[2]) for s in states]
+			raw_states = country[2] if len(country) > 2 and isinstance(country[2], list) else []
+			states  = sorted(raw_states, key=lambda s: s[0] if len(s) > 0 else "")
+			self._regions = [(s[0], s[2]) for s in states if len(s) >= 3 and s[0]]
 			self.cboRegion.Clear()
 			if self._regions:
 				self.cboRegion.AppendItems([name for name, _ in self._regions])
@@ -617,7 +621,7 @@ class ConfigDialog(wx.Dialog):
 				return
 			_, raw_cities = self._regions[region_idx]
 			self._cities = sorted(
-				[(c[0], c[1], c[2]) for c in raw_cities if c[0]],
+				[(c[0], c[1], c[2]) for c in raw_cities if len(c) >= 3 and c[0]],
 				key=lambda x: x[0]
 			)
 			self.cboCity.Clear()
@@ -652,6 +656,7 @@ class ConfigDialog(wx.Dialog):
 		ri = self.cboRegion.GetSelection()
 		co = self.cboCountry.GetSelection()
 		if (ci == wx.NOT_FOUND or ri == wx.NOT_FOUND or co == wx.NOT_FOUND
+				or ci >= len(self._cities) or ri >= len(self._regions) or co >= len(self._countries)
 				or not self._cities or not self._regions or not self._countries):
 			self._status(_("Elige un país, región y ciudad antes de guardar."))
 			return
@@ -692,7 +697,7 @@ class ConfigDialog(wx.Dialog):
 		})
 		if success:
 			log.info(f"ClimaAccesible: Guardando configuración - Ciudad: {name}, Coordenadas: ({lat}, {lon}), Días pronóstico: {self.spinDays.GetValue()}")
-			self._status("Configuración guardada para: " + name)
+			self._status(_("Configuración guardada."))
 			gui.messageBox(
 				_("Configuración guardada.\nCiudad: {c}\nUsa NVDA+W para consultar el clima.").format(c=name),
 				_("ClimaAccesible"), wx.OK | wx.ICON_INFORMATION, parent=self
@@ -797,7 +802,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			log.info("ClimaAccesible: Consulta de clima en curso, ignorando atajo repetido.")
 			return
 		cfg = loadJSON(_configPath())
-		if not cfg.get("lat") or not cfg.get("lon"):
+		if cfg.get("lat") is None or cfg.get("lon") is None:
 			log.warning("ClimaAccesible: Intento de consulta de clima sin ciudad configurada.")
 			ui.message(_("No hay ciudad configurada. Usa NVDA+Control+W para configurar."))
 			return
@@ -820,7 +825,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			log.info("ClimaAccesible: Consulta de pronóstico en curso, ignorando atajo repetido.")
 			return
 		cfg = loadJSON(_configPath())
-		if not cfg.get("lat") or not cfg.get("lon"):
+		if cfg.get("lat") is None or cfg.get("lon") is None:
 			log.warning("ClimaAccesible: Intento de consulta de pronóstico sin ciudad configurada.")
 			ui.message(_("No hay ciudad configurada. Usa NVDA+Control+W para configurar."))
 			return
@@ -880,10 +885,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		try:
 			addon = addonHandler.getCodeAddon()
 			if addon and getattr(addon, "manifest", None):
-				return f"ClimaAccesible/{addon.manifest.get('version', '1.8')}"
+				return f"ClimaAccesible/{addon.manifest.get('version', '1.9.5')}"
 		except Exception:
 			pass
-		return "ClimaAccesible/1.8"
+		return "ClimaAccesible/1.9.5"
 
 	def _manejarErrorPeticion(self, error, operacion="el clima"):
 		"""Gestiona y verbaliza de forma unificada y segura los fallos de red o de la API meteorológica."""
@@ -931,13 +936,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				# Si es 4xx (como 400 Bad Request), reintentar no sirve, abortamos de inmediato.
 				if (http_err.code >= 500 or http_err.code == 429) and attempt < max_retries and not self._stopping.is_set():
 					log.warning(f"ClimaAccesible: Reintentando petición ({label}) tras error HTTP {http_err.code}")
-					time.sleep(retry_delay)
+					if self._stopping.wait(timeout=retry_delay):
+						break
 					continue
 				raise
 			except (TimeoutError, socket.timeout, urllib.error.URLError) as net_err:
 				if attempt < max_retries and not self._stopping.is_set():
 					log.warning(f"ClimaAccesible: Reintentando petición ({label}) tras error de red: {net_err}")
-					time.sleep(retry_delay)
+					if self._stopping.wait(timeout=retry_delay):
+						break
 					continue
 				raise
 
@@ -958,9 +965,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		quedarse callado.
 		"""
 		try:
-			city      = cfg["city"]
-			lat       = cfg["lat"]
-			lon       = cfg["lon"]
+			city      = cfg.get("city") or _("tu ciudad")
+			lat       = cfg.get("lat")
+			lon       = cfg.get("lon")
 			prefs_raw = cfg.get("prefs", {})
 			claves_validas = {op[0] for op in OPCIONES}
 			prefs = {k: prefs_raw.get(k, True) for k in claves_validas}
@@ -1104,7 +1111,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				if m_times:
 					import datetime
 					try:
-						now_m = datetime.datetime.now()
+						if "time" in c and "T" in str(c["time"]):
+							try:
+								now_m = datetime.datetime.strptime(str(c["time"]).strip()[:16], "%Y-%m-%dT%H:%M")
+							except Exception:
+								now_m = datetime.datetime.now()
+						else:
+							now_m = datetime.datetime.now()
 						prec_c = _safe_float(c.get("precipitation"), 0.0)
 						import math
 						if math.isnan(prec_c) or math.isinf(prec_c) or prec_c < 0:
@@ -1293,7 +1306,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 						partes.append(_("Visibilidad reducida: {} kilómetros.").format(round(vis_m / 1000.0, 1)))
 			except Exception: pass
 		if prefs.get("uv_actual") and c.get("uv_index") is not None:
-			partes.append(_("Índice UV actual: {}.").format(c["uv_index"]))
+			is_night = (c.get("is_day") == 0)
+			uv_val = _safe_float(c.get("uv_index"), 0.0)
+			import math
+			if not (is_night and uv_val is not None and not math.isnan(uv_val) and uv_val <= 0.0):
+				partes.append(_("Índice UV actual: {}.").format(c["uv_index"]))
 		if prefs.get("calidad_aire") and c.get("european_aqi") is not None:
 			val_aqi = c["european_aqi"]
 			frase_aqi = calidadAireFrase(val_aqi)
@@ -1314,7 +1331,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		nubes o lluvia no aporta nada y alarga el anuncio.
 		"""
 		partes = []
-		codigo_actual   = c.get("weather_code", 99)
+		codigo_raw = c.get("weather_code", 99)
+		try:
+			codigo_actual = int(codigo_raw)
+		except (ValueError, TypeError):
+			codigo_actual = 99
 		cielo_despejado = codigo_actual in (0, 1)
 		if cielo_despejado:
 			if prefs.get("amanecer")  and dv("sunrise")           is not None:
@@ -1374,9 +1395,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		Los fallos de red se avisan con un mensaje que explica qué pasó.
 		"""
 		try:
-			city          = cfg["city"]
-			lat           = cfg["lat"]
-			lon           = cfg["lon"]
+			city          = cfg.get("city") or _("tu ciudad")
+			lat           = cfg.get("lat")
+			lon           = cfg.get("lon")
 			try:
 				forecast_days = max(1, min(16, int(cfg.get("forecast_days", 6))))
 			except (ValueError, TypeError):
@@ -1683,7 +1704,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def _startupBackgroundWorker(self):
 		"""Comprueba en segundo plano tras iniciar NVDA si existen conflictos con otros complementos."""
 		try:
-			time.sleep(3.0)
+			if self._stopping.wait(timeout=3.0):
+				return
+			try:
+				getGeoData()
+			except Exception as ge:
+				log.debug(f"ClimaAccesible: pre-carga de geodata: {ge}")
+			if self._stopping.is_set():
+				return
 			self._checkAddonConflicts(interactive=False)
 		except Exception as e:
 			log.error(f"ClimaAccesible: Error durante la comprobación de conflictos: {e}")
