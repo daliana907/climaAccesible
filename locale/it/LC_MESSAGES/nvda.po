@@ -1,10 +1,11 @@
 # Translations for ClimaAccesible.
 msgid ""
 msgstr ""
-"Project-Id-Version: climaAccesible 1.4\n"
+"Project-Id-Version: climaAccesible 1.9.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-08 06:42+0000\n"
 "Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,23 +15,20 @@ msgid "Temperatura actual"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:55
-#, fuzzy
 msgid "Sensación térmica"
-msgstr "Pubblicizza la sensazione termica"
+msgstr "Temperatura percepita"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:56
-#, fuzzy
 msgid "Condición del cielo"
-msgstr "Impostazioni climatiche accessibili"
+msgstr "Condizioni del cielo"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:57
 msgid "Si es de día o de noche"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:58
-#, fuzzy
 msgid "Humedad"
-msgstr "Annunciare l'umidità"
+msgstr "Umidità"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:59
 msgid "Punto de rocío"
@@ -45,18 +43,16 @@ msgid "Dirección del viento"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:62
-#, fuzzy
 msgid "Ráfagas de viento"
-msgstr "Annunciare le raffiche di vento"
+msgstr "Raffiche di vento"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:63
 msgid "Nubosidad"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:64
-#, fuzzy
 msgid "Precipitación actual"
-msgstr "Annunciare la precipitazione totale"
+msgstr "Precipitazioni attuali"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:65
 msgid "Presión atmosférica"
@@ -79,24 +75,20 @@ msgid "Índice UV máximo del día"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:70
-#, fuzzy
 msgid "Probabilidad máxima de lluvia del día"
-msgstr "Probabilità massima di pioggia per la giornata: {} %."
+msgstr "Probabilità massima di pioggia del giorno"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:71
-#, fuzzy
 msgid "Precipitación total esperada del día"
-msgstr "Precipitazioni totali previste per la giornata: {} millimetri."
+msgstr "Precipitazioni totali previste del giorno"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:72
-#, fuzzy
 msgid "Viento máximo del día"
-msgstr "Vento massimo della giornata: {} chilometri all'ora."
+msgstr "Vento massimo del giorno"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:73
-#, fuzzy
 msgid "Ráfaga máxima del día"
-msgstr "Raffica massima della giornata: {} chilometri orari."
+msgstr "Raffica massima del giorno"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:119
 msgid "{} horas y {} minutos"
@@ -179,74 +171,60 @@ msgid "nor noroeste"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:140
-#, fuzzy
 msgid "cielo despejado"
 msgstr "Chiaro"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:140
-#, fuzzy
 msgid "mayormente despejado"
 msgstr "Per lo più chiaro"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:140
-#, fuzzy
 msgid "parcialmente nublado"
 msgstr "Parzialmente nuvoloso"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:141
-#, fuzzy
 msgid "nublado"
 msgstr "Nuvoloso"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:141
-#, fuzzy
 msgid "niebla"
 msgstr "Nebbia"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:141
-#, fuzzy
 msgid "niebla con escarcha"
 msgstr "Nebbia con gelo"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:142
-#, fuzzy
 msgid "llovizna ligera"
 msgstr "Pioggia leggera"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:142
-#, fuzzy
 msgid "llovizna moderada"
 msgstr "Pioggia moderata"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:142
-#, fuzzy
 msgid "llovizna densa"
 msgstr "Pioviggina fitta"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:143
-#, fuzzy
 msgid "lluvia ligera"
 msgstr "Pioggia leggera"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:143
-#, fuzzy
 msgid "lluvia moderada"
 msgstr "Pioggia moderata"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:143
-#, fuzzy
 msgid "lluvia intensa"
-msgstr "Pioviggina fitta"
+msgstr "Pioggia intensa"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:144
-#, fuzzy
 msgid "nevada ligera"
-msgstr "Leggera pioggerellina gelata"
+msgstr "Neve leggera"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:144
-#, fuzzy
 msgid "nevada moderada"
-msgstr "Pioggia moderata"
+msgstr "Neve moderata"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:144
 msgid "nevada intensa"
@@ -257,42 +235,34 @@ msgid "granizo fino"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:145
-#, fuzzy
 msgid "chubascos ligeros"
 msgstr "Rovesci leggeri"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:145
-#, fuzzy
 msgid "chubascos moderados"
 msgstr "Docce moderate"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:146
-#, fuzzy
 msgid "chubascos intensos"
 msgstr "Docce violente"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:146
-#, fuzzy
 msgid "chubascos de nieve ligeros"
 msgstr "Leggeri rovesci di neve"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:147
-#, fuzzy
 msgid "chubascos de nieve intensos"
 msgstr "Forti nevicate"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:148
-#, fuzzy
 msgid "tormenta eléctrica"
-msgstr "Leggero temporale"
+msgstr "Temporale"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:148
-#, fuzzy
 msgid "tormenta con granizo ligero"
 msgstr "Tempesta con leggera grandinata"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:149
-#, fuzzy
 msgid "tormenta con granizo intenso"
 msgstr "Tempesta con forte grandine"
 
@@ -301,22 +271,18 @@ msgid "condición desconocida"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:193
-#, fuzzy
 msgid "la madrugada"
-msgstr "questa mattina"
+msgstr "all'alba"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:195
-#, fuzzy
 msgid "la mañana"
-msgstr "domani"
+msgstr "la mattina"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:197
-#, fuzzy
 msgid "la tarde"
 msgstr "questo pomeriggio"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:199
-#, fuzzy
 msgid "la noche"
 msgstr "stasera"
 
@@ -334,9 +300,8 @@ msgid "por {} y por {}"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:219
-#, fuzzy
 msgid "ClimaAccesible - Configuración"
-msgstr "ClimaAccessibile"
+msgstr "ClimaAccesible – Configurazione"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:238
 msgid "Ubicación"
@@ -371,17 +336,14 @@ msgid "Pronóstico extendido (NVDA+Shift+W)"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:291
-#, fuzzy
-msgid "Días a consultar (1 a 14):"
+msgid "Días a consultar (1 a 16):"
 msgstr "Giorni di previsione (da 1 a 16):"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:298
-#, fuzzy
 msgid "Guardar todo"
 msgstr "&Salva"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:302
-#, fuzzy
 msgid "Cancelar"
 msgstr "&Annulla"
 
@@ -411,7 +373,6 @@ msgid "ClimaAccesible"
 msgstr "ClimaAccessibile"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:530
-#, fuzzy
 msgid "Configuración del complemento"
 msgstr "Impostazioni climatiche accessibili"
 
@@ -424,7 +385,6 @@ msgid "Documentación"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:537
-#, fuzzy
 msgid "Opciones de ClimaAccesible"
 msgstr "Impostazioni climatiche accessibili"
 
@@ -467,9 +427,8 @@ msgid "Temperatura: {} grados Celsius."
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:726
-#, fuzzy
 msgid "Sensación térmica: {} grados."
-msgstr "Pubblicizza la sensazione termica"
+msgstr "Temperatura percepita: {} gradi."
 
 #: climaAccesible/globalPlugins/climaAccesible.py:728
 msgid "Condición: {}."
@@ -484,9 +443,8 @@ msgid "de día"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:730
-#, fuzzy
 msgid "de noche"
-msgstr "stasera"
+msgstr "di notte"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:732
 msgid "Humedad: {} por ciento."
@@ -497,9 +455,8 @@ msgid "Punto de rocío: {} grados."
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:736
-#, fuzzy
 msgid "Viento a {} kilómetros por hora."
-msgstr "Vento: {} a {} chilometri all'ora."
+msgstr "Vento a {} chilometri all'ora."
 
 #: climaAccesible/globalPlugins/climaAccesible.py:738
 msgid "Dirección del viento: {}."
@@ -510,14 +467,12 @@ msgid "Ráfagas de hasta {} kilómetros por hora."
 msgstr "Raffiche fino a {} chilometri orari."
 
 #: climaAccesible/globalPlugins/climaAccesible.py:742
-#, fuzzy
 msgid "Nubosidad: {} por ciento."
-msgstr "Umidità: {} percento."
+msgstr "Nuvolosità: {} per cento."
 
 #: climaAccesible/globalPlugins/climaAccesible.py:746
-#, fuzzy
 msgid "Precipitación actual: {} milímetros."
-msgstr "Precipitazioni previste: {} millimetri."
+msgstr "Precipitazioni attuali: {} millimetri."
 
 #: climaAccesible/globalPlugins/climaAccesible.py:748
 msgid "Presión atmosférica: {} hectopascales."

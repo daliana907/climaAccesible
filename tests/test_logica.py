@@ -79,6 +79,80 @@ class CondicionDelCielo(unittest.TestCase):
         self.assertNotIn("granizo", texto)
 
 
+class AlertasOficiales(unittest.TestCase):
+    """El normalizador debe hablar solo de datos oficiales que realmente llegaron."""
+
+    def test_nivel_espanol_e_ingles(self):
+        self.assertEqual(clima._nivelAlerta("Extreme"), "roja")
+        self.assertEqual(clima._nivelAlerta("orange"), "naranja")
+        self.assertEqual(clima._nivelAlerta("amarilla"), "amarilla")
+
+    def test_nws_vacio_no_inventa_alertas(self):
+        self.assertEqual(clima._alertasNWS({"features": []}), [])
+
+    def test_nws_normaliza_alerta(self):
+        data = {"features": [{"properties": {
+            "severity": "Severe", "headline": "Severe thunderstorm warning",
+            "areaDesc": "Test county", "ends": "2026-10-16T22:00:00-03:00",
+        }}]}
+        alertas = clima._alertasNWS(data)
+        self.assertEqual(len(alertas), 1)
+        self.assertEqual(alertas[0]["nivel"], "naranja")
+        self.assertIn("thunderstorm", alertas[0]["titulo"])
+
+    def test_uruguay_vacio_no_inventa_alertas(self):
+        self.assertEqual(clima._alertasUruguay({"data": []}), [])
+
+    def test_resumen_limita_alertas(self):
+        alertas = [{"nivel": "amarilla", "titulo": "Prueba", "zonas": "Zona", "fin": "hoy"}] * 4
+        texto = clima._resumenAlertas(alertas, "fuente")
+        self.assertIn("adicionales", texto)
+
+
+class AnexoEnReportes(unittest.TestCase):
+    """El anexo nunca rompe el reporte: solo habla si hay alertas reales."""
+
+    def _stub(self, data=None, exc=None):
+        class _Stub:
+            def _getJsonFromApi(self, url, label=""):
+                if exc is not None:
+                    raise exc
+                return data
+        return _Stub()
+
+    def _cfg_uy(self, **cambios):
+        cfg = {"country_iso2": "UY", "lat": -34.8, "lon": -56.1,
+               "incluir_alertas_en_reporte": True}
+        cfg.update(cambios)
+        return cfg
+
+    def test_apagado_devuelve_silencio(self):
+        stub = self._stub(data={"data": [{"title": "X"}]})
+        self.assertEqual(
+            clima.GlobalPlugin._anexoAlertas(stub, self._cfg_uy(incluir_alertas_en_reporte=False)), "")
+
+    def test_pais_sin_proveedor_devuelve_silencio(self):
+        stub = self._stub(data={"data": [{"title": "X"}]})
+        self.assertEqual(
+            clima.GlobalPlugin._anexoAlertas(stub, self._cfg_uy(country_iso2="XX")), "")
+
+    def test_fallo_red_devuelve_silencio(self):
+        stub = self._stub(exc=TimeoutError("t"))
+        self.assertEqual(clima.GlobalPlugin._anexoAlertas(stub, self._cfg_uy()), "")
+
+    def test_sin_alertas_devuelve_silencio(self):
+        stub = self._stub(data={"data": [], "meta": {}})
+        self.assertEqual(clima.GlobalPlugin._anexoAlertas(stub, self._cfg_uy()), "")
+
+    def test_con_alertas_las_nombra(self):
+        stub = self._stub(data={"data": [{
+            "level": "naranja", "title": "Tormenta fuerte",
+            "areas": "Montevideo", "end": "hoy 22:00"}]})
+        texto = clima.GlobalPlugin._anexoAlertas(stub, self._cfg_uy())
+        self.assertIn("naranja", texto)
+        self.assertIn("Tormenta fuerte", texto)
+
+
 class Duraciones(unittest.TestCase):
     def test_horas_y_minutos(self):
         self.assertEqual(clima.formatSegundos(3660), "1 hora y 1 minuto")

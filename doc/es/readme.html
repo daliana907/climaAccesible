@@ -10,12 +10,13 @@
 
 <ul>
 <li>Autor: Daliana (Inspirado en Weather Plus de Adriano Barbieri)</li>
+<li>Versión: 1.9.8</li>
 <li>Compatibilidad con NVDA: 2023.1 en adelante</li>
 <li>Descarga de la versión estable: https://github.com/daliana907/climaAccesible</li>
 </ul>
 
 <p>Este complemento es la forma más rápida y directa de conocer el estado del clima y el pronóstico extendido, interactuando directamente desde tu lector de pantalla de manera natural.</p>
-<p>Una vez instalado, al elegir tu ciudad de la lista, el sistema se conecta de inmediato al servicio meteorológico. No hace falta crear cuentas ni conseguir claves privadas; está listo para usarse desde el primer momento.</p>
+<p>Una vez instalado, elige tu ciudad de la lista. El complemento solo se conecta al pulsar NVDA + W o Mayús + W; no consulta la red en segundo plano. No hace falta crear cuentas ni conseguir claves privadas.</p>
 <p>ClimaAccesible interpreta los datos meteorológicos de forma inteligente. En lugar de leerte una lista fría de números, te relata el clima en formato conversacional y omite información redundante de la siguiente manera:</p>
 <li>  Omite probabilidades de lluvia falsas o residuales: si la probabilidad es menor al 15% y no hay acumulación en milímetros, el sistema directamente no menciona la lluvia para evitar alertas falsas por lloviznas invisibles.</li>
 <li>  Resume temperaturas calcadas: si la máxima y la mínima del día son casi iguales, en lugar de leerte dos veces el mismo número te lo resume diciendo "temperatura constante rondando los...".</li>
@@ -25,9 +26,43 @@
 <h2>Cómo usarlo</h2>
 <p>El uso es muy sencillo, manejado por tres atajos de teclado clave:</p>
 <li>  Pulsando NVDA + W, escucharás el reporte del clima actual en tu ciudad, incluyendo la alerta de lluvia a corto plazo.</li>
-<li>  Pulsando NVDA + Shift + W, el complemento te leerá el pronóstico extendido de los próximos días de forma natural.</li>
-<li>  Y pulsando NVDA + Control + W, se abrirá la ventana de configuración.</li>
+<li>  Pulsando NVDA + Shift + W, el complemento te leerá el pronóstico extendido de los próximos días (1 a 16, según lo configurado) de forma natural.</li>
+<li>  Y pulsando NVDA + Control + W, se abrirá la ventana de configuración. NVDA + W y NVDA + Shift + W añaden al final las alertas oficiales vigentes cuando las hay.</li>
+<p>En algunas instalaciones de Windows, NVDA + Shift + W y NVDA + Control + W también pueden estar asignados a la Lupa. Si el clima no responde, cambia uno de esos gestos desde Preferencias de NVDA &gt; Gestos de entrada.</p>
 <p>En la configuración puedes buscar tu ciudad eligiendo primero tu país, después tu región o departamento y finalmente tu localidad. También tienes diversas opciones para activar o desactivar información complementaria: puedes hacer que te lea u oculte la sensación térmica, la humedad, el índice UV, la visibilidad reducida, la nubosidad, el punto de rocío y las fases de la luna.</p>
+
+<h2>Privacidad, ciudades y recuperación</h2>
+<ul>
+<li>El complemento no detecta la ubicación automáticamente ni pide permiso de ubicación a Windows; tú eliges la ciudad.</li>
+<li>Cuando hay ciudades con el mismo nombre en una región, se muestran sus coordenadas para distinguirlas.</li>
+<li>Una región sin ciudades se anuncia y el foco vuelve al selector de región.</li>
+<li>Las regiones muy grandes muestran hasta 2.000 ciudades y avisan al aplicar el límite.</li>
+<li>La ubicación guardada usa país y coordenadas redondeadas a cuatro decimales; no guarda una calle ni una ubicación precisa.</li>
+<li>Si el archivo de configuración se daña o es demasiado grande, se conserva una copia y NVDA avisa una vez.</li>
+</ul>
+
+<h2>Alertas meteorológicas oficiales</h2>
+<ul>
+<li>Desde NVDA &gt; Herramientas &gt; ClimaAccesible puedes usar <strong>Consultar alertas meteorológicas oficiales</strong>. No tiene gesto asignado por defecto, pero puedes asignarle uno desde Gestos de entrada.</li>
+<li>La consulta es manual y anuncia nivel amarillo, naranja, rojo o aviso, con fenómeno, zonas y fin de vigencia cuando la fuente lo publica.</li>
+<li>Fuentes actuales: <strong>Uruguay</strong> mediante datosUruguay con datos de INUMET, y <strong>Estados Unidos</strong> mediante National Weather Service.</li>
+<li>Si tu país aún no tiene fuente integrada, el complemento lo dice claramente y no inventa alertas desde el pronóstico.</li>
+</ul>
+
+<h2>Novedades en la versión 1.9.8</h2>
+<ul>
+<li>Consulta de alertas que no se bloquea y aviso de espera.</li>
+</ul>
+<h2>Novedades en la versión 1.9.7</h2>
+<ul>
+<li>NVDA + W y NVDA + Shift + W añaden las alertas oficiales vigentes al final del reporte, consultadas en paralelo para no demorar el anuncio.</li>
+<li>Nueva casilla en configuración para incluir o no las alertas en los reportes.</li>
+</ul>
+<h2>Novedades en la versión 1.9.6</h2>
+<ul>
+<li>Nueva consulta manual de alertas meteorológicas oficiales desde el menú Herramientas.</li>
+<li>Niveles unificados en formato accesible y sin alertas inventadas para países sin cobertura.</li>
+</ul>
 
 <h2>Créditos</h2>
 <p>La idea original estuvo inspirada en el gran complemento Weather Plus creado por Adriano Barbieri. Esta versión fue creada desde cero con tecnología moderna para evitar el uso de claves de API y lograr descripciones mucho más orgánicas. Todos los datos meteorológicos provienen de la plataforma de acceso público y gratuito Open-Meteo (https://open-meteo.com).</p>

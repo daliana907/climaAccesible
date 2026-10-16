@@ -56,7 +56,7 @@ hr {
 <h1>Accessible Weather for NVDA</h1>
 <ul>
 <li>Author: Daliana</li>
-<li>Version: 1.8</li>
+<li>Version: 1.9.8</li>
 <li>Compatibility: NVDA 2023.1 and later</li>
 <li>License: GNU GPL v2</li>
 </ul>
@@ -92,7 +92,75 @@ hr {
 <li>Tab to City and choose your locality.</li>
 <li>Check the weather items you want announced and click Save.</li>
 </ol>
+
+<h3>Privacy, Cities and Recovery</h3>
+<ul>
+<li>The add-on does not detect your location automatically and does not request Windows location permission. You choose the city yourself.</li>
+<li>When two cities in a region have the same name, their coordinates are shown to distinguish them.</li>
+<li>A region with no cities is announced and focus returns to the region selector.</li>
+<li>Very large regions show up to 2,000 cities and announce when that limit is applied.</li>
+<li>Saved locations use country and coordinates rounded to four decimal places; no street address or precise location is stored.</li>
+<li>If the settings file is damaged or too large, a backup copy is retained and NVDA announces the problem once.</li>
+</ul>
+
+<h3>Official Weather Alerts</h3>
+<ul>
+<li>From NVDA Menu &gt; Tools &gt; Accessible Weather use <strong>Check official weather alerts</strong>. It has no default gesture, but you can assign one in Input Gestures.</li>
+<li>Alert checking is manual and reports yellow, orange, red, or advisory level, with event, areas, and end time when available.</li>
+<li>Current sources: <strong>Uruguay</strong> through datosUruguay with INUMET data, and the <strong>United States</strong> through the National Weather Service.</li>
+<li>If a country has no integrated source yet, the add-on says so clearly and never invents alerts from the forecast.</li>
+</ul>
 <hr />
+<h2>What's new in 1.9.8</h2>
+<ul>
+<li>Non-blocking alert queries and waiting notice.</li>
+</ul>
+<h2>What's new in 1.9.7</h2>
+<ul>
+<li>NVDA+W and NVDA+Shift+W append current official alerts to the end of the report, fetched in parallel so the announcement is not delayed.</li>
+<li>New settings checkbox to include official alerts in reports or not.</li>
+</ul>
+<h2>What's new in 1.9.6</h2>
+<ul>
+<li>New manual official-weather-alert query in the Tools menu.</li>
+<li>Accessible normalized warning levels without invented alerts for uncovered countries.</li>
+</ul>
+<hr />
+<h2>What's new in 1.9.5</h2>
+<ul>
+<li>Zero-coordinate fix: cities on the equator (latitude 0.0) or the Greenwich meridian (longitude 0.0) are no longer misdetected as unconfigured.</li>
+<li>Localized settings: all 29 weather option checkboxes are now shown correctly translated in the supported languages.</li>
+<li>15-minute rain radar sync: rain-radar calculation aligned to the queried city's time zone, avoiding offsets with the local computer clock.</li>
+<li>Smart nighttime UV filter: UV index is automatically omitted when it is 0.0 at night for a cleaner report.</li>
+<li>Instant loading: background preload of the geographic database so the settings dialog opens instantly.</li>
+<li>Threading robustness: clean, responsive shutdown of background requests and tasks without slowing NVDA close or restart.</li>
+</ul>
+<h2>What's new in 1.9.4</h2>
+<ul>
+<li>Maintenance and stability improvements (no behavior changes).</li>
+</ul>
+<h2>What's new in 1.9.3</h2>
+<ul>
+<li>Maintenance and stability improvements (no behavior changes).</li>
+</ul>
+<h2>What's new in 1.9.2</h2>
+<ul>
+<li>Maintenance and stability improvements (no behavior changes).</li>
+</ul>
+<h2>What's new in 1.9.1</h2>
+<ul>
+<li>Fast 'No rain' announcements: If precipitation probability is under 15% with zero accumulation, the add-on immediately announces 'No rain' instead of reading zero percentages.</li>
+<li>Configurable network retries: New options in settings allow you to define maximum connection retries and wait time to handle unstable networks.</li>
+<li>Bulletproof error handling: The add-on safely catches networking thread crashes to prevent silent hangups.</li>
+</ul>
+<h2>What's new in 1.9.0</h2>
+<ul>
+<li>Smarter daily add-on redesign: 15-minute satellite rain radar with real-time alerts telling in how many minutes rain will start or stop.</li>
+<li>Extended forecast now detects intermittent storms and announces the exact hour rain will begin.</li>
+<li>Smart report filter: omits UV index at night, hides wind when calm, and summarizes identical high/low temperatures in a single sentence.</li>
+<li>Optional moon-phase announcements.</li>
+<li>Faster parallel downloads: current weather loads about twice as fast. Removed little-used features such as total daylight-hours count.</li>
+</ul>
 <h2>What's new in 1.8.2 (18 September 2026)</h2>
 <ul>
 <li>Accurate snow descriptions: corrected a condition description that reported "fine hail" when conditions actually called for snow grains, preserving hail announcements strictly for actual storms.</li>

@@ -1,10 +1,11 @@
 # Translations for ClimaAccesible.
 msgid ""
 msgstr ""
-"Project-Id-Version: climaAccesible 1.4\n"
+"Project-Id-Version: climaAccesible 1.9.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-08 06:42+0000\n"
 "Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,23 +15,20 @@ msgid "Temperatura actual"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:55
-#, fuzzy
 msgid "Sensación térmica"
-msgstr "熱感覚を宣伝する"
+msgstr "体感温度"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:56
-#, fuzzy
 msgid "Condición del cielo"
-msgstr "アクセス可能な気候設定"
+msgstr "空の状態"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:57
 msgid "Si es de día o de noche"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:58
-#, fuzzy
 msgid "Humedad"
-msgstr "湿度を発表する"
+msgstr "湿度"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:59
 msgid "Punto de rocío"
@@ -45,18 +43,16 @@ msgid "Dirección del viento"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:62
-#, fuzzy
 msgid "Ráfagas de viento"
-msgstr "突風を知らせる"
+msgstr "突風"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:63
 msgid "Nubosidad"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:64
-#, fuzzy
 msgid "Precipitación actual"
-msgstr "総降水量を発表"
+msgstr "現在の降水量"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:65
 msgid "Presión atmosférica"
@@ -79,24 +75,20 @@ msgid "Índice UV máximo del día"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:70
-#, fuzzy
 msgid "Probabilidad máxima de lluvia del día"
-msgstr "その日の最大降水確率: {} パーセント。"
+msgstr "その日の最大降水確率"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:71
-#, fuzzy
 msgid "Precipitación total esperada del día"
-msgstr "その日の予想総降水量: {} ミリメートル。"
+msgstr "その日の予想総降水量"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:72
-#, fuzzy
 msgid "Viento máximo del día"
-msgstr "その日の最大風速: 時速 {} キロメートル。"
+msgstr "その日の最大風速"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:73
-#, fuzzy
 msgid "Ráfaga máxima del día"
-msgstr "その日の最大突風: 時速 {} キロメートル。"
+msgstr "その日の最大突風"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:119
 msgid "{} horas y {} minutos"
@@ -179,74 +171,60 @@ msgid "nor noroeste"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:140
-#, fuzzy
 msgid "cielo despejado"
-msgstr "クリア"
+msgstr "晴れ"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:140
-#, fuzzy
 msgid "mayormente despejado"
-msgstr "ほとんど透明"
+msgstr "概ね晴れ"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:140
-#, fuzzy
 msgid "parcialmente nublado"
 msgstr "曇り"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:141
-#, fuzzy
 msgid "nublado"
 msgstr "曇り"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:141
-#, fuzzy
 msgid "niebla"
 msgstr "霧"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:141
-#, fuzzy
 msgid "niebla con escarcha"
 msgstr "霜がついた霧"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:142
-#, fuzzy
 msgid "llovizna ligera"
 msgstr "小雨"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:142
-#, fuzzy
 msgid "llovizna moderada"
 msgstr "中程度の霧雨"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:142
-#, fuzzy
 msgid "llovizna densa"
 msgstr "濃霧雨"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:143
-#, fuzzy
 msgid "lluvia ligera"
 msgstr "小雨"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:143
-#, fuzzy
 msgid "lluvia moderada"
 msgstr "中程度の雨"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:143
-#, fuzzy
 msgid "lluvia intensa"
 msgstr "濃霧雨"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:144
-#, fuzzy
 msgid "nevada ligera"
-msgstr "軽い氷点下の霧雨"
+msgstr "弱い雪"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:144
-#, fuzzy
 msgid "nevada moderada"
-msgstr "中程度の雨"
+msgstr "中程度の雪"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:144
 msgid "nevada intensa"
@@ -257,42 +235,34 @@ msgid "granizo fino"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:145
-#, fuzzy
 msgid "chubascos ligeros"
 msgstr "軽いにわか雨"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:145
-#, fuzzy
 msgid "chubascos moderados"
-msgstr "中程度のシャワー"
+msgstr "中程度のにわか雨"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:146
-#, fuzzy
 msgid "chubascos intensos"
-msgstr "激しいシャワー"
+msgstr "激しいにわか雨"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:146
-#, fuzzy
 msgid "chubascos de nieve ligeros"
 msgstr "小雪が降る"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:147
-#, fuzzy
 msgid "chubascos de nieve intensos"
 msgstr "大雪のにわか雨"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:148
-#, fuzzy
 msgid "tormenta eléctrica"
 msgstr "軽い雷雨"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:148
-#, fuzzy
 msgid "tormenta con granizo ligero"
 msgstr "小雹を伴う嵐"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:149
-#, fuzzy
 msgid "tormenta con granizo intenso"
 msgstr "強い雹を伴う嵐"
 
@@ -301,22 +271,18 @@ msgid "condición desconocida"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:193
-#, fuzzy
 msgid "la madrugada"
-msgstr "今朝"
+msgstr "未明"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:195
-#, fuzzy
 msgid "la mañana"
-msgstr "明日"
+msgstr "朝"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:197
-#, fuzzy
 msgid "la tarde"
 msgstr "今日の午後"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:199
-#, fuzzy
 msgid "la noche"
 msgstr "今夜"
 
@@ -334,9 +300,8 @@ msgid "por {} y por {}"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:219
-#, fuzzy
 msgid "ClimaAccesible - Configuración"
-msgstr "気候バリアフリー"
+msgstr "ClimaAccesible – 設定"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:238
 msgid "Ubicación"
@@ -371,17 +336,14 @@ msgid "Pronóstico extendido (NVDA+Shift+W)"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:291
-#, fuzzy
-msgid "Días a consultar (1 a 14):"
+msgid "Días a consultar (1 a 16):"
 msgstr "予測日 (1 ～ 16):"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:298
-#, fuzzy
 msgid "Guardar todo"
 msgstr "保存(&S)"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:302
-#, fuzzy
 msgid "Cancelar"
 msgstr "キャンセル(&C)"
 
@@ -411,7 +373,6 @@ msgid "ClimaAccesible"
 msgstr "気候バリアフリー"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:530
-#, fuzzy
 msgid "Configuración del complemento"
 msgstr "アクセス可能な気候設定"
 
@@ -424,7 +385,6 @@ msgid "Documentación"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:537
-#, fuzzy
 msgid "Opciones de ClimaAccesible"
 msgstr "アクセス可能な気候設定"
 
@@ -466,9 +426,8 @@ msgid "Temperatura: {} grados Celsius."
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:726
-#, fuzzy
 msgid "Sensación térmica: {} grados."
-msgstr "熱感覚を宣伝する"
+msgstr "体感温度：{}度。"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:728
 msgid "Condición: {}."
@@ -483,7 +442,6 @@ msgid "de día"
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:730
-#, fuzzy
 msgid "de noche"
 msgstr "今夜"
 
@@ -496,9 +454,8 @@ msgid "Punto de rocío: {} grados."
 msgstr ""
 
 #: climaAccesible/globalPlugins/climaAccesible.py:736
-#, fuzzy
 msgid "Viento a {} kilómetros por hora."
-msgstr "風: {}、時速 {} キロメートル。"
+msgstr "風速は時速{}キロメートル。"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:738
 msgid "Dirección del viento: {}."
@@ -509,14 +466,12 @@ msgid "Ráfagas de hasta {} kilómetros por hora."
 msgstr "最大時速 {} キロメートルの突風。"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:742
-#, fuzzy
 msgid "Nubosidad: {} por ciento."
-msgstr "湿度: {} パーセント。"
+msgstr "雲量：{}パーセント。"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:746
-#, fuzzy
 msgid "Precipitación actual: {} milímetros."
-msgstr "予想される降水量: {} ミリメートル。"
+msgstr "現在の降水量：{}ミリメートル。"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:748
 msgid "Presión atmosférica: {} hectopascales."
@@ -671,7 +626,7 @@ msgstr "明日"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:863
 msgid "{} {} de {}"
-msgstr "{}/{}"
+msgstr "{}/{}/{}"
 
 #: climaAccesible/globalPlugins/climaAccesible.py:867
 msgid "Pronóstico para {} para los próximos {} días."

@@ -1,12 +1,13 @@
 # ClimaAccesible
 
 * Autor: Daliana (Inspirado en Weather Plus de Adriano Barbieri)
+* Versión: 1.9.8
 * Compatibilidad con NVDA: 2023.1 en adelante
 * Descarga de la versión estable: https://github.com/daliana907/climaAccesible
 
 Este complemento es la forma más rápida y directa de conocer el estado del clima y el pronóstico extendido, interactuando directamente desde tu lector de pantalla de manera natural.
 
-Una vez instalado, al elegir tu ciudad de la lista, el sistema se conecta de inmediato al servicio meteorológico. No hace falta crear cuentas ni conseguir claves privadas; está listo para usarse desde el primer momento.
+Una vez instalado, elige tu ciudad de la lista. El complemento solo se conecta al pulsar NVDA+W (o Mayús+W para el pronóstico); no consulta la red en segundo plano. No hace falta crear cuentas ni conseguir claves privadas; está listo para usarse desde el primer momento.
 
 ClimaAccesible interpreta los datos meteorológicos de forma inteligente. En lugar de leerte una lista fría de números, te relata el clima en formato conversacional y omite información redundante de la siguiente manera:
 
@@ -23,10 +24,26 @@ El diseño del reporte procesa la descarga de datos en paralelo para cargar much
 El uso es muy sencillo, manejado por tres atajos de teclado clave:
 
 *   Pulsando NVDA + W, escucharás el reporte del clima actual en tu ciudad, incluyendo la alerta de lluvia a corto plazo.
-*   Pulsando NVDA + Shift + W, el complemento te leerá el pronóstico extendido de los próximos días de forma natural.
+*   Pulsando NVDA + Shift + W, el complemento te leerá el pronóstico extendido de los próximos días (1 a 16, según lo configurado) de forma natural.
 *   Y pulsando NVDA + Control + W, se abrirá la ventana de configuración.
 
 En la configuración puedes buscar tu ciudad eligiendo primero tu país, después tu región o departamento y finalmente tu localidad. También tienes diversas opciones para activar o desactivar información complementaria: puedes hacer que te lea u oculte la sensación térmica, la humedad, el índice UV, la visibilidad reducida, la nubosidad, el punto de rocío y las fases de la luna.
+
+## Privacidad, ciudades y recuperación
+
+*   No detecta tu ubicación automáticamente ni pide permiso de ubicación a Windows: tú eliges la ciudad.
+*   Las ciudades homónimas muestran coordenadas para distinguirlas. Las regiones sin ciudades se anuncian y las muy grandes muestran hasta 2.000 localidades con aviso.
+*   La ubicación se guarda con país y coordenadas redondeadas a cuatro decimales, no con una calle ni una ubicación precisa.
+*   Si el archivo de configuración se daña o es demasiado grande, se conserva una copia y NVDA avisa una vez. Las consultas tienen límite de espera y reutilizan datos recientes durante cinco minutos.
+
+## Alertas meteorológicas oficiales
+
+Desde NVDA > Herramientas > ClimaAccesible puedes consultar alertas manualmente. Por ahora hay cobertura de INUMET para Uruguay y National Weather Service para Estados Unidos. Para los demás países el complemento anuncia con honestidad que todavía no hay una fuente oficial integrada; no inventa alertas desde el pronóstico.
+
+## Créditos de terceros
+
+*   Datos meteorológicos: Open-Meteo (https://open-meteo.com), uso gratuito sin clave.
+*   Base geográfica local: datos de localidades (país/región/ciudad). Atribución GeoNames/CC-BY pendiente de completar en la documentación.
 
 ## Créditos
 

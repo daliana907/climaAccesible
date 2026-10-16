@@ -27,6 +27,8 @@ def _modulo(nombre, **atributos):
 class _Cualquiera:
     """Objeto que acepta cualquier atributo y cualquier llamada sin protestar."""
 
+    NewControlId = staticmethod(lambda: 1000)
+
     def __init__(self, *a, **k):
         pass
 
@@ -72,11 +74,12 @@ def instalar():
     _modulo("versionInfo", version_year=2026, version_major=2026, version_minor=3)
 
     wx = _modulo("wx", NOT_FOUND=-1, OK=1, CANCEL=2, ICON_INFORMATION=4,
-                 ICON_WARNING=8, ICON_ERROR=16, ID_ANY=-1)
+                 ICON_WARNING=8, ICON_ERROR=16, ID_ANY=-1,
+                 PyDeadObjectError=type("PyDeadObjectError", (RuntimeError,), {}))
     for nombre in ("Dialog", "Panel", "Button", "CheckBox", "StaticText", "TextCtrl",
                    "ListCtrl", "ListBox", "Choice", "SpinCtrl", "BoxSizer", "Colour",
                    "StaticBox", "StaticBoxSizer", "ScrolledWindow", "StdDialogButtonSizer",
-                   "CommandEvent", "MessageBox", "CallAfter", "Menu", "MenuItem"):
+                   "CommandEvent", "MessageBox", "CallAfter", "Menu", "MenuItem", "Window"):
         setattr(wx, nombre, _Cualquiera)
     for constante in ("VERTICAL", "HORIZONTAL", "EXPAND", "ALL", "LEFT", "RIGHT", "TOP",
                       "BOTTOM", "LB_SINGLE", "LC_REPORT", "LC_SINGLE_SEL", "BORDER_SUNKEN",

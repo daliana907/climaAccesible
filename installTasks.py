@@ -17,11 +17,14 @@ def onUninstall():
 	Elimina el archivo de configuración del perfil de NVDA.
 	"""
 	try:
-		for fname in ("climaAccesible.json", "climaAccesible.json.tmp"):
-			p = os.path.join(globalVars.appArgs.configPath, fname)
-			if os.path.exists(p):
-				try: os.remove(p)
-				except OSError: pass
+		config_path = getattr(getattr(globalVars, "appArgs", None), "configPath", None)
+		if config_path:
+			for fname in ("climaAccesible.json", "climaAccesible.json.tmp", "climaAccesible.json.corrupto.bak"):
+				p = os.path.join(config_path, fname)
+				if os.path.exists(p):
+					try: os.remove(p)
+					except OSError as _e:
+						log.debugWarning("ClimaAccesible: no se pudo borrar {}: {}".format(p, _e), exc_info=True)
 		log.info("ClimaAccesible: configuración y temporales eliminados al desinstalar.")
 	except Exception as e:
 		log.warning("ClimaAccesible: no se pudo eliminar la configuración: {}".format(e))
