@@ -1,7 +1,7 @@
 # Accessible Weather for NVDA
 
 - Author: Daliana
-- Version: 1.9.9
+- Version: 1.9.10
 - Compatibility: NVDA 2023.1 and later
 - License: GNU GPL v2
 
@@ -68,6 +68,10 @@ Current official or official-data sources are:
 The provider structure is ready for additional countries. If a country does not yet have an integrated official source, the add-on says so clearly; it never creates an alert by guessing from the forecast.
 
 ---
+
+## What's new in 1.9.10
+
+- Official alerts: areas are announced with departments only, without listing every locality, for a shorter announcement.
 
 ## What's new in 1.9.9
 

@@ -1,7 +1,7 @@
 # ClimaAccesible
 
 * Autor: Daliana (Inspirado en Weather Plus de Adriano Barbieri)
-* Versión: 1.9.9
+* Versión: 1.9.10
 * Compatibilidad con NVDA: 2023.1 en adelante
 * Descarga de la versión estable: https://github.com/daliana907/climaAccesible
 

@@ -1,7 +1,7 @@
 # ClimaAccesible
 
 * Autor: Daliana (Inspirado en Weather Plus de Adriano Barbieri)
-* Versión: 1.9.9
+* Versión: 1.9.10
 * Compatibilidad con NVDA: 2023.1 en adelante
 * Descarga de la versión estable: https://github.com/daliana907/climaAccesible
 
@@ -55,6 +55,10 @@ Actualmente usa estas fuentes oficiales o públicas que redistribuyen avisos ofi
 *   **Estados Unidos:** National Weather Service.
 
 La estructura está preparada para añadir otros países. Si tu país todavía no tiene fuente integrada, el complemento lo dice claramente; nunca crea una alerta suponiéndola a partir del pronóstico.
+
+## Novedades en la versión 1.9.10
+
+*   Alertas oficiales: las zonas se anuncian solo con los departamentos, sin enumerar cada localidad, para un anuncio más corto.
 
 ## Novedades en la versión 1.9.9
 

@@ -283,57 +283,42 @@ def _nombreFenomeno(valor):
 def _formatearZonas(valor, limite=180):
 	"""Resume las zonas oficiales sin mostrar listas ni diccionarios en crudo.
 
-	INUMET entrega una lista de diccionarios con departamento y localidad; otras
-	fuentes entregan texto. Se agrupa por departamento y, si el resultado crece
-	demasiado, se corta por zonas completas en vez de partir una palabra.
+	Para INUMET alcanza con los departamentos: enumerar cada localidad alarga
+	el anuncio sin aportar claridad. Si una fuente entrega texto, se respeta.
 	"""
 	if not valor:
 		return ""
 	if isinstance(valor, str):
 		return _textoCortoAlerta(valor, limite)
 	items = valor if isinstance(valor, (list, tuple, set)) else [valor]
-	grupos = []
-	sueltos = []
+	zonas = []
 	for item in items:
-		if not isinstance(item, dict):
-			texto = _textoCortoAlerta(item, 80)
-			if texto and texto not in sueltos:
-				sueltos.append(texto)
-			continue
-		departamento = _textoCortoAlerta(
-			item.get("department") or item.get("departamento") or item.get("state")
-			or item.get("name") or item.get("area"), 80)
-		localidad = _textoCortoAlerta(
-			item.get("locality") or item.get("localidad") or item.get("city")
-			or item.get("place"), 80)
-		if departamento:
-			for grupo in grupos:
-				if _normTxt(grupo[0]) == _normTxt(departamento):
-					if localidad and localidad not in grupo[1]:
-						grupo[1].append(localidad)
-					break
-			else:
-				grupos.append([departamento, [localidad] if localidad else []])
-		elif localidad and localidad not in sueltos:
-			sueltos.append(localidad)
-	partes = []
-	for departamento, localidades in grupos:
-		if localidades:
-			partes.append("{} ({})".format(departamento, ", ".join(localidades)))
+		if isinstance(item, dict):
+			nombre = _textoCortoAlerta(
+				item.get("department") or item.get("departamento")
+				or item.get("state") or item.get("name") or item.get("area")
+				or item.get("locality") or item.get("localidad")
+				or item.get("city") or item.get("place"), 80)
 		else:
-			partes.append(departamento)
-	partes.extend(sueltos)
-	texto = "; ".join(partes)
+			nombre = _textoCortoAlerta(item, 80)
+		if not nombre:
+			continue
+		for existente in zonas:
+			if _normTxt(existente) == _normTxt(nombre):
+				break
+		else:
+			zonas.append(nombre)
+	texto = ", ".join(zonas)
 	if len(texto) <= limite:
 		return texto
 	elegidas = []
-	for parte in partes:
-		candidato = "; ".join(elegidas + [parte])
+	for nombre in zonas:
+		candidato = ", ".join(elegidas + [nombre])
 		if len(candidato) > limite - 1:
 			break
-		elegidas.append(parte)
+		elegidas.append(nombre)
 	if elegidas:
-		return "; ".join(elegidas) + "…"
+		return ", ".join(elegidas) + "…"
 	return _textoCortoAlerta(texto, limite)
 
 
@@ -1673,10 +1658,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		try:
 			addon = addonHandler.getCodeAddon()
 			if addon and getattr(addon, "manifest", None):
-				return f"ClimaAccesible/{addon.manifest.get('version', '1.9.9')}"
+				return f"ClimaAccesible/{addon.manifest.get('version', '1.9.10')}"
 		except Exception as e:
 			log.debugWarning("ClimaAccesible: UserAgent fallback: {}".format(e), exc_info=True)
-		return "ClimaAccesible/1.9.9"
+		return "ClimaAccesible/1.9.10"
 
 	def _manejarErrorPeticion(self, error, operacion="el clima"):
 		"""Gestiona y verbaliza de forma unificada y segura los fallos de red o de la API meteorológica."""

@@ -123,13 +123,12 @@ class AlertasOficiales(unittest.TestCase):
         self.assertEqual(len(alertas), 1)
         alerta = alertas[0]
         self.assertEqual(alerta["titulo"], "Tormentas eléctricas")
-        self.assertEqual(
-            alerta["zonas"],
-            "Artigas; Rivera (Masoller, Paso Ataques); Salto (Biassini)")
+        self.assertEqual(alerta["zonas"], "Artigas, Rivera, Salto")
+        self.assertNotIn("Masoller", alerta["zonas"])
         self.assertEqual(alerta["fin"], "22/10 16:45")
         texto = clima._resumenAlertas(alertas, "INUMET")
         self.assertIn("Alerta amarilla: Tormentas eléctricas.", texto)
-        self.assertIn("Zonas: Artigas; Rivera (Masoller, Paso Ataques); Salto (Biassini).", texto)
+        self.assertIn("Zonas: Artigas, Rivera, Salto.", texto)
         self.assertIn("Hasta: 22/10 16:45.", texto)
         self.assertNotIn("{", texto)
         self.assertNotIn("_", texto)
