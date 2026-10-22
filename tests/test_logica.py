@@ -103,6 +103,54 @@ class AlertasOficiales(unittest.TestCase):
     def test_uruguay_vacio_no_inventa_alertas(self):
         self.assertEqual(clima._alertasUruguay({"data": []}), [])
 
+    def test_uruguay_traduce_codigos_zonas_y_vigencia(self):
+        # Respuesta real de datosUruguay: el fenómeno llega como código, las
+        # zonas como diccionarios y las fechas como starts_at/ends_at.
+        data = {"data": [{
+            "level": "amarilla",
+            "phenomenon": "tormentas_electricas",
+            "description": "El área será afectada por tormentas fuertes.",
+            "starts_at": "2026-10-22T14:45:00Z",
+            "ends_at": "2026-10-22T16:45:00Z",
+            "areas": [
+                {"department": "Artigas", "locality": None},
+                {"department": "Rivera", "locality": "Masoller"},
+                {"department": "Rivera", "locality": "Paso Ataques"},
+                {"department": "Salto", "locality": "Biassini"},
+            ],
+        }]}
+        alertas = clima._alertasUruguay(data)
+        self.assertEqual(len(alertas), 1)
+        alerta = alertas[0]
+        self.assertEqual(alerta["titulo"], "Tormentas eléctricas")
+        self.assertEqual(
+            alerta["zonas"],
+            "Artigas; Rivera (Masoller, Paso Ataques); Salto (Biassini)")
+        self.assertEqual(alerta["fin"], "22/10 16:45")
+        texto = clima._resumenAlertas(alertas, "INUMET")
+        self.assertIn("Alerta amarilla: Tormentas eléctricas.", texto)
+        self.assertIn("Zonas: Artigas; Rivera (Masoller, Paso Ataques); Salto (Biassini).", texto)
+        self.assertIn("Hasta: 22/10 16:45.", texto)
+        self.assertNotIn("{", texto)
+        self.assertNotIn("_", texto)
+
+    def test_zonas_texto_y_vacio(self):
+        self.assertEqual(clima._formatearZonas(None), "")
+        self.assertEqual(clima._formatearZonas("Montevideo"), "Montevideo")
+        self.assertEqual(clima._formatearZonas([]), "")
+
+    def test_zonas_largas_se_cortan_sin_estructura_cruda(self):
+        areas = [{"department": "Depto{}".format(i),
+                  "locality": "Localidad{}".format(i)} for i in range(30)]
+        texto = clima._formatearZonas(areas)
+        self.assertLessEqual(len(texto), 180)
+        self.assertNotIn("{", texto)
+        self.assertNotIn("department", texto)
+
+    def test_fecha_no_iso_se_conserva(self):
+        self.assertEqual(clima._formatearFechaAlerta("hoy 22:00"), "hoy 22:00")
+        self.assertEqual(clima._formatearFechaAlerta(""), "")
+
     def test_resumen_limita_alertas(self):
         alertas = [{"nivel": "amarilla", "titulo": "Prueba", "zonas": "Zona", "fin": "hoy"}] * 4
         texto = clima._resumenAlertas(alertas, "fuente")

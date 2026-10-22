@@ -1,7 +1,7 @@
 # ClimaAccesible
 
 * Autor: Daliana (Inspirado en Weather Plus de Adriano Barbieri)
-* Versión: 1.9.8
+* Versión: 1.9.9
 * Compatibilidad con NVDA: 2023.1 en adelante
 * Descarga de la versión estable: https://github.com/daliana907/climaAccesible
 
@@ -55,6 +55,12 @@ Actualmente usa estas fuentes oficiales o públicas que redistribuyen avisos ofi
 *   **Estados Unidos:** National Weather Service.
 
 La estructura está preparada para añadir otros países. Si tu país todavía no tiene fuente integrada, el complemento lo dice claramente; nunca crea una alerta suponiéndola a partir del pronóstico.
+
+## Novedades en la versión 1.9.9
+
+*   Alertas oficiales: el fenómeno se lee con nombre natural ("Tormentas eléctricas" en vez de "tormentas_electricas").
+*   Las zonas se agrupan por departamento y se leen como texto, sin listas técnicas ni datos cortados.
+*   Se muestra la vigencia con fecha y hora cuando la fuente la publica (por ejemplo, INUMET).
 
 ## Novedades en la versión 1.9.8
 

@@ -1,7 +1,7 @@
 # Accessible Weather for NVDA
 
 - Author: Daliana
-- Version: 1.9.8
+- Version: 1.9.9
 - Compatibility: NVDA 2023.1 and later
 - License: GNU GPL v2
 
@@ -68,6 +68,12 @@ Current official or official-data sources are:
 The provider structure is ready for additional countries. If a country does not yet have an integrated official source, the add-on says so clearly; it never creates an alert by guessing from the forecast.
 
 ---
+
+## What's new in 1.9.9
+
+- Official alerts: the phenomenon is spoken with a natural name ("Tormentas eléctricas" instead of "tormentas_electricas").
+- Areas are grouped by department and read as text, without technical lists or cut-off data.
+- Validity date and time are shown when the source publishes them (for example, INUMET).
 
 ## What's new in 1.9.8
 

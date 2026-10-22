@@ -243,6 +243,119 @@ def _textoCortoAlerta(valor, limite=180):
 		return ""
 
 
+# Los códigos de fenómeno de INUMET llegan como "tormentas_electricas". Se
+# muestran con un nombre humano y nunca con guiones bajos.
+_FENOMENOS_INUMET = {
+	"tormentas_electricas": "Tormentas eléctricas",
+	"lluvias_intensas": "Lluvias intensas",
+	"vientos_fuertes": "Vientos fuertes",
+	"granizo": "Granizo",
+	"nieve": "Nieve",
+	"bajas_temperaturas": "Bajas temperaturas",
+	"temperaturas_extremas": "Temperaturas extremas",
+	"olas_de_calor": "Olas de calor",
+	"heladas": "Heladas",
+	"crecidas": "Crecidas",
+	"inundaciones": "Inundaciones",
+	"incendios": "Incendios",
+	"humo": "Humo",
+	"sequia": "Sequía",
+}
+
+
+def _nombreFenomeno(valor):
+	"""Convierte un código de fenómeno en un nombre legible para la voz."""
+	texto = _textoCortoAlerta(valor, 120)
+	if not texto:
+		return ""
+	clave = "_".join(texto.casefold().split())
+	conocido = _FENOMENOS_INUMET.get(clave)
+	if conocido:
+		return conocido
+	if "_" in texto:
+		palabras = [p for p in texto.split("_") if p]
+		if palabras:
+			texto = " ".join(palabras)
+			texto = texto[0].upper() + texto[1:]
+	return texto
+
+
+def _formatearZonas(valor, limite=180):
+	"""Resume las zonas oficiales sin mostrar listas ni diccionarios en crudo.
+
+	INUMET entrega una lista de diccionarios con departamento y localidad; otras
+	fuentes entregan texto. Se agrupa por departamento y, si el resultado crece
+	demasiado, se corta por zonas completas en vez de partir una palabra.
+	"""
+	if not valor:
+		return ""
+	if isinstance(valor, str):
+		return _textoCortoAlerta(valor, limite)
+	items = valor if isinstance(valor, (list, tuple, set)) else [valor]
+	grupos = []
+	sueltos = []
+	for item in items:
+		if not isinstance(item, dict):
+			texto = _textoCortoAlerta(item, 80)
+			if texto and texto not in sueltos:
+				sueltos.append(texto)
+			continue
+		departamento = _textoCortoAlerta(
+			item.get("department") or item.get("departamento") or item.get("state")
+			or item.get("name") or item.get("area"), 80)
+		localidad = _textoCortoAlerta(
+			item.get("locality") or item.get("localidad") or item.get("city")
+			or item.get("place"), 80)
+		if departamento:
+			for grupo in grupos:
+				if _normTxt(grupo[0]) == _normTxt(departamento):
+					if localidad and localidad not in grupo[1]:
+						grupo[1].append(localidad)
+					break
+			else:
+				grupos.append([departamento, [localidad] if localidad else []])
+		elif localidad and localidad not in sueltos:
+			sueltos.append(localidad)
+	partes = []
+	for departamento, localidades in grupos:
+		if localidades:
+			partes.append("{} ({})".format(departamento, ", ".join(localidades)))
+		else:
+			partes.append(departamento)
+	partes.extend(sueltos)
+	texto = "; ".join(partes)
+	if len(texto) <= limite:
+		return texto
+	elegidas = []
+	for parte in partes:
+		candidato = "; ".join(elegidas + [parte])
+		if len(candidato) > limite - 1:
+			break
+		elegidas.append(parte)
+	if elegidas:
+		return "; ".join(elegidas) + "…"
+	return _textoCortoAlerta(texto, limite)
+
+
+def _formatearFechaAlerta(valor):
+	"""Muestra una fecha ISO como día/mes y hora, sin cambiar la hora oficial.
+
+	datosUruguay marca las horas con "Z" pero publica la hora local del país;
+	por eso se conserva tal cual en vez de convertirla de zona horaria.
+	"""
+	texto = _textoCortoAlerta(valor, 40)
+	if not texto:
+		return ""
+	try:
+		momento = datetime.datetime.fromisoformat(texto.replace("Z", "+00:00"))
+	except (ValueError, TypeError):
+		return texto
+	try:
+		return momento.strftime("%d/%m %H:%M")
+	except (ValueError, TypeError):
+		return texto
+
+
 def _alertasNWS(data):
 	"""Normaliza la respuesta oficial del National Weather Service de EE. UU."""
 	resultados = []
@@ -258,8 +371,8 @@ def _alertasNWS(data):
 			"nivel": _nivelAlerta(props.get("severity")),
 			"titulo": titulo,
 			"zonas": _textoCortoAlerta(props.get("areaDesc"), 120),
-			"inicio": _textoCortoAlerta(props.get("onset") or props.get("effective"), 40),
-			"fin": _textoCortoAlerta(props.get("ends") or props.get("expires"), 40),
+			"inicio": _formatearFechaAlerta(props.get("onset") or props.get("effective")),
+			"fin": _formatearFechaAlerta(props.get("ends") or props.get("expires")),
 			"detalle": _textoCortoAlerta(props.get("description"), 220),
 		})
 	return resultados
@@ -283,16 +396,22 @@ def _alertasUruguay(data):
 	for item in items[:10]:
 		if not isinstance(item, dict):
 			continue
-		titulo = _textoCortoAlerta(item.get("title") or item.get("headline") or item.get("phenomenon") or item.get("event"))
+		titulo = _nombreFenomeno(
+			item.get("title") or item.get("headline") or item.get("event")
+			or item.get("phenomenon"))
 		detalle = _textoCortoAlerta(item.get("description") or item.get("detail") or item.get("message"))
 		if not titulo and not detalle:
 			continue
 		resultados.append({
 			"nivel": _nivelAlerta(item.get("level") or item.get("color") or item.get("severity")),
 			"titulo": titulo or detalle,
-			"zonas": _textoCortoAlerta(item.get("areas") or item.get("area") or item.get("departments"), 120),
-			"inicio": _textoCortoAlerta(item.get("start") or item.get("onset") or item.get("effective"), 40),
-			"fin": _textoCortoAlerta(item.get("end") or item.get("expires") or item.get("until"), 40),
+			"zonas": _formatearZonas(item.get("areas") or item.get("area") or item.get("departments")),
+			"inicio": _formatearFechaAlerta(
+				item.get("starts_at") or item.get("start") or item.get("onset")
+				or item.get("effective")),
+			"fin": _formatearFechaAlerta(
+				item.get("ends_at") or item.get("end") or item.get("expires")
+				or item.get("until")),
 			"detalle": detalle,
 		})
 	return resultados
@@ -1554,10 +1673,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		try:
 			addon = addonHandler.getCodeAddon()
 			if addon and getattr(addon, "manifest", None):
-				return f"ClimaAccesible/{addon.manifest.get('version', '1.9.8')}"
+				return f"ClimaAccesible/{addon.manifest.get('version', '1.9.9')}"
 		except Exception as e:
 			log.debugWarning("ClimaAccesible: UserAgent fallback: {}".format(e), exc_info=True)
-		return "ClimaAccesible/1.9.8"
+		return "ClimaAccesible/1.9.9"
 
 	def _manejarErrorPeticion(self, error, operacion="el clima"):
 		"""Gestiona y verbaliza de forma unificada y segura los fallos de red o de la API meteorológica."""
